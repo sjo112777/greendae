@@ -1,12 +1,24 @@
-# greendae
-대학소개 : intro     <br>
-입학안내 : admission <br>
-대학·대학원 : info   <br>
-학사안내 : academic  <br>
-대학생활 : campus    <br>
-커뮤니티 : community <br>
-학생지원 : support   <br>
-관리시스템 : admin   <br>
+# GreenDae
 
-# layout
-헤더, 푸터 : layout.css
+## 대학 소개 (Intro)
+- **Location** → 오시는 길
+
+## 입학 안내 (Admission)
+
+## 대학·대학원 (Info)
+
+## 학사 안내 (Academic)
+
+## 대학 생활 (Campus)
+
+## 커뮤니티 (Community)
+
+## 학생 지원 (Support)
+
+## 관리 시스템 (Admin)
+
+---
+
+# Layout
+
+- **헤더, 푸터** → `layout.css`
