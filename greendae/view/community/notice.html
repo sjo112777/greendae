@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>대학대학원>공과대학</title>
+    <title>커뮤니티 > 공지사항</title>
     <link rel="stylesheet" href="/greendae/css/layout/layout.css">
-    <link rel="stylesheet" href="/greendae/css/info/info.css">    
+    <link rel="stylesheet" href="/greendae/css/community/community.css">
 </head>
 <body>
     <div id="wrapper">
@@ -47,9 +47,9 @@
                     <span style="margin-top: 10px;">
                         <img src="/greendae/images/ico-home.png" alt="HOME">
                         <img src="/greendae/images/bg-path-arrow.png" alt=">">
-                        대학·대학원   
+                        커뮤니티   
                         <img src="/greendae/images/bg-path-arrow.png" alt=">">
-                        <span style="color: #071F4B;">공과대학 </span>
+                        <span style="color: #071F4B;">공지사항</span>
                     </span>
                 </div>
             </div>
@@ -58,66 +58,74 @@
                 <aside class="sidebar">
                     <article class="side_content">             
                         <div class="side_title">
-                            <p>대학·대학원</p>
+                            <p>커뮤니티</p>
                         </div>            
                         <a href="#">
-                            <div>인문사회대학</div>
+                            <div class="choice">공지사항</div>
                         </a>
                         <a href="#">
-                            <div>자연과학대학</div>
+                            <div>뉴스 및 칼럼</div>
                         </a>
                         <a href="#">
-                            <div class="choice">공과대학</div>
+                            <div>취업정보</div>
                         </a>
                         <a href="#">
-                            <div>사범대학</div>
+                            <div>자유게시판</div>
                         </a>
                         <a href="#">
-                            <div>대학원</div>
+                            <div>질문과 답변</div>
+                        </a>
+                        <a href="#">
+                            <div>자료실</div>
                         </a>
                     </article>
                 </aside>
                 <!-- 오른쪽 글 -->
                 <article class="main_content">
                     <div class="main_title">
-                        <p>공과대학</p>
+                        <p>공지사항</p>
                     </div>
                     <div class="main_content_detail">
-                        <!-- 작성할 내용 시작-->                        
-                        <img src="/greendae/images/college-introduce-3.jpg" alt="" style="float: left;">
-                        <div class="social_tit" style="float: left; margin-left: 15px;">
-                            <p>
-                                Engineering<br>
+                        <!-- 작성할 내용 시작-->
+                        <nav>
+                            <form action="">
+                                <select name="searchType" style="padding: 6px;">
+                                    <option value="title">전체</option>
+                                    <option value="title">제목</option>
+                                    <option value="content">내용</option>
+                                    <option value="writer">글쓴이</option>
+                                </select>
+                                <input type="text" name="keyword" placeholder="검색 키워드 입력">
+                                <input type="submit" value="검색">
+                            </form>
+                        </nav> 
                         
-                                <span>기본 공학교육 및 산업현장과 연계된 산학협동을 위한<br>학문을 교수ㆍ연구</span><br>
-                                
-                                공과대학은 지역 및 국가산업을 선도할 창의적이고 생산적인 전문기술인을 양성하기 위하
-                                여 기본 공학교육의 강화,전공교육의 심화 및 산업현장과 연계된 산학협동의 활성화를 실현
-                                할 관련학문을 교수, 연구하는데 교육목표를 둔다.
-                            </p>
-
-                        </div>
-                            
-                        <p>
-                            <img src="/greendae/images/bullet-h4.png" alt="" style="margin-right: 5px; margin-bottom: 4px; ">
-                            학부 및 학과
-                        </p>
 
                         <table>                    
                             <tr>
-                                <th>학과/전공</th>
-                                <th>학과장</th>
-                                <th>학과 사무실 번호</th>
-                                <th>비고</th>
+                                <th>번호</th>
+                                <th>제목</th>
+                                <th>작성자</th>
+                                <th>작성일</th>
+                                <th>조회</th>
                             </tr>
                             <tr>
-                                <td>기계공학과</td>
-                                <td>김기계</td>
-                                <td>051-123-3001</td>
-                                <td></td>
+                                <td>3</td>
+                                <td>2025학년도 1학기 그린장학회 장학생 신청 안내</td>
+                                <td>학사지원실</td>
+                                <td>24.04.09</td>
+                                <td>160</td>
                             </tr>
                         </table>
-                        
+
+                        <div class="page">
+                            <a href="" class="prev"><img src="/greendae/images/btn-first-page.png" alt=""></a>
+                            <a href="" class="prev"><img src="/greendae/images/btn-prev-page.png" alt=""></a>
+                            <a href="" class="num">1</a>
+                            <a href="" class="next"><img src="/greendae/images/btn-next-page.png" alt=""></a>
+                            <a href="" class="next"><img src="/greendae/images/btn-last-page.png" alt=""></a>
+                        </div>
+                            <a href="" class="btn btnWrite">글쓰기</a>
                     
                     </div>  
                 </article>

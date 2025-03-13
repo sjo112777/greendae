@@ -22,7 +22,12 @@
 ## 대학 생활 (Campus)
 
 ## 커뮤니티 (Community)
-
+- **notice** → 공지사항
+- **news** → 뉴스 및 칼럼
+- **employment** → 취업정보
+- **free** → 자유게시판
+- **qna** → 질문과 답변
+- **data** → 자료실
 ## 학생 지원 (Support)
 
 ## 관리 시스템 (Admin)
