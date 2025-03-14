@@ -1,0 +1,16 @@
+.gallery-item {
+    width: 298px;
+    height: auto;
+    margin: 4px;
+    float: left;
+}
+
+.gallery-item img{
+    width: 100%;
+    height: 200px;
+}
+
+.gallary_text2 {
+   font-size: 13px;
+    color: #888;
+}
