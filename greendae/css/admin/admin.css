@@ -76,7 +76,7 @@ header > div:nth-child(2){
 }
 
 header > div > div{
-    width: 1200px;
+    width: 1400px;
     height: 77px;
     margin: 0 auto;
 }
@@ -399,20 +399,20 @@ main{
     font-weight: 700;
     line-height: 24px;
     font-size: 16px;
-    height: 45px;
+    height: 44px;
     box-sizing: border-box;
 }
 
 .Operations_main tbody tr td{
     text-align: center;
-    height: 45px;
+    height: 44px;
     border-bottom: 1px solid#E6E6E6;
     box-sizing: border-box;
 }
 
 .Operational_Overview thead th{
     width: 136.25px;
-    height: 45.5px;
+    height: 44px;
 }
 
 .left_table{
@@ -427,11 +427,11 @@ main{
 
 .Operational_Overview2 th{
     width: 133.6px;
-    height: 45.5px;
+    height: 44px;
 }
 
 .Operational_Overview2 td{
-    height: 45px;
+    height: 44px;
 }
 
 .table_total td{
