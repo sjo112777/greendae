@@ -9,24 +9,10 @@
 <body>
     <div id="wrapper">
         <!-- 헤더 시작작-->
-        <header>
-            <div>
-                <div>
-                    <p>
-                        <a href="#">HOME |</a>
-                        <a href="#">사이드맵 |</a>
-                        <a href="#">로그아웃</a>
-                    </p>
-                </div>
-            </div>
-            <div>
-                <div>
-                    <a href="#">
-                        <img src="/greendae/images/admin_logo.png" alt="그린대학교 학사관리시스템">
-                    </a> 
-                </div>
-            </div>
-        </header>
+
+        <th:block th:replace="~{inc/admin/_header}"></th:block>
+
+
         <!-- 헤더 끝-->
         <!-- 메인 시작작-->
         <main>
