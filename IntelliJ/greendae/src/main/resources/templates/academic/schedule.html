@@ -14,18 +14,38 @@
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
-
+                locale: "ko",
+                // weekends: false,
                 headerToolbar: {
                     start: "dayGridMonth,multiMonthYear",
                     center: "title",
                     end: "prevYear,prev,next,nextYear",
                     },
-                
-                    initialView: "dayGridMonth",
-                    locale: "ko", // 여기
+
+                // 🔹 FullCalendar가 API 데이터를 불러오는 부분
+                events: function (fetchInfo, successCallback, failureCallback) {
+                    fetch('/greendae/calendar/schedule')
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! Status: ${response.status}`);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log("받은 데이터:", data); // 🔹 디버깅용 로그
+                            successCallback(data); // FullCalendar에 데이터 전달
+                        })
+                        .catch(error => {
+                            console.error("이벤트 로드 오류:", error);
+                            failureCallback(error);
+                        });
+                },
 
                 dayCellContent: function (arg) {
                     const { date } = arg;
+
+
+
                     return date.getDate();
                 },
             });
@@ -65,8 +85,7 @@
                     <div class="main_content_detail">
                         <!-- 캘릭더 시작-->
                         <div id='calendar' style="width: 800px; height: 800px;"></div>
-                    </script>
-                    </div>  
+                    </div>
                 </article>
             </section>
         </main>
