@@ -1818,3 +1818,20 @@ org.thymeleaf.exceptions.TemplateInputException: Error resolving template [/acad
 2025-03-16T07:52:08.313+09:00  INFO 9464 --- [greendae] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
 2025-03-16T07:52:12.601+09:00  INFO 9464 --- [greendae] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
 2025-03-16T07:52:13.694+09:00  INFO 9464 --- [greendae] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-03-17T12:01:06.628+09:00  INFO 19416 --- [greendae] [restartedMain] kr.co.greendae.GreendaeApplication       : Starting GreendaeApplication using Java 17.0.12 with PID 19416 (C:\Users\lotte6\Desktop\lotte6\프로젝트 2차\greendae\IntelliJ\greendae\build\classes\java\main started by lotte6 in C:\Users\lotte6\Desktop\lotte6\프로젝트 2차\greendae\IntelliJ\greendae)
+2025-03-17T12:01:06.630+09:00  INFO 19416 --- [greendae] [restartedMain] kr.co.greendae.GreendaeApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-03-17T12:01:06.669+09:00  INFO 19416 --- [greendae] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-03-17T12:01:06.669+09:00  INFO 19416 --- [greendae] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-03-17T12:01:07.255+09:00  WARN 19416 --- [greendae] [restartedMain] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[kr.co.greendae]' package. Please check your configuration.
+2025-03-17T12:01:07.562+09:00  INFO 19416 --- [greendae] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-03-17T12:01:07.574+09:00  INFO 19416 --- [greendae] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-03-17T12:01:07.574+09:00  INFO 19416 --- [greendae] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-03-17T12:01:07.609+09:00  INFO 19416 --- [greendae] [restartedMain] o.a.c.c.C.[.[localhost].[/greendae]      : Initializing Spring embedded WebApplicationContext
+2025-03-17T12:01:07.609+09:00  INFO 19416 --- [greendae] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 940 ms
+2025-03-17T12:01:07.682+09:00  INFO 19416 --- [greendae] [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2025-03-17T12:01:08.025+09:00  INFO 19416 --- [greendae] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-03-17T12:01:08.051+09:00  INFO 19416 --- [greendae] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/greendae'
+2025-03-17T12:01:08.059+09:00  INFO 19416 --- [greendae] [restartedMain] kr.co.greendae.GreendaeApplication       : Started GreendaeApplication in 1.798 seconds (process running for 2.279)
+2025-03-17T12:12:28.698+09:00  INFO 19416 --- [greendae] [http-nio-8080-exec-2] o.a.c.c.C.[.[localhost].[/greendae]      : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-03-17T12:12:28.698+09:00  INFO 19416 --- [greendae] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-03-17T12:12:28.699+09:00  INFO 19416 --- [greendae] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
