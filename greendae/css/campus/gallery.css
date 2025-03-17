@@ -14,3 +14,18 @@
    font-size: 13px;
     color: #888;
 }
+
+#items{
+    overflow: hidden;
+}
+
+.btn1{
+    display: block;
+    width: 32px;
+    height: 32px;
+    border: 1px solid #DEDEDE;
+    background: url(/greendae/images/btn-first-page.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
