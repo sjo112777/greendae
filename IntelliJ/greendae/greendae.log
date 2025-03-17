@@ -1835,3 +1835,156 @@ org.thymeleaf.exceptions.TemplateInputException: Error resolving template [/acad
 2025-03-17T12:12:28.698+09:00  INFO 19416 --- [greendae] [http-nio-8080-exec-2] o.a.c.c.C.[.[localhost].[/greendae]      : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2025-03-17T12:12:28.698+09:00  INFO 19416 --- [greendae] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2025-03-17T12:12:28.699+09:00  INFO 19416 --- [greendae] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-03-17T13:53:56.406+09:00  INFO 16736 --- [greendae] [restartedMain] kr.co.greendae.GreendaeApplication       : Starting GreendaeApplication using Java 17.0.12 with PID 16736 (C:\Users\lotte6\Desktop\Greendae\IntelliJ\greendae\build\classes\java\main started by lotte6 in C:\Users\lotte6\Desktop\Greendae\IntelliJ\greendae)
+2025-03-17T13:53:56.407+09:00  INFO 16736 --- [greendae] [restartedMain] kr.co.greendae.GreendaeApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-03-17T13:53:56.445+09:00  INFO 16736 --- [greendae] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-03-17T13:53:56.445+09:00  INFO 16736 --- [greendae] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-03-17T13:53:56.995+09:00  WARN 16736 --- [greendae] [restartedMain] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[kr.co.greendae]' package. Please check your configuration.
+2025-03-17T13:53:57.287+09:00  INFO 16736 --- [greendae] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-03-17T13:53:57.297+09:00  INFO 16736 --- [greendae] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-03-17T13:53:57.297+09:00  INFO 16736 --- [greendae] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-03-17T13:53:57.333+09:00  INFO 16736 --- [greendae] [restartedMain] o.a.c.c.C.[.[localhost].[/greendae]      : Initializing Spring embedded WebApplicationContext
+2025-03-17T13:53:57.333+09:00  INFO 16736 --- [greendae] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 887 ms
+2025-03-17T13:53:57.404+09:00  INFO 16736 --- [greendae] [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2025-03-17T13:53:57.747+09:00  WARN 16736 --- [greendae] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2025-03-17T13:53:57.762+09:00  WARN 16736 --- [greendae] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-03-17T13:53:57.775+09:00  INFO 16736 --- [greendae] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-03-17T13:53:57.791+09:00 ERROR 16736 --- [greendae] [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2025-03-17T13:54:11.323+09:00  INFO 976 --- [greendae] [restartedMain] kr.co.greendae.GreendaeApplication       : Starting GreendaeApplication using Java 17.0.12 with PID 976 (C:\Users\lotte6\Desktop\Greendae\IntelliJ\greendae\build\classes\java\main started by lotte6 in C:\Users\lotte6\Desktop\Greendae\IntelliJ\greendae)
+2025-03-17T13:54:11.324+09:00  INFO 976 --- [greendae] [restartedMain] kr.co.greendae.GreendaeApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-03-17T13:54:11.357+09:00  INFO 976 --- [greendae] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-03-17T13:54:11.357+09:00  INFO 976 --- [greendae] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-03-17T13:54:11.874+09:00  WARN 976 --- [greendae] [restartedMain] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[kr.co.greendae]' package. Please check your configuration.
+2025-03-17T13:54:12.154+09:00  INFO 976 --- [greendae] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-03-17T13:54:12.164+09:00  INFO 976 --- [greendae] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-03-17T13:54:12.164+09:00  INFO 976 --- [greendae] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-03-17T13:54:12.198+09:00  INFO 976 --- [greendae] [restartedMain] o.a.c.c.C.[.[localhost].[/greendae]      : Initializing Spring embedded WebApplicationContext
+2025-03-17T13:54:12.199+09:00  INFO 976 --- [greendae] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 842 ms
+2025-03-17T13:54:12.269+09:00  INFO 976 --- [greendae] [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2025-03-17T13:54:12.576+09:00  WARN 976 --- [greendae] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2025-03-17T13:54:12.591+09:00  WARN 976 --- [greendae] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-03-17T13:54:12.604+09:00  INFO 976 --- [greendae] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-03-17T13:54:12.621+09:00 ERROR 976 --- [greendae] [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2025-03-17T13:54:34.015+09:00  WARN 9588 --- [greendae] [Test worker] ory$DuplicateJsonObjectContextCustomizer : 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/lotte6/.gradle/caches/modules-2/files-2.1/org.json/json/20230227/7a0d4aca76513d8ce81f9b044ce8126b84809ad8/json-20230227.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/lotte6/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+2025-03-17T13:54:34.039+09:00  INFO 9588 --- [greendae] [Test worker] k.co.greendae.GreendaeApplicationTests   : Starting GreendaeApplicationTests using Java 17.0.12 with PID 9588 (started by lotte6 in C:\Users\lotte6\Desktop\Greendae\IntelliJ\greendae)
+2025-03-17T13:54:34.041+09:00  INFO 9588 --- [greendae] [Test worker] k.co.greendae.GreendaeApplicationTests   : No active profile set, falling back to 1 default profile: "default"
+2025-03-17T13:54:34.640+09:00  WARN 9588 --- [greendae] [Test worker] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[kr.co.greendae]' package. Please check your configuration.
+2025-03-17T13:54:34.973+09:00  INFO 9588 --- [greendae] [Test worker] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2025-03-17T13:54:35.384+09:00  INFO 9588 --- [greendae] [Test worker] k.co.greendae.GreendaeApplicationTests   : Started GreendaeApplicationTests in 1.633 seconds (process running for 2.69)
+2025-03-17T13:54:46.660+09:00  WARN 16836 --- [greendae] [Test worker] ory$DuplicateJsonObjectContextCustomizer : 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/lotte6/.gradle/caches/modules-2/files-2.1/org.json/json/20230227/7a0d4aca76513d8ce81f9b044ce8126b84809ad8/json-20230227.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/lotte6/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+2025-03-17T13:54:46.685+09:00  INFO 16836 --- [greendae] [Test worker] k.co.greendae.GreendaeApplicationTests   : Starting GreendaeApplicationTests using Java 17.0.12 with PID 16836 (started by lotte6 in C:\Users\lotte6\Desktop\Greendae\IntelliJ\greendae)
+2025-03-17T13:54:46.686+09:00  INFO 16836 --- [greendae] [Test worker] k.co.greendae.GreendaeApplicationTests   : No active profile set, falling back to 1 default profile: "default"
+2025-03-17T13:54:47.286+09:00  WARN 16836 --- [greendae] [Test worker] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[kr.co.greendae]' package. Please check your configuration.
+2025-03-17T13:54:47.597+09:00  INFO 16836 --- [greendae] [Test worker] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2025-03-17T13:54:48.011+09:00  INFO 16836 --- [greendae] [Test worker] k.co.greendae.GreendaeApplicationTests   : Started GreendaeApplicationTests in 1.608 seconds (process running for 2.729)
+2025-03-17T13:55:00.236+09:00  INFO 16648 --- [greendae] [restartedMain] kr.co.greendae.GreendaeApplication       : Starting GreendaeApplication using Java 17.0.12 with PID 16648 (C:\Users\lotte6\Desktop\Greendae\IntelliJ\greendae\build\classes\java\main started by lotte6 in C:\Users\lotte6\Desktop\Greendae\IntelliJ\greendae)
+2025-03-17T13:55:00.238+09:00  INFO 16648 --- [greendae] [restartedMain] kr.co.greendae.GreendaeApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-03-17T13:55:00.272+09:00  INFO 16648 --- [greendae] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-03-17T13:55:00.272+09:00  INFO 16648 --- [greendae] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-03-17T13:55:00.791+09:00  WARN 16648 --- [greendae] [restartedMain] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[kr.co.greendae]' package. Please check your configuration.
+2025-03-17T13:55:01.074+09:00  INFO 16648 --- [greendae] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-03-17T13:55:01.084+09:00  INFO 16648 --- [greendae] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-03-17T13:55:01.084+09:00  INFO 16648 --- [greendae] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-03-17T13:55:01.120+09:00  INFO 16648 --- [greendae] [restartedMain] o.a.c.c.C.[.[localhost].[/greendae]      : Initializing Spring embedded WebApplicationContext
+2025-03-17T13:55:01.120+09:00  INFO 16648 --- [greendae] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 848 ms
+2025-03-17T13:55:01.189+09:00  INFO 16648 --- [greendae] [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2025-03-17T13:55:01.498+09:00  WARN 16648 --- [greendae] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2025-03-17T13:55:01.513+09:00  WARN 16648 --- [greendae] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-03-17T13:55:01.526+09:00  INFO 16648 --- [greendae] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-03-17T13:55:01.542+09:00 ERROR 16648 --- [greendae] [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2025-03-17T13:55:15.380+09:00  INFO 16560 --- [greendae] [restartedMain] kr.co.greendae.GreendaeApplication       : Starting GreendaeApplication using Java 17.0.12 with PID 16560 (C:\Users\lotte6\Desktop\Greendae\IntelliJ\greendae\build\classes\java\main started by lotte6 in C:\Users\lotte6\Desktop\Greendae\IntelliJ\greendae)
+2025-03-17T13:55:15.381+09:00  INFO 16560 --- [greendae] [restartedMain] kr.co.greendae.GreendaeApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-03-17T13:55:15.415+09:00  INFO 16560 --- [greendae] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-03-17T13:55:15.415+09:00  INFO 16560 --- [greendae] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-03-17T13:55:15.932+09:00  WARN 16560 --- [greendae] [restartedMain] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[kr.co.greendae]' package. Please check your configuration.
+2025-03-17T13:55:16.211+09:00  INFO 16560 --- [greendae] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-03-17T13:55:16.220+09:00  INFO 16560 --- [greendae] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-03-17T13:55:16.220+09:00  INFO 16560 --- [greendae] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-03-17T13:55:16.253+09:00  INFO 16560 --- [greendae] [restartedMain] o.a.c.c.C.[.[localhost].[/greendae]      : Initializing Spring embedded WebApplicationContext
+2025-03-17T13:55:16.253+09:00  INFO 16560 --- [greendae] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 837 ms
+2025-03-17T13:55:16.323+09:00  INFO 16560 --- [greendae] [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2025-03-17T13:55:16.618+09:00  INFO 16560 --- [greendae] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-03-17T13:55:16.647+09:00  INFO 16560 --- [greendae] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/greendae'
+2025-03-17T13:55:16.654+09:00  INFO 16560 --- [greendae] [restartedMain] kr.co.greendae.GreendaeApplication       : Started GreendaeApplication in 1.613 seconds (process running for 2.041)
+2025-03-17T13:55:21.491+09:00  INFO 16560 --- [greendae] [http-nio-8080-exec-2] o.a.c.c.C.[.[localhost].[/greendae]      : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-03-17T13:55:21.491+09:00  INFO 16560 --- [greendae] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-03-17T13:55:21.491+09:00  INFO 16560 --- [greendae] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2025-03-17T13:57:49.911+09:00  INFO 16560 --- [greendae] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 12 class path changes (0 additions, 0 deletions, 12 modifications)
+2025-03-17T13:57:49.914+09:00  INFO 16560 --- [greendae] [Thread-5] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-03-17T13:57:49.978+09:00  INFO 16560 --- [greendae] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-03-17T13:57:50.032+09:00  INFO 16560 --- [greendae] [restartedMain] kr.co.greendae.GreendaeApplication       : Starting GreendaeApplication using Java 17.0.12 with PID 16560 (C:\Users\lotte6\Desktop\Greendae\IntelliJ\greendae\build\classes\java\main started by lotte6 in C:\Users\lotte6\Desktop\Greendae\IntelliJ\greendae)
+2025-03-17T13:57:50.032+09:00  INFO 16560 --- [greendae] [restartedMain] kr.co.greendae.GreendaeApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-03-17T13:57:50.219+09:00  WARN 16560 --- [greendae] [restartedMain] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[kr.co.greendae]' package. Please check your configuration.
+2025-03-17T13:57:50.254+09:00  INFO 16560 --- [greendae] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-03-17T13:57:50.254+09:00  INFO 16560 --- [greendae] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-03-17T13:57:50.254+09:00  INFO 16560 --- [greendae] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-03-17T13:57:50.268+09:00  INFO 16560 --- [greendae] [restartedMain] o.a.c.c.C.[.[localhost].[/greendae]      : Initializing Spring embedded WebApplicationContext
+2025-03-17T13:57:50.268+09:00  INFO 16560 --- [greendae] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 234 ms
+2025-03-17T13:57:50.289+09:00  INFO 16560 --- [greendae] [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2025-03-17T13:57:50.356+09:00  INFO 16560 --- [greendae] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-03-17T13:57:50.365+09:00  INFO 16560 --- [greendae] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/greendae'
+2025-03-17T13:57:50.369+09:00  INFO 16560 --- [greendae] [restartedMain] kr.co.greendae.GreendaeApplication       : Started GreendaeApplication in 0.359 seconds (process running for 155.756)
+2025-03-17T13:57:50.370+09:00  INFO 16560 --- [greendae] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-03-17T14:05:40.518+09:00  INFO 16560 --- [greendae] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-03-17T14:05:40.581+09:00  INFO 16560 --- [greendae] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
