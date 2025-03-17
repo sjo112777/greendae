@@ -49,6 +49,13 @@
     border-bottom: 1px solid #a3a3a3;
     font-weight: 700;
 }
+.main_content_detail > table tr > th:nth-of-type(1) {width: 80px;}
+.main_content_detail > table tr > th:nth-of-type(2) {width: 490px;}
+.main_content_detail > table tr > th:nth-of-type(3) {width: 170px;}
+.main_content_detail > table tr > th:nth-of-type(4) {width: 120px;}
+.main_content_detail > table tr > th:nth-of-type(5) {width: 70px;}
+
+
 .main_content_detail > table tr > td {
     width: auto;
     height: 58px;
@@ -70,7 +77,7 @@
     padding: 8px;
     border: 1px solid #dedede;
     color: #888888;
-
+    width: 18px;
     
 }
 .main_content_detail > .page > .prev {}
