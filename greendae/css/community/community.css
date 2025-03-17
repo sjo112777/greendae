@@ -75,7 +75,10 @@
 }
 .main_content_detail > .page > .prev {}
 .main_content_detail > .page > .next {}
-.main_content_detail > .page > .num {}
+.main_content_detail > .page > .num {
+    margin-left: 18px;
+    margin-right: 18px;
+}
 .main_content_detail > .page > .current {
     border: 1px solid #6d6d6d;
     background: #888;
