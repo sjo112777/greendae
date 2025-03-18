@@ -6,11 +6,10 @@
     <title>그린대학교 약관동의</title>
     <link rel="stylesheet" href="/greendae/css/layout/layout.css">
     <link rel="stylesheet" href="/greendae/css/user/termsandconditions.css">
-
 </head>
 <body>
     <div id="wrapper">
-        <!-- 헤더 시작작-->
+        <!-- 헤더 시작-->
         <header>
             <div>
                 <div>
@@ -40,6 +39,7 @@
                 </div>
             </div>
         </header>
+
         <main>
             <div class="background">
                 <div>
@@ -52,6 +52,7 @@
                     </span>
                 </div>
             </div>
+
             <article class="login_content">
                 <div class="divall">
                     <p style="font-size: 20px; width: 500; color: #3f97f6; margin-top: 50px;">약관동의</p>
@@ -61,36 +62,37 @@
                     <div class="container" style="margin-top: 15px;">
                         <table style="border-collapse: collapse;">
                             <tr>
-                                <td style="width: 198px; height: 226px;  text-align: center; border-right: 1px solid #DEDEDE;
-
-                                border-bottom: 1px solid #DEDEDE;
-                                
-                                background: #F4F8FC;"> 이용약관</td>
-                                <td style="width: 792px; height: 226px; padding: 10px; box-sizing: border-box; ">
-                                    <textarea name="terms" id="terms" style="width: 100%; height: 200px; margin: 0 auto; border: 1px solid gray;"  ></textarea>
+                                <td style="width: 198px; height: 226px; text-align: center; border-right: 1px solid #DEDEDE; border-bottom: 1px solid #DEDEDE; background: #F4F8FC;"> 이용약관</td>
+                                <td style="width: 792px; height: 226px; padding: 10px; box-sizing: border-box;">
+                                    <div id="terms" style="width: 100%; height: 200px; margin: 0 auto; border: 1px solid #DDDDDD; padding: 10px; box-sizing: border-box; overflow: auto;">
+                                        약관내용 출력하기
+                                    </div>
+                                    
                                 </td>
                             </tr>
                             <tr>
-                                <td style="width: 198px; height: 226px;  text-align: center; border-right: 1px solid #DEDEDE;
-
-                                border-bottom: 1px solid #DEDEDE;
-                                
-                                background: #F4F8FC;"> 개인정보 수집안내
-                                </td>
+                                <td style="width: 198px; height: 226px; text-align: center; border-right: 1px solid #DEDEDE; border-bottom: 1px solid #DEDEDE; background: #F4F8FC;"> 개인정보 수집안내</td>
                                 <td style="width: 792px; height: 226px; padding: 10px; box-sizing: border-box;">
-                                    <textarea name="terms" id="terms" style="width: 100%; height: 200px; margin: 0 auto; border: 1px solid gray;"  ></textarea>
+                                    <div id="terms" style="width: 100%; height: 200px; margin: 0 auto; border: 1px solid #DDDDDD; padding: 10px; box-sizing: border-box; overflow: auto;">
+                                        약관내용 출력하기
+                                    </div>
+                                    
                                 </td>
                             </tr>
                         </table>
                         <div>
-                            <input type="checkbox">
+                            <input type="checkbox" id="agree" />
+                            <label for="agree">위의 홈페이지 이용에 따른 회원가입 약관 및 개인정보 수집·이용에 모두 동의합니다.</label>
+                        </div>
+                        <div class="btn">
+                            <button style="width: 56px; height: 48px; background: #8B8B8B; border: none;"><a href="#"><span style="color: #FFFFFF; font-size: 18px; font-weight: 300;">취소</span></a></button>
+                            <button style="width: 56px; height: 48px; background: #3F97F6; border: none;"><a href="#"><span style="color: #FFFFFF; font-size: 18px; font-weight: 300;">다음</span></a></button>
                         </div>
                     </div>
-
                 </div>
             </article>
+        </main>
 
-            </main>
         <footer>
             <div>
                 <div>
@@ -110,9 +112,8 @@
                         그린대학교 <br>
                         [12345] 부산광역시 부산진구 부전대로 123 그린대학교 / 대표전화 : 051-123-1000 / <br>
                         입학안내 : 051-123-1302 팩스 : 051-123-3333
-
                         <br><br>
-                        copyright ©Green University All rights reserved.
+                        copyright ©Green University All rights reserved.
                     </p>
                     <div>
                         <p>주요사이트  
@@ -122,7 +123,6 @@
                 </div>
             </div>
         </footer>
-        <!-- 푸터 끝-->
     </div>
 </body>
 </html>
