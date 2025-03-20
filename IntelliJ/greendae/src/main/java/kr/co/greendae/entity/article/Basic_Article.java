@@ -1,10 +1,14 @@
 package kr.co.greendae.entity.article;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import kr.co.greendae.dto.ArticleDTO;
+import kr.co.greendae.entity.comment.Basic_Comment;
+import kr.co.greendae.entity.file.Basic_File;
+import kr.co.greendae.entity.user.User;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -16,17 +20,29 @@ import lombok.*;
 public class Basic_Article {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int no;
     private String cate;
     private String title;
     private String content;
-    private String comment;
-    private int file ;
-    private int hit;
-    private String writer;
-    private String regip;
-    private String wdate;
+/*
+    @OneToMany(mappedBy = "Basic_Article")
+    private List<Basic_Comment> basic_comment;
 
+    @OneToMany(mappedBy = "Basic_File")
+    private List<Basic_File> basic_file ;
+*/
+    private int hit;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "writer")
+    private User user;
+
+    private String regip;
+
+    @CreationTimestamp
+    private String wdate;
+/*
     public ArticleDTO toArticleDTO() {
         return ArticleDTO.builder()
                 .no(no)
@@ -41,4 +57,6 @@ public class Basic_Article {
                 .wdate(wdate)
                 .build();
     }
+*/
 }
+
