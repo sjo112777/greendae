@@ -393,7 +393,7 @@ main{
 }
 
 .Operations_main thead th{
-    border-top: 2px solid black;
+    border-top: 2px solid #A3A3A3;
     background-color: #FAFAFA;
     border-bottom: 1px solid #A3A3A3;
     font-weight: 700;
@@ -474,4 +474,14 @@ main{
 .green_p{
     color: white;
     background-color: green;
+}
+
+.main_title span{
+    font-size: 350;
+}
+
+.title_span{
+    font-weight: 200; 
+    font-size: 15px;
+    color: #145074;
 }
