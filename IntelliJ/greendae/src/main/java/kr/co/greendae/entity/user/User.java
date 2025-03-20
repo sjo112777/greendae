@@ -15,18 +15,16 @@ import lombok.*;
 public class User {
 
     @Id
-    private String uid;
-    private String pass;
-    private String name;
-    private String email;
-    private String hp;
-    private String role;
-    private String zip;
-    private String addr1;
-    private String addr2;
-    private String regDate;
-    private String leaveDate;
-    private String proNo;
-    private int depNo;
+    private String uid;     // 아이디
+    private String pass;    // 비밀번호
+    private String name;    // 이름
+    private String email;   // 이메일
+    private String hp;      // 주소
+    private String role;    // 역할(관리자, 학생, 교사)
+    private String zip;     // IP주소
+    private String addr1;   // 주소
+    private String addr2;   // 자세한 주소
+    private String regDate; // 가입일자
+    private String leaveDate; //탈퇴일자
 
 }
