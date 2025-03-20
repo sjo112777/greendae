@@ -28,7 +28,7 @@ public class ArticleDTO {
 
     // State_Article 내용 추가
     private String state;
-
+/*
     // Entity 변환 메서드 정의
     public Basic_Article toBasicArticleEntity() {
         return Basic_Article.builder()
@@ -74,5 +74,5 @@ public class ArticleDTO {
                 .state(state)
                 .build();
     }
-
+*/
 }

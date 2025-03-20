@@ -1,8 +1,6 @@
 package kr.co.greendae.entity.article;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import kr.co.greendae.dto.ArticleDTO;
 import lombok.*;
 
@@ -16,6 +14,7 @@ import lombok.*;
 public class State_Article {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int no;
     private String cate;
     private String title;
