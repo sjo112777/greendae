@@ -32,16 +32,47 @@ public class ArticleDTO {
     // Entity 변환 메서드 정의
     public Basic_Article toBasicArticleEntity() {
         return Basic_Article.builder()
-
+                .no(no)
+                .cate(cate)
+                .title(title)
+                .content(content)
+                .comment(comment)
+                .file(file)
+                .hit(hit)
+                .writer(writer)
+                .regip(regip)
+                .wdate(wdate)
                 .build();
     }
 
     public Employ_Article toEmployArticleEntity() {
-
+        return Employ_Article.builder()
+                .no(no)
+                .title(title)
+                .content(content)
+                .comment(comment)
+                .file(file)
+                .hit(hit)
+                .writer(writer)
+                .regip(regip)
+                .wdate(wdate)
+                .ddate(ddate)
+                .build();
     }
 
     public State_Article toStateArticleEntity() {
-
+        return State_Article.builder()
+                .no(no)
+                .title(title)
+                .content(content)
+                .comment(comment)
+                .file(file)
+                .hit(hit)
+                .writer(writer)
+                .regip(regip)
+                .wdate(wdate)
+                .state(state)
+                .build();
     }
 
 }
