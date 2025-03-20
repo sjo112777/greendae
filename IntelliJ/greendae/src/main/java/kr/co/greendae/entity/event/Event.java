@@ -1,4 +1,4 @@
-package kr.co.greendae.entity.user;
+package kr.co.greendae.entity.event;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,8 +9,9 @@ import lombok.*;
 @ToString
 @Builder
 @Entity
-@Table(name = "Terms")
-public class Terms {
+@Table(name = "event")
+public class Event {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int no;
