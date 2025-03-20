@@ -3,22 +3,22 @@
     <div class="side_title">
       <p>커뮤니티</p>
     </div>
-    <a th:href="@{/community/data}">
+    <a th:href="@{/community/notice}">
       <div id="notice">공지사항</div>
     </a>
-    <a th:href="@{/community/employment}">
+    <a th:href="@{/community/news}">
       <div id="news">뉴스 및 칼럼</div>
     </a>
-    <a th:href="@{/community/freeboard}">
+    <a th:href="@{/community/employment}">
       <div id="employment">취업정보</div>
     </a>
-    <a th:href="@{/community/news}">
-      <div id="free">자유게시판</div>
-    </a>
-    <a th:href="@{/community/notice}">
-      <div id="qna">질문과 답변</div>
+    <a th:href="@{/community/freeboard}">
+      <div id="freeboard">자유게시판</div>
     </a>
     <a th:href="@{/community/qna}">
+      <div id="qna">질문과 답변</div>
+    </a>
+    <a th:href="@{/community/data}">
       <div id="data">자료실</div>
     </a>
   </article>
@@ -34,8 +34,8 @@
       document.getElementById("news").classList.add("active");
     }else if (path.includes("employment")) {
       document.getElementById("employment").classList.add("active");
-    }else if (path.includes("free")) {
-      document.getElementById("free").classList.add("active");
+    }else if (path.includes("freeboard")) {
+      document.getElementById("freeboard").classList.add("active");
     }else if (path.includes("qna")) {
       document.getElementById("qna").classList.add("active");
     }else if (path.includes("data")) {

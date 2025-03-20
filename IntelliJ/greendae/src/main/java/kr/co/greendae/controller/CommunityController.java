@@ -14,4 +14,29 @@ public class CommunityController {
     public String notice(){
         return "/community/notice";
     }
+
+    @GetMapping("/news")
+    public String news(){
+        return "/community/news";
+    }
+
+    @GetMapping("/employment")
+    public String employment(){
+        return "/community/employment";
+    }
+
+    @GetMapping("/freeboard")
+    public String freeboard(){
+        return "/community/freeboard";
+    }
+
+    @GetMapping("/qna")
+    public String qna(){
+        return "/community/qna";
+    }
+
+    @GetMapping("/data")
+    public String data(){
+        return "/community/data";
+    }
 }
