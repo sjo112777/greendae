@@ -1,16 +1,20 @@
-package kr.co.greendae.dto;
+package kr.co.greendae.entity.user;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.*;
 
 @Data
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO{
+@NoArgsConstructor
+@ToString
+@Builder
+@Entity
+@Table(name = "User")
+public class User {
 
+    @Id
     private String uid;
     private String pass;
     private String name;
