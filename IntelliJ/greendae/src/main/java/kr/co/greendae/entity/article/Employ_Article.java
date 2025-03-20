@@ -3,6 +3,7 @@ package kr.co.greendae.entity.article;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import kr.co.greendae.dto.ArticleDTO;
 import lombok.*;
 
 @Data
