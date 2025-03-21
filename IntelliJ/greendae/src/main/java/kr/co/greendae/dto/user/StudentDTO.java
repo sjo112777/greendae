@@ -1,6 +1,5 @@
-package kr.co.greendae.entity.user;
+package kr.co.greendae.dto.user;
 
-import jakarta.persistence.*;
 import lombok.*;
 
 @Data
@@ -8,17 +7,10 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @Builder
-@Entity
-@Table(name = "Student")
-public class Student {
+public class StudentDTO {
 
-    @Id
+    private String uid;             //아이디
     private String stdNo;           //학번
-
-    @OneToOne
-    @JoinColumn(name = "uid")
-    private User user;
-
     private String admission_year;  //입학년도
     private String graduation_year; //졸업년도
     private String admission_type;  //입학구분(수시, 정시)
@@ -28,4 +20,5 @@ public class Student {
     private String major;           //전공
     private String advisor;         //지도교수
     private String stdStatus;       //재학상태
+
 }

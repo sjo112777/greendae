@@ -1,6 +1,5 @@
-package kr.co.greendae.entity.user;
+package kr.co.greendae.dto.user;
 
-import jakarta.persistence.*;
 import lombok.*;
 
 @Data
@@ -8,16 +7,9 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @Builder
-@Entity
-@Table(name = "Professor")
-public class Professor {
+public class ProfessorDTO {
 
-
-    @OneToOne
-    @JoinColumn(name = "uid")
-    private User user;               //유저
-
-    @Id
+    private String uid;               //아이디
     private String proNo;             //교수번호
     private String graduationSchool;  //졸업대학
     private String fieldOfStudy;      //학문분야

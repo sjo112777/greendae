@@ -1,4 +1,4 @@
-package kr.co.greendae.dto;
+package kr.co.greendae.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
