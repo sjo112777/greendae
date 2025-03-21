@@ -1,21 +1,16 @@
-package kr.co.greendae.entity.user;
+package kr.co.greendae.dto.user;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
 @Builder
-@Entity
-@Table(name = "User")
-public class User {
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserDTO{
 
-    @Id
     private String uid;     // 아이디
     private String pass;    // 비밀번호 (기초값 : 주민)
     private String name;    // 이름
@@ -31,8 +26,5 @@ public class User {
     private String nationality; // 국적
     private String regDate; // 가입일자
     private String leaveDate; //탈퇴일자
-
-    @OneToOne(mappedBy = "user")
-    private Student student;
 
 }

@@ -1,15 +1,8 @@
 package kr.co.greendae.controller;
 
-import kr.co.greendae.dto.EventDTO;
-import org.springframework.boot.configurationprocessor.json.JSONArray;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 // 학사안내
 @Controller

@@ -1,4 +1,4 @@
-package kr.co.greendae.dto;
+package kr.co.greendae.dto.event;
 
 import lombok.*;
 
