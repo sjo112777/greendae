@@ -4,15 +4,15 @@ import jakarta.persistence.*;
 import kr.co.greendae.dto.ArticleDTO;
 import lombok.*;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
-@Builder
-@Entity
-@Table(name = "State_Article")
+//@Data
+//@AllArgsConstructor
+//@NoArgsConstructor
+//@ToString
+//@Builder
+// @Entity
+//@Table(name = "State_Article")
 public class State_Article {
-
+/*
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int no;
@@ -41,4 +41,6 @@ public class State_Article {
                 .state(state)
                 .build();
     }
+
+ */
 }

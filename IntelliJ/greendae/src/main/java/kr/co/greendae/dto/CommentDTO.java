@@ -8,13 +8,14 @@ import kr.co.greendae.entity.comment.Employ_Comment;
 import kr.co.greendae.entity.comment.State_Comment;
 import lombok.*;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
-@Builder
+//@Data
+//@AllArgsConstructor
+//@NoArgsConstructor
+//@ToString
+//@Builder
 public class CommentDTO {
 
+    /*
     private int cno;
     private int parent;
     private String content;
@@ -22,7 +23,7 @@ public class CommentDTO {
     private String regip;
     private String wdate;
 
-/*
+
     // Entity 변환 메서드 정의
     public Basic_Comment toBasicCommentEntity() {
         return Basic_Comment.builder()
@@ -56,5 +57,7 @@ public class CommentDTO {
                 .wdate(wdate)
                 .build();
     }
-*/
+
+     */
+
 }
