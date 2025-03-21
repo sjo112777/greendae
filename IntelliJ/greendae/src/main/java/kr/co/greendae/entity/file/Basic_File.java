@@ -7,14 +7,15 @@ import kr.co.greendae.entity.article.Basic_Article;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
-@Builder
-@Entity
-@Table(name = "Basic_File")
+//@Data
+//@AllArgsConstructor
+//@NoArgsConstructor
+//@ToString(exclude = "basic_article")
+//@Builder
+//@Entity
+//@Table(name = "Basic_File")
 public class Basic_File {
+    /*
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,12 +30,12 @@ public class Basic_File {
     private int download;
 
     @CreationTimestamp
-    private int rdate;
-/*
+    private String rdate;
+
     public FileDTO toFileDTO() {
         return FileDTO.builder()
                 .fno(fno)
-                .ano(ano)
+                .ano(basic_article.getNo())
                 .oName(oName)
                 .sName(sName)
                 .download(download)

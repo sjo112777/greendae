@@ -5,18 +5,20 @@ import kr.co.greendae.entity.article.Employ_Article;
 import kr.co.greendae.entity.article.State_Article;
 import lombok.*;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
-@Builder
-public class ArticleDTO {
+import java.util.List;
 
+//@Data
+//@AllArgsConstructor
+//@NoArgsConstructor
+//@ToString
+//@Builder
+public class ArticleDTO {
+/*
     private int no;
     private String cate;    // Employ_Article에는 없음
     private String title;
     private String content;
-    private String comment;
+    private List<String> comment;
     private int file ;
     private int hit;
     private String writer;
@@ -28,7 +30,7 @@ public class ArticleDTO {
 
     // State_Article 내용 추가
     private String state;
-/*
+
     // Entity 변환 메서드 정의
     public Basic_Article toBasicArticleEntity() {
         return Basic_Article.builder()
@@ -36,7 +38,7 @@ public class ArticleDTO {
                 .cate(cate)
                 .title(title)
                 .content(content)
-                .comment(comment)
+                .basic_comment(comment)
                 .file(file)
                 .hit(hit)
                 .writer(writer)
@@ -74,5 +76,7 @@ public class ArticleDTO {
                 .state(state)
                 .build();
     }
-*/
+
+ */
+
 }

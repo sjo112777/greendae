@@ -10,28 +10,28 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.List;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
-@Builder
-@Entity
-@Table(name = "Basic_Article")
+//@Data
+//@AllArgsConstructor
+//@NoArgsConstructor
+//@ToString
+//@Builder
+//@Entity
+//@Table(name = "Basic_Article")
 public class Basic_Article {
-
+/*
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int no;
     private String cate;
     private String title;
     private String content;
-/*
-    @OneToMany(mappedBy = "Basic_Article")
+
+    @OneToMany(mappedBy = "basic_article")
     private List<Basic_Comment> basic_comment;
 
-    @OneToMany(mappedBy = "Basic_File")
+    @OneToMany(mappedBy = "basic_article")
     private List<Basic_File> basic_file ;
-*/
+
     private int hit;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -42,17 +42,17 @@ public class Basic_Article {
 
     @CreationTimestamp
     private String wdate;
-/*
+
     public ArticleDTO toArticleDTO() {
         return ArticleDTO.builder()
                 .no(no)
                 .cate(cate)
                 .title(title)
                 .content(content)
-                .comment(comment)
-                .file(file)
+                .comment(basic_comment)
+                .file(basic_file)
                 .hit(hit)
-                .writer(writer)
+                .writer(user.getUid())
                 .regip(regip)
                 .wdate(wdate)
                 .build();

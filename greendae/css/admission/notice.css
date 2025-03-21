@@ -37,14 +37,10 @@
     border-top: 2px solid #000000;
 }
 
-
+.main_content_detail > table tr {}
 .main_content_detail > table > caption {
     text-align: left;
     margin-bottom: 6px;
-}
-
-.main_content_detail > table tr:nth-of-type(4) {
-    background: #efefef;
 }
 .main_content_detail > table tr > th {
     width: auto;
@@ -53,13 +49,11 @@
     border-bottom: 1px solid #a3a3a3;
     font-weight: 700;
 }
-
-
-.main_content_detail > table tr > th:nth-of-type(1) {width: 93px;}
-.main_content_detail > table tr > th:nth-of-type(2) {width: 511px;}
-.main_content_detail > table tr > th:nth-of-type(3) {width: 93px;}
-.main_content_detail > table tr > th:nth-of-type(4) {width: 93px;}
-.main_content_detail > table tr > th:nth-of-type(5) {width: 139px;}
+.main_content_detail > table tr > th:nth-of-type(1) {width: 80px;}
+.main_content_detail > table tr > th:nth-of-type(2) {width: 490px;}
+.main_content_detail > table tr > th:nth-of-type(3) {width: 170px;}
+.main_content_detail > table tr > th:nth-of-type(4) {width: 120px;}
+.main_content_detail > table tr > th:nth-of-type(5) {width: 70px;}
 
 
 .main_content_detail > table tr > td {
@@ -67,16 +61,6 @@
     height: 58px;
     border-bottom: 1px solid #d8d8d8;
     text-align: center;
-}
-
-.main_content_detail > table tr > td:nth-of-type(5) {
-    color: #FF0000; /* 답변완료 : color: #008000 */
-}
-.main_content_detail > table tr:nth-of-type(3) > td:nth-of-type(5) {
-    color: #008000; /* 답변완료 : color: #008000 */
-}
-.main_content_detail > table tr:nth-of-type(4) > td:nth-of-type(5) {
-    color: #008000; /* 답변완료 : color: #008000 */
 }
 
 
@@ -110,7 +94,7 @@
 
 .btn {
     display: inline-block;
-    padding: 10px;    
+    padding: 8px;    
     border: 1px solid #bebebe; 
     text-align: center;    
     cursor: pointer;
@@ -118,11 +102,10 @@
 
 .btnWrite {
     float: right;
-    border: 1px solid #bebebe; 
-    background: #3F97F6; 
-    color: #ffffff;
+    border: 1px solid #3b3c3f; 
+    background: #4b545e; 
+    color: #fff;
 }
-
 
 
 

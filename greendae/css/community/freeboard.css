@@ -94,7 +94,7 @@
 
 .btn {
     display: inline-block;
-    padding: 8px;    
+    padding: 10px;    
     border: 1px solid #bebebe; 
     text-align: center;    
     cursor: pointer;
@@ -102,9 +102,9 @@
 
 .btnWrite {
     float: right;
-    border: 1px solid #3b3c3f; 
-    background: #4b545e; 
-    color: #fff;
+    border: 1px solid #bebebe; 
+    background: #3F97F6; 
+    color: #ffffff;
 }
 
 
