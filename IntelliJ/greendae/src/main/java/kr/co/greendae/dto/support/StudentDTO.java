@@ -1,16 +1,18 @@
-package kr.co.greendae_personal.dto.support;
+package kr.co.greendae.dto.support;
 
-import kr.co.greendae_personal.entity.Lecture.Student;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+/*
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+*/
+
 public class StudentDTO {
+    /*
     private String stdNo;       //학번
     private String stdName;     //이름
     private String stdHp;       //전화번호
@@ -36,6 +38,6 @@ public class StudentDTO {
                 .stdStatus(stdStatus)
                 .build();
     }
-
+*/
 
 }

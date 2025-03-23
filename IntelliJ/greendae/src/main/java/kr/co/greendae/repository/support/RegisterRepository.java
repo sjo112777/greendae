@@ -1,7 +1,5 @@
-package kr.co.greendae_personal.repository.support;
+package kr.co.greendae.repository.support;
 
-import kr.co.greendae_personal.dto.support.LectureDTO;
-import kr.co.greendae_personal.entity.Lecture.Register;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,8 +8,8 @@ import java.util.List;
 
 
 
-public interface RegisterRepository extends JpaRepository<Register, String> {
-
+public interface RegisterRepository /*extends JpaRepository<Register, String> */{
+/*
     //Register_list 페이지에 출력할 정보 JOIN
     @Query("select (r.student.stdNo, r.lecture.lecNo, r.regCredit, l.lecName, l.lecCate, l.lecGrade, l.lecProName, l.lecRoom, l.lecTime) from Register as r " +
             "join Lecture as l on r.lecture.lecNo = l.lecNo " +
@@ -25,7 +23,7 @@ public interface RegisterRepository extends JpaRepository<Register, String> {
     public List<Object[]> findGradeByStdNo(@Param("stdNo") String stdNo);
 
 
-
+*/
 
 
 

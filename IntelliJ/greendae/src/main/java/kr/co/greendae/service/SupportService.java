@@ -1,13 +1,6 @@
-package kr.co.greendae_personal.service;
+package kr.co.greendae.service;
 
-import kr.co.greendae_personal.dto.support.LectureDTO;
-import kr.co.greendae_personal.dto.support.RegisterDTO;
-import kr.co.greendae_personal.entity.Lecture.Lecture;
-import kr.co.greendae_personal.entity.Lecture.Register;
-import kr.co.greendae_personal.entity.Lecture.Student;
-import kr.co.greendae_personal.repository.support.LectureRepository;
-import kr.co.greendae_personal.repository.support.RegisterRepository;
-import kr.co.greendae_personal.repository.support.StudentRepository;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
@@ -16,12 +9,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
+/*
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class SupportService {
+*/
 
+public class SupportService {
+/*
     private final LectureRepository lectureRepository;
     private final RegisterRepository registerRepository;
     private final StudentRepository studentRepository;
@@ -91,7 +86,7 @@ public class SupportService {
 
         return gradeDTOList;
     }
-
+*/
 
 
     /*
@@ -150,7 +145,7 @@ public class SupportService {
                 .collect(Collectors.toList());
     }
      */
-
+/*
     public RegisterDTO findById(String stdNo){
         Optional<Register> optRegister = registerRepository.findById(stdNo);
         log.info("optRegister: ", optRegister);
@@ -160,7 +155,7 @@ public class SupportService {
         }
         return null;
     }
-
+*/
     public void findByName(){}
 
     public void findByClassName(){}

@@ -1,19 +1,18 @@
-package kr.co.greendae_personal.dto.support;
+package kr.co.greendae.dto.support;
 
-import kr.co.greendae_personal.entity.Lecture.Lecture;
-import kr.co.greendae_personal.entity.Lecture.Register;
-import kr.co.greendae_personal.entity.Lecture.Student;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+/*
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RegisterDTO {
+*/
 
+public class RegisterDTO {
+/*
     private int regNo;          //auto_increase(PK용으로 필요해서 만든것) 과목 번호
 
     private String regStdNo;    //과목 수강하는 학생 번호
@@ -45,7 +44,7 @@ public class RegisterDTO {
                 .regSemester(regSemester)
                 .build();
     }
-
+*/
     /*
     private int regNo;       // 수강 번호? Auto_increment
     private String regStdNo;    // 수강하는 학생 학번 = stdNo

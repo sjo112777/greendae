@@ -1,6 +1,7 @@
 package kr.co.greendae.entity.user;
 
 import jakarta.persistence.*;
+import kr.co.greendae.entity.department.Department;
 import lombok.*;
 
 @Data
@@ -24,8 +25,15 @@ public class Student {
     private String admission_type;  //입학구분(수시, 정시)
     private int stdYear;            //학년
     private String stdSemester;     //학기
-    private String stdClass;        //학과
-    private String major;           //전공
-    private String advisor;         //지도교수
+
+    @ManyToOne
+    @JoinColumn(name = "deptNo")
+    private Department department;
+    // private String major;           //전공 예)(인문사회대학)
+    // private String stdClass;        //학과 예)(영어영문학과)
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "prodNo")
+    private Professor professor;         //지도교수
     private String stdStatus;       //재학상태
 }
