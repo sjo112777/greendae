@@ -1,4 +1,4 @@
-package kr.co.greendae.entity.Terms;
+package kr.co.greendae.entity.user;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -14,6 +14,10 @@ public class Terms {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int no;
+
+    @Lob // Text로 저장
     private String terms;
+
+    @Lob
     private String privacy;
 }
