@@ -1,17 +1,18 @@
-package kr.co.greendae_personal.dto.support;
+package kr.co.greendae.dto.support;
 
-import kr.co.greendae_personal.entity.Lecture.Lecture;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+/*
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class LectureDTO {
+*/
 
+public class LectureDTO {
+/*
     private String lecNo;
 
     private String lecName;
@@ -38,7 +39,7 @@ public class LectureDTO {
                 .lecTime(lecTime)
                 .build();
     }
-
+*/
     /*
     private int lecNo;      // 과목코드
     private String lecName; // 과목명
