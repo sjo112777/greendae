@@ -18,11 +18,14 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+        working-directory: ./IntelliJ
 
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2.6.0
+        working-directory: ./IntelliJ
         with:
           arguments: build
+
 
       - name: Get JAR_FILE
         id: jarfile
