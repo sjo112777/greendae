@@ -15,7 +15,7 @@ server:
 spring:
     application:
         name: greendae
-        version: ${version}
+        version: 0.0.3-SNAPSHOT
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
         password: Qwerty123@
