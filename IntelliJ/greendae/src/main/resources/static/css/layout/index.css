@@ -5,27 +5,27 @@
 /* 폰트 설정*/
 @font-face {
     font-family: 'Noto Sans KR'; /* 원하는 폰트 이름 */
-    src: url('/greendae/font/NotoSansKR-Light.woff2') format('woff2'),
-         url('/greendae/font/NotoSansKR-Light.woff') format('woff'),
-         url('/greendae/font/NotoSansKR-Light.otf') format('opentype');
+    src: url('/font/NotoSansKR-Light.woff2') format('woff2'),
+         url('/font/NotoSansKR-Light.woff') format('woff'),
+         url('/font/NotoSansKR-Light.otf') format('opentype');
     font-weight: 300;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Noto Sans KR'; /* 원하는 폰트 이름 */
-    src: url('/greendae/font/NotoSansKR-Regular.woff2') format('woff2'),
-         url('/greendae/font/NotoSansKR-Regular.woff') format('woff'),
-         url('/greendae/font/NotoSansKR-Regular.otf') format('opentype');
+    src: url('/font/NotoSansKR-Regular.woff2') format('woff2'),
+         url('/font/NotoSansKR-Regular.woff') format('woff'),
+         url('/font/NotoSansKR-Regular.otf') format('opentype');
     font-weight: 400;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Noto Sans KR'; /* 원하는 폰트 이름 */
-    src: url('/greendae/font/NotoSansKR-Medium.woff2') format('woff2'),
-         url('/greendae/font/NotoSansKR-Medium.woff') format('woff'),
-         url('/greendae/font/NotoSansKR-Medium.otf') format('opentype');
+    src: url('/font/NotoSansKR-Medium.woff2') format('woff2'),
+         url('/font/NotoSansKR-Medium.woff') format('woff'),
+         url('/font/NotoSansKR-Medium.otf') format('opentype');
     font-weight: 500;
     font-style: normal;
 }
@@ -223,7 +223,7 @@ main{
 .main_slider > div:nth-child(1){
     width: 100%;
     height: 560px;
-    background-image: url("/greendae/images/bg-main-vi01.jpg"); 
+    background-image: url("/images/bg-main-vi01.jpg");
     background-position: center; /* 이미지가 중앙에 오도록 설정 */
     background-size: cover; /* 이미지를 영역에 맞게 덮도록 설정 */
     text-align: center;
@@ -270,7 +270,7 @@ main{
 .main_helper{
     width: 100%;
     height: 152px;
-    background-image: url('/greendae/images/bg-main-banner.gif');
+    background-image: url('/images/bg-main-banner.gif');
 }
 
 .main_new{
@@ -400,28 +400,28 @@ main{
 }
 
 .photo_gallery > div:nth-of-type(1){
-    background-image: url('/greendae/images/gallary_sample1.jpg');
+    background-image: url('/images/gallary_sample1.jpg');
     background-size: cover; 
     position: relative;
     margin-right: 20px;
 }
 
 .photo_gallery > div:nth-of-type(2){
-    background-image: url('/greendae/images/gallary_sample2.jpg');
+    background-image: url('/images/gallary_sample2.jpg');
     background-size: cover; 
     position: relative;
     margin-right: 20px;
 }
 
 .photo_gallery > div:nth-of-type(3){
-    background-image: url('/greendae/images/gallary_sample3.jpg');
+    background-image: url('/images/gallary_sample3.jpg');
     background-size: cover; 
     position: relative;
     margin-right: 20px;
 }
 
 .photo_gallery > div:nth-of-type(4){
-    background-image: url('/greendae/images/gallary_sample4.png');
+    background-image: url('/images/gallary_sample4.png');
     background-size: cover; 
     position: relative;
 }
