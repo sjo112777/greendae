@@ -4,9 +4,9 @@ on:
     branches:
       - main
 
-  defaults:
-    run:
-      working-directory: ./IntelliJ/greendae
+defaults:
+  run:
+    working-directory: ./IntelliJ/greendae
 
 jobs:
   build:
