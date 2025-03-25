@@ -23,13 +23,10 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: init with Gradle
-        uses: gradle/gradle-build-action@v2.6.0
-      - run: gradle init
-
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2.6.0
         with:
+          gradle-version : 8.13
           arguments: build
 
       - name: Get JAR_FILE
