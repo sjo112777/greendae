@@ -18,13 +18,12 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-        working-directory: ./IntelliJ/greendae
 
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2.6.0
-        working-directory: ./IntelliJ/greendae
         with:
           arguments: build
+          build-root-directory: greendae/IntelliJ/greendae
 
 
       - name: Get JAR_FILE
