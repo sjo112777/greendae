@@ -23,7 +23,6 @@ jobs:
         uses: gradle/gradle-build-action@v2.6.0
         with:
           arguments: build
-          build-root-directory: greendae/IntelliJ/greendae
 
 
       - name: Get JAR_FILE
@@ -42,6 +41,21 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Deploy specific folder
+        run: |
+          git init
+          git remote add origin https://github.com/sjo112777/greendae.git
+          git checkout --orphan gh-pages
+          git rm -rf .
+          cp -r IntelliJ/* .
+          git add .
+          git commit -m "Deploy dist folder"
+          git push -f origin gh-pages
+
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
