@@ -22,7 +22,6 @@ jobs:
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2.6.0
         with:
-          gradle-version : 8.13
           arguments: build
           build-root-directory: IntelliJ/greendae
 
