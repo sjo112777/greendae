@@ -45,6 +45,10 @@ public class UserController {
         return "/user/lookupresult";
     }
 
+    @GetMapping("/termsandconditions")
+    public String termsandconditions(){
+        return "/user/termsandconditions";
+    }
 
 
 }

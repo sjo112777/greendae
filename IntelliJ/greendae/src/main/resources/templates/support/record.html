@@ -10,7 +10,7 @@
 </head>
 <body>
     <div id="wrapper">
-        <th:block th:include="/support/_header.html"/>
+        <th:block th:include="/inc/_header.html"/>
         <!-- 메인 시작작-->
         <main>
             <div class="background">
@@ -26,28 +26,7 @@
             </div>
             <section class="content">
                 <!-- 왼쪽 사이드바 -->
-                <aside class="sidebar">
-                    <article class="side_content">             
-                        <div class="side_title">
-                            <p>학생지원</p>
-                        </div>
-                        <a th:href="@{/support/register}">
-                            <div>수강신청</div>
-                        </a>
-                        <a th:href="@{/support/register_list}">
-                            <div>수강신청내역</div>
-                        </a>
-                        <a th:href="@{/support/classes}">
-                            <div>교과과정</div>
-                        </a>
-                        <a th:href="@{/support/grade}">
-                            <div>성적조회</div>
-                        </a>
-                        <a th:href="@{/support/record}">
-                            <div>학적</div>
-                        </a>
-                    </article>
-                </aside>
+                <th:block th:include="/inc/support/sidebar.html"/>
                 <!-- 오른쪽 글 -->
                 <article class="main_content">
                     <div class="main_title">
@@ -137,7 +116,7 @@
             </section>
         </main>
         <!-- 메인 끝-->
-        <th:block th:include="/support/_footer.html"/>
+        <th:block th:include="/inc/_footer.html"/>
     </div>
 </body>
 </html>
