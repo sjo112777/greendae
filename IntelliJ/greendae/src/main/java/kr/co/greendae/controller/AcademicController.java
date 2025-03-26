@@ -11,7 +11,9 @@ public class AcademicController {
 
     // 학사일정
     @GetMapping("/schedule")
-    public String schedule(){return "/academic/schedule";}
+    public String schedule(){
+        return "/academic/schedule";
+    }
 
     // 수강신청
     @GetMapping("/registration")
@@ -29,5 +31,17 @@ public class AcademicController {
     @GetMapping("/grade")
     public String score(){
         return "/academic/grade";
+    }
+
+    // 공지사항
+    @GetMapping("/notice")
+    public String notice(){
+        return "/academic/notice";
+    }
+
+    // 자주묻는질문
+    @GetMapping("/faq")
+    public String faq(){
+        return "/academic/faq";
     }
 }
