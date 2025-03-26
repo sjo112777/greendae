@@ -37,12 +37,13 @@ public class Register {
     @ManyToOne
     @JoinColumn(name = "regLecNo")
     private Lecture lecture;
-
     private String regAttenScore; // 출석점수
     private String regMidScore;   // 중간고수 점수
     private String regFinalScore; // 기말고수 점수
     private String regEtcScore;   // 기타점수
     private int regTotalScore;    // 총점
+    private String regYear;
+    private String regSemester;
     // private int regCredit;        // 학점
     private String regGradeScore; //A,B,C,D,E
 
@@ -56,82 +57,6 @@ public class Register {
     * */
 
 
-    /*
-    * 고민2 : 수업이 2024년 9월이라면?
-    * regYear: 수업에 따라서 2024년이 아닐까?
-    * regSemeter : 3~6월 1학기, 9월 12월 2학기
-    * 두 가지 컬럼이 필요할까?
-    * lecture에서 데이터를 들고와서 가공하는게 좋을까?
-    * */
-    // private String regYear;
-    // private String regSemester;
-
-
-
-
-
-
-
-
-/*
-    public RegisterDTO toRegisterDTO(){
-        return RegisterDTO.builder()
-                .regNo(regNo)
-                .regStdNo(student.getStdNo())
-                .regLecNo(lecture.getLecNo())
-                .regTotalScore(regTotalScore)
-                .regGradeScore(regGradeScore)
-                .regCredit(regCredit)
-                .regYear(regYear)
-                .regSemester(regSemester)
-                //Lecture
-                .lecName(lecture.getLecName())
-                .lecCate(lecture.getLecCate())
-                .lecGrade(lecture.getLecGrade())  // Default 0 or null 처리 가능
-                .lecProName(lecture.getLecProName())
-                .lecRoom(lecture.getLecRoom())
-                .lecTime(lecture.getLecTime())
-                .build();
-    }
-*/
-    /*
-    @Id
-    private int regNo;
-
-    @ManyToOne
-    @JoinColumn(name = "stdNo")
-    private Student student;
-
-    @ManyToOne
-    @JoinColumn(name = "lecNo")
-    private Lecture lecture;
-    private String regLecName;
-    private String regLecProName;
-    private String regLecCate;
-    private int regTotalScore;
-    private String regGrade;
-    private int regCredit;
-    private String regLecRoom;
-    private String regLecTime;
-
-
-    public RegisterDTO toDTO(){
-        return RegisterDTO.builder()
-                .regNo(regNo)
-                .regStdNo(String.valueOf(student))
-                .regLecNo(String.valueOf(lecture))
-                .regLecName(regLecName)
-                .regLecProName(regLecProName)
-                .regLecCate(regLecCate)
-                .regTotalScore(regTotalScore)
-                .regGrade(regGrade)
-                .regCredit(regCredit)
-                .regLecRoom(regLecRoom)
-                .regLecTime(regLecTime)
-                .build();
-    }
-
-     */
 
 
 }
