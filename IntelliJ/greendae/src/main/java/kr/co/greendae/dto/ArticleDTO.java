@@ -7,13 +7,13 @@ import lombok.*;
 
 import java.util.List;
 
-//@Data
-//@AllArgsConstructor
-//@NoArgsConstructor
-//@ToString
-//@Builder
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@Builder
 public class ArticleDTO {
-/*
+
     private int no;
     private String cate;    // Employ_Article에는 없음
     private String title;
@@ -31,6 +31,7 @@ public class ArticleDTO {
     // State_Article 내용 추가
     private String state;
 
+    /*
     // Entity 변환 메서드 정의
     public Basic_Article toBasicArticleEntity() {
         return Basic_Article.builder()
@@ -77,6 +78,6 @@ public class ArticleDTO {
                 .build();
     }
 
- */
+*/
 
 }

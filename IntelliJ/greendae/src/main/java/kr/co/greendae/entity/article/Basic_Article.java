@@ -10,15 +10,15 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.List;
 
-//@Data
-//@AllArgsConstructor
-//@NoArgsConstructor
-//@ToString
-//@Builder
-//@Entity
-//@Table(name = "Basic_Article")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@Builder
+@Entity
+@Table(name = "Basic_Article")
 public class Basic_Article {
-/*
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int no;
@@ -43,6 +43,7 @@ public class Basic_Article {
     @CreationTimestamp
     private String wdate;
 
+    /*
     public ArticleDTO toArticleDTO() {
         return ArticleDTO.builder()
                 .no(no)
