@@ -14,7 +14,7 @@ import java.util.Random;
 * */
 @SpringBootTest
 public class DepartmentData {
-
+/*
     @Autowired private DepartmentRepository departmentRepository;
     @Test
     public void depData(){
@@ -37,4 +37,6 @@ public class DepartmentData {
         System.out.println(no);
 
     }
+
+ */
 }

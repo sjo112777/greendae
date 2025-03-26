@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 * */
 @SpringBootTest
 public class Termsdata {
-
+/*
     @Autowired private TermsRepository termsRepository;
 
     @Test
@@ -211,5 +211,9 @@ public class Termsdata {
                 .build();
 
         termsRepository.save(terms);
+
+
     }
+*/
 }
+

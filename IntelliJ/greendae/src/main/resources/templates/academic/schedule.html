@@ -6,7 +6,7 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.1/index.global.min.js'></script>
     <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.1/locales/ko.global.js"></script>
     <title>그린대학교 학사일정</title>
-    <link rel="stylesheet" href="/greendae/css/layout/layout.css">
+    <link rel="stylesheet" href="/css/layout/layout.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.15/index.min.js"></script>
     <script>
 
@@ -24,7 +24,7 @@
 
                 // 🔹 FullCalendar가 API 데이터를 불러오는 부분
                 events: function (fetchInfo, successCallback, failureCallback) {
-                    fetch('/greendae/calendar/schedule')
+                    fetch('/calendar/schedule')
                         .then(response => {
                             if (!response.ok) {
                                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -66,10 +66,10 @@
             <div class="background">
                 <div>
                     <span style="margin-top: 10px;">
-                        <img src="/greendae/images/ico-home.png" alt="HOME">
-                        <img src="/greendae/images/bg-path-arrow.png" alt=">">
+                        <img src="/images/ico-home.png" alt="HOME">
+                        <img src="/images/bg-path-arrow.png" alt=">">
                         대학소개   
-                        <img src="/greendae/images/bg-path-arrow.png" alt=">">
+                        <img src="/images/bg-path-arrow.png" alt=">">
                         <span style="color: #071F4B;">학사일정</span>
                     </span>
                 </div>

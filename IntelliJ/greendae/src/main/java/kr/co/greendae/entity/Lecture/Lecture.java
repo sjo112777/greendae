@@ -40,7 +40,7 @@ public class Lecture {
     @ManyToOne
     @JoinColumn(name = "proNo")
     private Professor professor;  //담당교수
-
+    private String lecClass;
     private String lecName;  //과목명
     private String lecCate;  //과목 구분(전공선택)
     private int lecGrade;    //학년
