@@ -11,7 +11,9 @@ public class AcademicController {
 
     // 학사일정
     @GetMapping("/schedule")
-    public String schedule(){return "/academic/schedule";}
+    public String schedule(){
+        return "/academic/schedule";
+    }
 
     // 수강신청
     @GetMapping("/registration")

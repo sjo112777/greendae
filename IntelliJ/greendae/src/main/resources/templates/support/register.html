@@ -80,19 +80,25 @@
                                 <th>비고</th>
                                 <th>신청</th>
                             </tr>
-                            <tr th:each="lecture : ${lectureDTOList} ">
-                                <td>[[${lecture.lecClass}]]</td>
-                                <td>[[${lecture.lecCate}]]</td>
-                                <td>[[${lecture.lecGrade}]]</td>
-                                <td>[[${lecture.lecNo}]]</td>
-                                <td>[[${lecture.lecName}]]</td>
-                                <td>[[${lecture.lecCredit}]]</td>
-                                <td>[[${lecture.lecProName}]]</td>
-                                <td>[[${lecture.lecStdCount}]]</td>
-                                <td> </td>
-                                <td>
-                                    <button class="submit" th:data-lecNo="${lecture.lecNo}" onclick="registerLecture(this)">신청</button>
-                                </td>
+                            <tbody>
+                                <tr th:if="${#lists.isEmpty(lectureDTOList)}" style="text-align: center;">
+                                    <td colspan="9">수강 가능한 과목이 없습니다.</td>
+                                </tr>
+                                <tr th:each="lecture : ${lectureDTOList} ">
+                                    <td>[[${lecture.lecClass}]]</td>
+                                    <td>[[${lecture.lecCate}]]</td>
+                                    <td>[[${lecture.lecGrade}]]</td>
+                                    <td>[[${lecture.lecNo}]]</td>
+                                    <td>[[${lecture.lecName}]]</td>
+                                    <td>[[${lecture.lecCredit}]]</td>
+                                    <td>[[${lecture.proName}]]</td>
+                                    <td>[[${lecture.lecStdCount}]]</td>
+                                    <td> </td>
+                                    <td>
+                                        <button class="submit" th:data-lecNo="${lecture.lecNo}" onclick="registerLecture(this)">신청</button>
+                                    </td>
+                            </tbody>
+
                             </tr>
                         </table>
                     </div>
