@@ -34,9 +34,8 @@ jobs:
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          build-root-directory: IntelliJ/greendae
           name: app
-          path: ${{ env.JAR_FILE }}
+          path: IntelliJ/greendae/${{ env.JAR_FILE }}
 
   deploy:
     needs: build
