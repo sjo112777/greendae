@@ -14,9 +14,21 @@ public class CampusController {
     public String clubStudy(){
         return "/campus/club_study";
     }
-
+    //학생회 소개
     @GetMapping("/introduce")
     public String introduce(){
         return "/campus/introduce";
+    }
+
+    //식단안내
+    @GetMapping("/menu")
+    public String menu(){
+        return "/campus/menu";
+    }
+
+    //갤러리
+    @GetMapping("/gallery")
+    public String gallery(){
+        return "/campus/gallery";
     }
 }

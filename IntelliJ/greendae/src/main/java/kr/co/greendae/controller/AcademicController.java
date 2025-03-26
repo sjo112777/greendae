@@ -30,4 +30,16 @@ public class AcademicController {
     public String score(){
         return "/academic/grade";
     }
+
+    // 공지사항
+    @GetMapping("/notice")
+    public String notice(){
+        return "/academic/notice";
+    }
+
+    // 자주묻는질문
+    @GetMapping("/faq")
+    public String faq(){
+        return "/academic/faq";
+    }
 }
