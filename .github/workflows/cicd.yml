@@ -45,7 +45,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: app
-          path: build/libs/
+          path: IntelliJ/greendae/build/libs/
 
       - name: Setup SSH Key
         run: |
