@@ -66,20 +66,20 @@
                                 <tr>
                                     <th>아이디<span style="color: red;">*</span></th>
                                     <td>
-                                        <input type="text" name="id" placeholder="아이디 입력">
+                                        <input type="text" name="id" placeholder="아이디 입력" maxlength="10">
                                         <span style="margin-left: 10px; color: #333333;">영문·숫자 조합 4~10자 이내</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>비밀번호<span style="color: red;">*</span></th>
-                                    <td><input type="password" name="password" placeholder="비밀번호 입력">
+                                    <td><input type="password" name="password" placeholder="비밀번호 입력" maxlength="16">
                                     <span style="margin-left: 10px; color: #333333;">비밀번호는 8-16자리 이내, 영문ㆍ숫자ㆍ특수문자 조합</span>
                                     </td>
                                     
                                 </tr>
                                 <tr>
                                     <th>비밀번호 확인<span style="color: red;">*</span></th>
-                                    <td><input type="password" name="passwords" placeholder="비밀번호 확인입력"></td>
+                                    <td><input type="password" name="passwords" placeholder="비밀번호 확인입력" maxlength="16"></td>
                                 </tr>
                                 <tr>
                                     <th>이름<span style="color: red;">*</span></th>
@@ -93,11 +93,21 @@
                                 </tr>
                                 <tr>
                                     <th>휴대폰<span style="color: red;">*</span></th>
-                                    <td><input type="text" name="phone" placeholder="휴대폰 입력"></td>
+                                    <td><input type="text" name="phone" placeholder="휴대폰 입력" maxlength="13"></td>
                                 </tr>
                                 <tr>
                                     <th>이메일<span style="color: red;">*</span></th>
-                                    <td><input type="email" name="email" placeholder="이메일 입력"></td>
+                                    <td>
+                                        <input type="email" name="email" id="email" placeholder="이메일 입력">
+                                        <button type="button" id="sendCode" onclick="sendVerificationCode()">인증 요청</button>
+                                    </td>
+                                </tr>
+                                <tr id="verificationRow" style="display: none;">
+                                    <th>인증번호 입력<span style="color: red;">*</span></th>
+                                    <td>
+                                        <input type="text" name="verification_code" id="verification_code" placeholder="인증번호 입력">
+                                        <button type="button" id="verifyCode" onclick="verifyCode()">확인</button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th>주소</th>

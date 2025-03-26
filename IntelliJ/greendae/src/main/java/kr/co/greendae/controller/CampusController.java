@@ -1,5 +1,6 @@
 package kr.co.greendae.controller;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,5 +19,10 @@ public class CampusController {
     @GetMapping("/introduce")
     public String introduce(){
         return "/campus/introduce";
+    }
+
+    @GetMapping("/gallery")
+    public String gallery(){
+        return "/campus/gallery";
     }
 }
