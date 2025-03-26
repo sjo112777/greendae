@@ -20,7 +20,7 @@ public class Register {
     private int regNo;
 
     @ManyToOne
-    @JoinColumn(name = "regStdNo")
+    @JoinColumn(name = "regStdNo", referencedColumnName = "stdNo")
     private Student student;
 
     /*
@@ -35,8 +35,9 @@ public class Register {
     * */
 
     @ManyToOne
-    @JoinColumn(name = "regLecNo")
+    @JoinColumn(name = "regLecNo", referencedColumnName = "lecNo")
     private Lecture lecture;
+
     private String regAttenScore; // 출석점수
     private String regMidScore;   // 중간고수 점수
     private String regFinalScore; // 기말고수 점수
@@ -44,7 +45,6 @@ public class Register {
     private int regTotalScore;    // 총점
     private String regYear;
     private String regSemester;
-    // private int regCredit;        // 학점
     private String regGradeScore; //A,B,C,D,E
 
     /*
