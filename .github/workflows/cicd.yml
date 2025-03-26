@@ -35,7 +35,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app
-          path: IntelliJ/greendae/${{ env.JAR_FILE }}
+          path: ${{ env.JAR_FILE }}  # JAR 파일 경로가 정확한지 확인
 
   deploy:
     needs: build
@@ -45,7 +45,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: app
-          path: IntelliJ/greendae/build/libs/
+          path: IntelliJ/greendae/build/libs/  # 정확한 경로로 다운로드
 
       - name: Setup SSH Key
         run: |
@@ -59,10 +59,10 @@ jobs:
             -o StrictHostKeyChecking=no \
             $JAR_FILE \
             ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_HOST }}:/home/${{ secrets.AWS_EC2_USER }}/
-      
+
       - name: Restart Spring Application on EC2
         run: |
-          JAR_FILE=$(basename $(ls build/libs/*.jar | head -n 1))
+          JAR_FILE=$(basename $(ls IntelliJ/greendae/build/libs/*.jar | head -n 1))
           ssh -i private_key.pem \
             -o StrictHostKeyChecking=no \
             ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_HOST }} << EOF
