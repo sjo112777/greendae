@@ -82,11 +82,12 @@ header > div > div{
 header > div > div > p{
     float: right;
     margin-top: 2px;
-} 
+}
 
 header > div > div > p > a{
-    color: white;  
+    color: white;
     margin-left: 10px;
+    font-size: 12px;
 }
 
 header > div:nth-child(2) img{

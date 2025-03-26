@@ -3,6 +3,7 @@ package kr.co.greendae.service;
 
 import kr.co.greendae.dto.support.LectureDTO;
 import kr.co.greendae.dto.support.RegisterDTO;
+import kr.co.greendae.dto.support.StudentDTO;
 import kr.co.greendae.entity.Lecture.Lecture;
 import kr.co.greendae.repository.support.LectureRepository;
 import kr.co.greendae.repository.support.RegisterRepository;
@@ -96,6 +97,21 @@ public class SupportService {
         return gradeDTOList;
     }
 
+    public List<StudentDTO> findRecordByStdNo(@Param("stdNo") String stdNo) {
+        List<Object[]> optRecordStd = studentRepository.findRecordByStdNo(stdNo);
+        log.info("optRecordStd : {}", optRecordStd);
+
+        /*
+        List<StudentDTO> recordList = optRecordStd.stream().map(obj -> {
+            StudentDTO studentDTO = modelMapper.map(obj, StudentDTO.class);
+            studentDTO.getStdNo((String) obj[0]);
+
+        })
+
+         */
+        return null;
+    }
+
     public void findByName(){}
 
     public void findByClassName(){}
@@ -103,6 +119,5 @@ public class SupportService {
     public void findByProfessor(){}
 
     public void modify(){}
-
 
 }

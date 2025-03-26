@@ -2,6 +2,7 @@ package kr.co.greendae.controller;
 
 import kr.co.greendae.dto.support.LectureDTO;
 import kr.co.greendae.dto.support.RegisterDTO;
+import kr.co.greendae.dto.support.StudentDTO;
 import kr.co.greendae.service.SupportService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +32,14 @@ public class SupportController {
     //성적
     @GetMapping("/grade")
     public String grade(){
+        return "/support/grade";
+    }
+    @GetMapping("/grade/{stdNo}")
+    public String gradeByStdNo(@PathVariable String stdNo, Model model){
+        List<RegisterDTO> gradeList = supportService.findGradeByStdNo(stdNo);
+
+        model.addAttribute("gradeList", gradeList);
+
         return "/support/grade";
     }
 
@@ -66,6 +75,15 @@ public class SupportController {
     //학적
     @GetMapping("/record")
     public String record(){
+        return "/support/record";
+    }
+    @GetMapping("/record/{stdNo}")
+    public String recordByStdNo(@PathVariable String stdNo, Model model){
+        log.info("stdNo: " + stdNo);
+
+        List<StudentDTO> studentList = supportService.findRecordByStdNo(stdNo);
+        model.addAttribute("studentList", studentList);
+
         return "/support/record";
     }
 

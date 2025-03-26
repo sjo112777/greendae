@@ -3,20 +3,20 @@
     <div class="side_title">
       <p>학생지원</p>
     </div>
-    <a href="#">
-      <div>수강신청</div>
+    <a th:href="@{/support/register}">
+      <div id="register">수강신청</div>
     </a>
-    <a href="#">
-      <div>수강신청내역</div>
+    <a th:href="@{/support/register_list}">
+      <div id="list">수강신청내역</div>
     </a>
     <a th:href="@{/support/classes}">
       <div id="classes">교과과정</div>
     </a>
-    <a href="#">
-      <div>성적조회</div>
+    <a th:href="@{/support/grade}">
+      <div id="grade">성적조회</div>
     </a>
-    <a href="#">
-      <div>학적</div>
+    <a th:href="@{/support/record}">
+      <div id="record">학적</div>
     </a>
   </article>
 </aside>
@@ -27,6 +27,14 @@
 
     if (path.includes("classes")) {
       document.getElementById("classes").classList.add("active");
+    }else if (path.includes("register")) {
+      document.getElementById("register").classList.add("active");
+    }else if (path.includes("list")) {
+      document.getElementById("list").classList.add("active");
+    }else if (path.includes("grade")) {
+      document.getElementById("grade").classList.add("active");
+    }else if (path.includes("record")) {
+      document.getElementById("record").classList.add("active");
     }
   });
 </script>

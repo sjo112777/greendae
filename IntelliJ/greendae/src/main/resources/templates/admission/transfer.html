@@ -10,7 +10,7 @@
 </head>
 <body>
     <div id="wrapper">
-        <th:block th:include="/admission/_header.html"/>
+        <th:block th:include="/inc/_header.html"/>
         <!-- 메인 시작작-->
         <main>
             <div class="background">
@@ -26,28 +26,7 @@
             </div>
             <section class="content">
                 <!-- 왼쪽 사이드바 -->
-                <aside class="sidebar">
-                    <article class="side_content">             
-                        <div class="side_title">
-                            <p>입학안내</p>
-                        </div>
-                        <a th:href="@{/admission/early}">
-                            <div>공지사항</div>
-                        </a>
-                        <a th:href="@{/admission/early}">
-                            <div>수시모집</div>
-                        </a>
-                        <a th:href="@{/admission/regular}">
-                            <div>정시모집</div>
-                        </a>
-                        <a th:href="@{/admission/transfer}">
-                            <div>편입학</div>
-                        </a>
-                        <a th:href="@{/admission/early}">
-                            <div>입학상담</div>
-                        </a>
-                    </article>
-                </aside>
+                <th:block th:include="/inc/admission/_sidebar.html"/>
                 <!-- 오른쪽 글 -->
                 <article class="main_content">
                     <div class="main_title">
@@ -61,7 +40,7 @@
             </section>
         </main>
         <!-- 메인 끝-->
-            <th:block th:include="/admission/_footer.html"/>
+        <th:block th:include="/inc/_footer.html"/>
     </div>
 </body>
 </html>
