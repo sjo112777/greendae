@@ -23,14 +23,11 @@ public class WebConfig implements WebMvcConfigurer {
     }
 */
 
-
     private final AppInfo appInfo;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AppInfoInterceptor(appInfo));
     }
-
-
 
 }
