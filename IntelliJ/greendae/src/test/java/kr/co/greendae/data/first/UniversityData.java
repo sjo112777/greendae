@@ -13,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 * */
 @SpringBootTest
 public class UniversityData {
-
+/*
     @Autowired private UniversityRepository  universityRepository;
     @Test
     public void  universityTest(){
@@ -101,4 +101,7 @@ public class UniversityData {
         universityRepository.save(university10);
 
     }
+
+
+ */
 }

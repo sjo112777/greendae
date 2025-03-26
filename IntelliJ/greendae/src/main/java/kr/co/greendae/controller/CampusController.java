@@ -15,4 +15,8 @@ public class CampusController {
         return "/campus/club_study";
     }
 
+    @GetMapping("/introduce")
+    public String introduce(){
+        return "/campus/introduce";
+    }
 }

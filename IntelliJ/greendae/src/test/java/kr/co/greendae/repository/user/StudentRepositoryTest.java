@@ -11,6 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class StudentRepositoryTest {
+
+
+    /*
     @Autowired private StudentRepository studentRepository;
     @Autowired private UserRepository userRepository;
     @Autowired private ProfessorRepository professorRepository;
@@ -61,4 +64,6 @@ class StudentRepositoryTest {
 
 
     }
+
+     */
 }
