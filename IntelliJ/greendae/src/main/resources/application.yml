@@ -13,6 +13,18 @@ server:
     servlet:
         context-path: /
 spring:
+    mail:
+        host: smtp.gmail.com
+        port: 587
+        username: wkdalsgur5556@gmail.com
+        password: mekvhlulqwvlgcjj
+        properties:
+            mail:
+                smtp:
+                    auth: true
+                    timeout: 5000
+                    starttls:
+                        enable: true
     application:
         name: greendae
         version: version 0.0.5
