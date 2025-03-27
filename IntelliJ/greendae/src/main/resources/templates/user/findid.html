@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>그린대학교 아이디 찾기</title>
-    <link rel="stylesheet" href="/css/layout/layout.css">
-    <link rel="stylesheet" href="/css/user/findid.css">
+    <link rel="stylesheet" href="/greendae/css/layout/layout.css">
+    <link rel="stylesheet" href="/greendae//css/user/findid.css">
     
 
 </head>
@@ -13,42 +13,44 @@
     <div id="wrapper">
         <!-- 헤더 시작작-->
         <th:block th:include="/inc/_header.html"/>
+      
         <!-- 헤더 끝-->
         <!-- 메인 시작작-->
         <main>
             <div class="background">
                 <div>
                     <span style="margin-top: 10px;">
-                        <img src="/images/ico-home.png" alt="HOME">
-                        <img src="/images/bg-path-arrow.png" alt=">">
+                        <img src="/greendae/images/ico-home.png" alt="HOME">
+                        <img src="/greendae/images/bg-path-arrow.png" alt=">">
                         회원   
-                        <img src="/images/bg-path-arrow.png" alt=">">
+                        <img src="/greendae/images/bg-path-arrow.png" alt=">">
                         <span style="color: #071F4B;">아이디 찾기</span>
                     </span>
                 </div>
             </div>
-            <section id="find-id">
+            <section id="find-pw">
                 <h2>아이디 찾기</h2>
-                <p>가입 시 등록한 이름과 이메일 주소를 입력해 주세요.</p>
+                <p style="text-align: center;">가입 시 등록한 아이디와 이메일 주소를 입력해 주세요.</p>
         
-                <form id="find-id-form">
+                <form id="find-pw-form">
                     <div class="input-box">
-                        <input type="text" id="user-name" placeholder="이름 입력" required>
+                        <input type="text" id="user-id" placeholder="이름 입력" required>
                     </div>
                     <div class="input-box">
                         <input type="email" id="user-email" placeholder="이메일 주소 입력" required>
                     </div>
                     <div class="btn-container">
                         <button type="button" class="btn cancel-btn">취소</button>
-                        <button type="submit" class="btn next-btn">아이디 찾기</button>
+                        <button type="submit" class="btn login-btn">아이디 찾기</button>
                     </div>
                 </form>
         
                 <div id="result-message"></div>
             </section>
         </main>
+    
         <th:block th:include="/inc/_footer.html"/>
-            <!-- 푸터 끝-->
+        <!-- 푸터 끝-->
         </div>
         </body>
         </html>

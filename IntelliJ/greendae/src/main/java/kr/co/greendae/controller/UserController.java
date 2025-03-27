@@ -1,6 +1,7 @@
 package kr.co.greendae.controller;
 
 
+import org.hibernate.tool.schema.internal.SchemaTruncatorImpl;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,6 +50,8 @@ public class UserController {
     public String termsandconditions(){
         return "/user/termsandconditions";
     }
+
+
 
 
 }

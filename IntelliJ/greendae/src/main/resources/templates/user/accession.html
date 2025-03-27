@@ -4,25 +4,56 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>그린대학교 로그인</title>
-        <link rel="stylesheet" href="/css/layout/layout.css">
-        <link rel="stylesheet" href="/css/user/accession.css">
-        <link rel="stylesheet" href="/js/accession.js">
+        <link rel="stylesheet" href="/greendae/css/layout/layout.css">
+        <link rel="stylesheet" href="/greendae/css/user/accession.css">
+        <link rel="stylesheet" href="/greendae/js/accession.js">
 
     </head>
     <body>
         <div id="wrapper">
             <!-- 헤더 시작작-->
+
+            <header>
+                <div>
+                    <div>
+                        <p>
+                            <a href="#">HOME |</a>
+                            <a href="#">사이드맵 |</a>
+                            <a href="#">로그인 |</a>
+                            <a href="#">학생지원</a>
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <a href="#">
+                            <img src="/greendae/images/header_logo.png" alt="그린대학교">
+                        </a>
+                        <nav> 
+                            <ul>
+                                <li><a href="#">대학소개</a></li>
+                                <li><a href="#">입학안내</a></li>
+                                <li><a href="#">대학·대학원</a></li>
+                                <li><a href="#">학사안내</a></li>
+                                <li><a href="#">대학생활</a></li>
+                                <li><a href="#">커뮤니티</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
             <th:block th:include="/inc/_header.html"/>
+
             <!-- 헤더 끝-->
             <!-- 메인 시작작-->
             <main>
                 <div class="background">
                     <div>
                         <span style="margin-top: 10px;">
-                            <img src="/images/ico-home.png" alt="HOME">
-                            <img src="/images/bg-path-arrow.png" alt=">">
+                            <img src="/greendae/images/ico-home.png" alt="HOME">
+                            <img src="/greendae/images/bg-path-arrow.png" alt=">">
                             회원   
-                            <img src="/images/bg-path-arrow.png" alt=">">
+                            <img src="/greendae/images/bg-path-arrow.png" alt=">">
                             <span style="color: #071F4B;">회원가입</span>
                         </span>
                     </div>
@@ -56,12 +87,6 @@
                                 <tr>
                                     <th>이름<span style="color: red;">*</span></th>
                                     <td><input type="text" name="name" placeholder="이름 입력"></td>
-                                </tr>
-                                <tr>
-                                    <th>주민번호<span style="color: red;">*</span></th>
-                                    <td><input type="text" name="jumin_number" placeholder="예) 970977-777777" maxlength="14">
-                                    <span style="margin-left: 10px; color: #333333;">주민번호를 정확히 입력하세요.</span>
-                                    </td>
                                 </tr>
                                 <tr>
                                     <th>휴대폰<span style="color: red;">*</span></th>
@@ -101,8 +126,9 @@
                     </div>                
                 </div> 
             </main>
-        <footer>
-            <th:block th:include="/inc/_footer.html"/>
+        
+        <!-- 푸터끝-->
+        <th:block th:include="/inc/_footer.html"/>
         <!-- 푸터 끝-->
     </div>
     </body>
