@@ -82,7 +82,10 @@ public class SupportController {
         log.info("stdNo: " + stdNo);
 
         List<StudentDTO> studentList = supportService.findRecordByStdNo(stdNo);
-        model.addAttribute("studentList", studentList);
+
+        if(!studentList.isEmpty()){
+            model.addAttribute("studentList", studentList);
+        }
 
         return "/support/record";
     }

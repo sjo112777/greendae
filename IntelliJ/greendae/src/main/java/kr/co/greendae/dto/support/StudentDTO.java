@@ -10,14 +10,24 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class StudentDTO {
-    private String stdNo;       //학번
-    private String admission_type;
-    private String admission_year;
-    private String graduation_year;
-    private String stdSemester;
-    private int stdYear;
-    private int deptNo;
-    private String prodNo;
-    private String uid;
+
+    private String uid;             //아이디
+    private String stdNo;           //학번
+    private String admission_year;  //입학년도
+    private String graduation_year; //졸업년도
+    private String admission_type;  //입학구분(수시, 정시)
+    private int stdYear;            //학년
+    private String stdSemester;     //학기
+    private String stdClass;        //학과
+    private String major;           //전공
+    private String advisor;         //지도교수
+    private String stdStatus;       //재학상태
+
+    //추가필드
+
+    private String name;
+    private String email;
+    private String hp;
+    private String ssn;
 
 }

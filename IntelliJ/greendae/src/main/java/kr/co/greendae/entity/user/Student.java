@@ -34,7 +34,7 @@ public class Student {
     @JoinColumn(name = "deptNo")
     private Department department;
     // private String major;           //전공 예)(인문사회대학)
-    // private String stdClass;        //학과 예)(영어영문학과)
+    private String stdClass;        //학과 예)(영어영문학과)
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "prodNo")
