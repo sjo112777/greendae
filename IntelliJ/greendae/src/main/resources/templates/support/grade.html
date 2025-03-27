@@ -39,6 +39,28 @@
                         </select>
                         <span style="color: #666666;">년</span>
                         <select name="semester_quarter" id="semester_quarter" onchange="updateCourseList()">
+                            <script>
+                                const semesterData = {
+                                    "2025": ["1", "2"],
+                                    "2024": ["1", "2"],
+                                    "2023": ["1", "2"]
+                                };
+
+                                function updateSemester(){
+                                    let year = document.getElementById("semester_year").value;  //선택 년도
+                                    let semesterSelect = document.getElementById("semester_quarter"); //학기
+                                    semesterSelect.innerHTML = "";  //기존 옵션 삭제
+
+                                    //새로운 학기 옵션
+                                    semesterData[year].forEach(semester => {
+                                        let option = document.createElement("option");
+                                        option.value = semester;
+                                        option.textContent = semester;
+                                        semesterSelect.appendChild(option);
+                                    });
+                                }
+                                window.onload = updateSemester;
+                            </script>
                         </select>
                         <span style="color: #666666;">학기</span>
                     </div>

@@ -16,7 +16,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -101,15 +100,26 @@ public class SupportService {
         List<Object[]> optRecordStd = studentRepository.findRecordByStdNo(stdNo);
         log.info("optRecordStd : {}", optRecordStd);
 
-        /*
+
         List<StudentDTO> recordList = optRecordStd.stream().map(obj -> {
             StudentDTO studentDTO = modelMapper.map(obj, StudentDTO.class);
-            studentDTO.getStdNo((String) obj[0]);
+            studentDTO.setStdNo((String) obj[0]);
+            studentDTO.setStdYear((Integer) obj[1]);
+            studentDTO.setStdSemester((String) obj[2]);
+            studentDTO.setStdClass((String) obj[3]);
+            studentDTO.setStdStatus((String) obj[4]);
+            studentDTO.setName((String) obj[5]);
+            studentDTO.setHp((String) obj[6]);
+            studentDTO.setEmail((String) obj[7]);
+            studentDTO.setSsn((String) obj[8]);
 
-        })
+            return studentDTO;
 
-         */
-        return null;
+        }).collect(Collectors.toList());
+
+        log.info("recordList : {}", recordList);
+
+        return recordList;
     }
 
     public void findByName(){}
