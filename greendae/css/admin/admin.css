@@ -485,3 +485,43 @@ main{
     font-size: 15px;
     color: #145074;
 }
+
+.basic_info{
+    border-collapse: collapse;
+    border-top: 2px solid #8798A3;
+}
+
+.basic_info tr td:nth-child(1){
+    width: 217px;
+    height: 48px;
+    background-color: #FAFAFA;
+    border: 1px solid #E5E5E5;
+}
+
+.basic_info tr td:nth-child(2){
+    width: 290px;
+    height: 48px;
+    font-size: 13px;
+    font-weight: 350;
+    color : #BC2E13;
+    border: 1px solid #E5E5E5;
+}
+
+.basic_info tr td:nth-child(3){
+    width: 217px;
+    height: 48px;
+    background-color: #FAFAFA;
+    border: 1px solid #E5E5E5;
+}
+
+.basic_info tr td:nth-child(4){
+    width: 290px;
+    height: 48px;
+    border: 1px solid #E5E5E5;
+}
+
+.basic_info tr:nth-last-child(1) td{
+    height: 143px;
+}
+
+

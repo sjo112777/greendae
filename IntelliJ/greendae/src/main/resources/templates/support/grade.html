@@ -9,37 +9,7 @@
 </head>
 <body>
     <div id="wrapper">
-        <!-- 헤더 시작작-->
-        <header>
-            <div>
-                <div>
-                    <p>
-                        <a href="#">HOME |</a>
-                        <a href="#">사이드맵 |</a>
-                        <a href="#">로그인 |</a>
-                        <a href="#">학생지원</a>
-                    </p>
-                </div>
-            </div>
-            <div>
-                <div>
-                    <a href="#">
-                        <img src="/images/header_logo.png" alt="그린대학교">
-                    </a>
-                    <nav> 
-                        <ul>
-                            <li><a href="#">대학소개</a></li>
-                            <li><a href="#">입학안내</a></li>
-                            <li><a href="#">대학·대학원</a></li>
-                            <li><a href="#">학사안내</a></li>
-                            <li><a href="#">대학생활</a></li>
-                            <li><a href="#">커뮤니티</a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </header>
-        <!-- 헤더 끝-->
+        <th:block th:include="/inc/_header.html"/>
         <!-- 메인 시작작-->
         <main>
             <div class="background">
@@ -55,28 +25,7 @@
             </div>
             <section class="content">
                 <!-- 왼쪽 사이드바 -->
-                <aside class="sidebar">
-                    <article class="side_content">             
-                        <div class="side_title">
-                            <p>학생지원</p>
-                        </div>
-                        <a th:href="@{/support/register}">
-                            <div>수강신청</div>
-                        </a>
-                        <a th:href="@{/support/register_list}">
-                            <div>수강신청내역</div>
-                        </a>
-                        <a th:href="@{/support/classes}">
-                            <div>교과과정</div>
-                        </a>
-                        <a th:href="@{/support/grade}">
-                            <div>성적조회</div>
-                        </a>
-                        <a th:href="@{/support/record}">
-                            <div>학적</div>
-                        </a>
-                    </article>
-                </aside>
+                <th:block th:include="/inc/support/sidebar.html"/>
                 <!-- 오른쪽 글 -->
                 <article class="main_content">
                     <div class="main_title">
@@ -119,7 +68,7 @@
                                     <td>[[${grade.regLecNo}]]</td>
                                     <td>[[${grade.lecName}]]</td>
                                     <td>[[${grade.lecGrade}]]</td>
-                                    <td>[[${grade.lecProName}]]</td>
+                                    <td>[[${grade.proName}]]</td>
                                     <td>[[${grade.lecCate}]]</td>
                                     <td>[[${grade.regTotalScore}]]</td>
                                     <td>[[${grade.regGradeScore}]]</td>
@@ -177,39 +126,7 @@
         <script th:src="@{/static/js/grade.js}" type="application/javascript"></script>
 
         <!-- 메인 끝-->
-        <!-- 푸터 시작작-->
-        <footer>
-            <div>
-                <div>
-                    <ul>
-                        <li><a href="#">개인정보처리방침</a></li>
-                        <li><a href="#">통합정보시스템</a></li>
-                        <li><a href="#">학사일정</a></li>
-                        <li><a href="#">주요인원 연락처</a></li>
-                        <li><a href="#">교내공지사항</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div>
-                <div>
-                    <img src="/images/footer_logo.png" alt="그린대학교">
-                    <p>
-                        그린대학교 <br>
-                        [12345] 부산광역시 부산진구 부전대로 123 그린대학교 / 대표전화 : 051-123-1000 / <br>
-                        입학안내 : 051-123-1302 팩스 : 051-123-3333
-
-                        <br><br>
-                        copyright ©Green University All rights reserved.
-                    </p>
-                    <div>
-                        <p>주요사이트  
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ▾</p>
-                    </div>              
-                </div>
-            </div>
-        </footer>
-        <!-- 푸터 끝-->
+        <th:block th:include="/inc/_footer.html"/>
     </div>
 </body>
 </html>

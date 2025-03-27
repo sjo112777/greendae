@@ -6,12 +6,11 @@
     <link rel="stylesheet" href="/css/layout/organizationchart.css">
     <link rel="stylesheet" href="/css/layout/layout.css">
     <title>조직도</title>
-   
 </head>
 <body>
     <div id="wrapper">
         <!-- 헤더 시작작-->
-        <th:block th:replace="~{inc/_header}"></th:block>
+        <th:block th:include="/inc/_header.html"/>
         <!-- 헤더 끝-->
         <!-- 메인 시작작-->
         <main>
@@ -28,7 +27,7 @@
             </div>
             <section class="content">
                 <!-- 왼쪽 사이드바 -->
-                <th:block th:replace="~{inc/intro/sidebar}"></th:block>
+                <th:block th:include="/inc/intro/sidebar.html"/>
                 <!-- 오른쪽 글 -->
                 <article class="main_content">
                     <div class="main_title">
@@ -37,14 +36,14 @@
                     <div class="main_content_detail">
                         <div>
                             <img src="/images/organization.PNG" alt="조직도">
-                        </div>                    
-                        
+                        </div>
                     </div>
                 </article>
+            </section>
         </main>
         <!-- 메인 끝-->
         <!-- 푸터 시작작-->
-        <th:block th:replace="~{inc/_footer}"></th:block>
+        <th:block th:include="/inc/_footer.html"/>
         <!-- 푸터 끝-->
     </div>
 </body>

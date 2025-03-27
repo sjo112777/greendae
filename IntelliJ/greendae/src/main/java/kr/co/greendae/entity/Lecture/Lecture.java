@@ -52,59 +52,5 @@ public class Lecture {
     private String book;     //교재(출판사 - 도서명 - 저자 입력)
     private String lecSchedule; // 수강기간(mm/dd/yy)
 
-    /*
-    @OneToMany(mappedBy = "lecture", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Register> registers = new ArrayList<>();
-
-    public LectureDTO toLectureDTO(){
-        return LectureDTO.builder()
-                .lecNo(lecNo)
-                .lecName(lecName)
-                .lecCate(lecCate)
-                .lecGrade(lecGrade)
-                .lecProName(lecProName)
-                .lecCredit(lecCredit)
-                .lecStdCount(lecStdCount)
-                .lecClass(lecClass)
-                .lecRoom(lecRoom)
-                .lecTime(lecTime)
-                .build();
-    }
-*/
-
-    /*
-    @Id
-    private int lecNo;
-
-    private String lecName;
-    private String lecCate;
-    private int lecGrade;
-    private String lecProName;
-    private int lecCredit;
-    private int lecStdNo;
-    private String lecClass;
-    private String lecRoom;
-    private String lecTime;
-
-    @OneToMany(mappedBy = "lecture", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Register> registers;
-
-    public LectureDTO toDTO(){
-        return LectureDTO.builder()
-                .lecNo(lecNo)
-                .lecName(lecName)
-                .lecCate(lecCate)
-                .lecGrade(lecGrade)
-                .lecProName(lecProName)
-                .lecCredit(lecCredit)
-                .lecStdNo(lecStdNo)
-                .lecClass(lecClass)
-                .lecRoom(lecRoom)
-                .lecTime(lecTime)
-                .build();
-    }
-
-     */
-
 
 }

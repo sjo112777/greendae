@@ -15,7 +15,7 @@ server:
 spring:
     application:
         name: greendae
-        version: ${version}
+        version: version 0.0.5
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
         password: Qwerty123@
@@ -34,3 +34,5 @@ spring:
             hibernate:
                 format_sql: true
                 show_sql: true
+    thymeleaf:
+        prefix: classpath:/templates

@@ -1,8 +1,12 @@
 package kr.co.greendae.entity.user;
 
 import jakarta.persistence.*;
+import kr.co.greendae.entity.Lecture.Register;
 import kr.co.greendae.entity.department.Department;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -36,4 +40,5 @@ public class Student {
     @JoinColumn(name = "prodNo")
     private Professor professor;         //지도교수
     private String stdStatus;       //재학상태
+
 }

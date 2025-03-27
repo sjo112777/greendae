@@ -6,12 +6,11 @@ h5 {
     font-weight: 500;
     font-size: 18px;
     line-height: 100%;
-    letter-spacing: 0%;
     vertical-align: middle;
     color: #145074;
 }
 .main_content > div > h5::before {
-content: url('/greendae/images/bullet-h4.png');
+    content: url('/static/images/bullet-h4.png');
 }
 .standard h5 {
     margin-top: 40px;

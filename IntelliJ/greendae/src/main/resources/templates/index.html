@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>그린대학교</title>
-    <link rel="stylesheet" th:href="@{css/layout/index.css}">
+    <link rel="stylesheet" th:href="@{/css/layout/index.css}">
 </head>
 <body>
     <div id="wrapper">
         <!-- 헤더 시작작-->
-        <th:block th:replace="~{inc/_header}"></th:block>
+        <th:block th:include="/inc/_header.html"/>
         <!-- 헤더 끝-->
         <!-- 메인 시작작-->
         <main>
@@ -266,7 +266,7 @@
         </main>
         <!-- 메인 끝-->
         <!-- 푸터 시작-->
-        <th:block th:replace="~{inc/_footer}"></th:block>
+        <th:block th:include="/inc/_footer.html"/>
         <!-- 푸터 끝-->
     </div>
 </body>

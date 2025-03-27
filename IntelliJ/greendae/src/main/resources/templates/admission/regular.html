@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수시모집</title>
+    <link rel="stylesheet" href="/css/layout/layout.css">
+    <link rel="stylesheet" href="/css/admission/early.css">
+
+</head>
+<body>
+    <div id="wrapper">
+        <th:block th:include="/inc/_header.html"/>
+        <!-- 메인 시작작-->
+        <main>
+            <div class="background">
+                <div>
+                    <span style="margin-top: 10px;">
+                        <img src="/images/ico-home.png" alt="HOME">
+                        <img src="/images/bg-path-arrow.png" alt=">">
+                        입학안내
+                        <img src="/images/bg-path-arrow.png" alt=">">
+                        <span style="color: #071F4B;">수시모집</span>
+                    </span>
+                </div>
+            </div>
+            <section class="content">
+                <!-- 왼쪽 사이드바 -->
+                <th:block th:include="/inc/admission/_sidebar.html"/>
+                <!-- 오른쪽 글 -->
+                <article class="main_content">
+                    <div class="main_title">
+                        <p>수시모집</p>
+                    </div>
+                    <div class="pdf">
+                        <h1>수시모집.pdf</h1>
+                        <iframe th:src="@{/pdf/regular.pdf}" width="880px" height="1200px" style="margin-left: 20px"></iframe>
+                    </div>
+                </article>
+            </section>
+        </main>
+        <!-- 메인 끝-->
+        <th:block th:include="/inc/_footer.html"/>
+    </div>
+</body>
+</html>

@@ -2,16 +2,16 @@
     <div>
         <div>
             <p>
-                <a href="#">HOME |</a>
-                <a href="#">사이드맵 |</a>
-                <a href="#">로그인 |</a>
-                <a href="#">학생지원</a>
+                <a th:href="@{/}" style="white-space: pre;">HOME     |</a>
+                <a th:href="@{/intro/location}" style="white-space: pre;">사이드맵     |</a>
+                <a th:href="@{/user/login}" style="white-space: pre;">로그인     |</a>
+                <a th:href="@{/support/classes}" >학생지원</a>
             </p>
         </div>
     </div>
     <div>
         <div>
-            <a href="#">
+            <a th:href="@{/}">
                 <img th:src="@{/images/header_logo.png}" alt="그린대학교">
             </a>
             <nav>
