@@ -1,5 +1,6 @@
 package kr.co.greendae.repository.user;
 
+import kr.co.greendae.dto.user.UserDTO;
 import kr.co.greendae.entity.user.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,4 +17,6 @@ public interface StudentRepository extends JpaRepository<Student, String> {
             "join Student as s on u.uid = s.user.uid " +
             "where s.stdNo = :stdNo")
     public List<Object[]> findRecordByStdNo(@Param("stdNo") String stdNo);
+
+    UserDTO findByUid(String uid);
 }

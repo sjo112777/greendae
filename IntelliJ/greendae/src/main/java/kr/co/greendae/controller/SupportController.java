@@ -2,6 +2,7 @@ package kr.co.greendae.controller;
 
 import kr.co.greendae.dto.support.LectureDTO;
 import kr.co.greendae.dto.support.RegisterDTO;
+
 import kr.co.greendae.dto.support.StudentDTO;
 import kr.co.greendae.service.SupportService;
 import lombok.RequiredArgsConstructor;
@@ -77,17 +78,25 @@ public class SupportController {
     public String record(){
         return "/support/record";
     }
+
     @GetMapping("/record/{stdNo}")
     public String recordByStdNo(@PathVariable String stdNo, Model model){
         log.info("stdNo: " + stdNo);
 
+
+
         List<StudentDTO> studentList = supportService.findRecordByStdNo(stdNo);
+
+        SupportService.CreditSummary creditSummary = supportService.calculateCredits(stdNo);
 
         if(!studentList.isEmpty()){
             model.addAttribute("student", studentList.get(0));
+            model.addAttribute("creditSummary", creditSummary);
+
         }
 
         return "/support/record";
     }
+
 
 }
