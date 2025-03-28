@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import kr.co.greendae.dto.user.TermsDTO;
 import kr.co.greendae.dto.user.UserDTO;
+import kr.co.greendae.entity.user.User;
 import kr.co.greendae.service.TermsService;
 import kr.co.greendae.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,7 +64,7 @@ public class UserController {
         return ResponseEntity.ok().body(false);
     }
 
-    @PostMapping("/user/accession")
+    @PostMapping("/accession")
     public String accession(HttpServletRequest req, UserDTO userDTO){
 
         String regip = req.getRemoteAddr();
@@ -86,6 +88,44 @@ public class UserController {
         return "/user/findid";
     }
 
+    @PostMapping("/findid")
+    public ResponseEntity<?> findId(@RequestBody Map<String, String> map, HttpSession session) {
+        String userName = map.get("name");  // 사용자가 입력한 이름
+        String userEmail = map.get("email");  // 사용자가 입력한 이메일
+
+        log.info("아이디 찾기 요청 - 이름: {}, 이메일: {}", userName, userEmail);
+
+        // 아이디 찾기 로직 (예: 이메일 인증 코드 전송)
+        String authCode = userService.sendFindIdEmailCode(userEmail, userName);
+
+        System.out.println(authCode);
+        System.out.println(authCode);
+        System.out.println(authCode);
+        // 세션에 인증 코드 저장
+        session.setAttribute("authCode", authCode);
+
+        return ResponseEntity.ok().body(Collections.singletonMap("message", "인증코드를 이메일로 전송했습니다."));
+    }
+
+
+
+    @PostMapping("/findid/auth")
+    public ResponseEntity<Boolean> findIdAuth(@RequestBody Map<String, String> map, HttpSession session) {
+        String authCode = map.get("authCode");  // 사용자가 입력한 인증 코드
+        log.info("아이디 찾기 인증 코드: {}", authCode);
+
+        // 세션에서 저장된 인증 코드 가져오기
+        String sessionAuthCode = (String) session.getAttribute("findIdAuthCode");
+        log.info("세션 인증 코드: {}", sessionAuthCode);
+
+        // 인증 코드 비교
+        if (authCode != null && authCode.equals(sessionAuthCode)) {
+            return ResponseEntity.ok().body(true);  // 인증 성공
+        }
+
+        return ResponseEntity.ok().body(false);  // 인증 실패
+    }
+
     @GetMapping("/findpassword")
     public String findpassword(){
         return "/user/findpassword";
@@ -104,6 +144,23 @@ public class UserController {
     @GetMapping("/lookupresult")
     public String lookupresult(){
         return "/user/lookupresult";
+    }
+
+    @PostMapping("/lookupresult")
+    public String lookupresult(@RequestBody String name, Model model){
+
+        try {
+    //        User user = userService.findUserByEmail(email);
+    //        model.addAttribute("user", user);
+            return "/user/lookupresult";
+
+        }catch(RuntimeException e) {
+            model.addAttribute("username", name);
+            return "/user/findid";
+        }
+
+
+    //    return "/user/lookupresult";
     }
 
     @GetMapping("/termsandconditions")
