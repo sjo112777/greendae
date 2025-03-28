@@ -1,22 +1,17 @@
-package kr.co.greendae.entity.article;
-
-import jakarta.persistence.*;
-import kr.co.greendae.dto.ArticleDTO;
-import lombok.*;
+package kr.co.greendae.entity.community.article;
 
 //@Data
 //@AllArgsConstructor
 //@NoArgsConstructor
 //@ToString
 //@Builder
-// @Entity
-//@Table(name = "State_Article")
-public class State_Article {
+//@Entity
+//@Table(name = "Employ_Article")
+public class EmployArticle {
 /*
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int no;
-    private String cate;
     private String title;
     private String content;
     private String comment;
@@ -25,7 +20,7 @@ public class State_Article {
     private String writer;
     private String regip;
     private String wdate;
-    private String state;
+    private String ddate;
 
     public ArticleDTO toArticleDTO() {
         return ArticleDTO.builder()
@@ -38,7 +33,7 @@ public class State_Article {
                 .writer(writer)
                 .regip(regip)
                 .wdate(wdate)
-                .state(state)
+                .ddate(ddate)
                 .build();
     }
 
