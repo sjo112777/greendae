@@ -58,20 +58,26 @@
             <section id="find-pw">
                 <h2>아이디 찾기</h2>
                 <p style="text-align: center;">가입 시 등록한 아이디와 이메일 주소를 입력해 주세요.</p>
-        
                 <form id="find-pw-form">
                     <div class="input-box">
                         <input type="text" id="user-id" placeholder="이름 입력" required>
                     </div>
-                    <div class="input-box">
-                        <input type="email" id="user-email" placeholder="이메일 주소 입력" required>
+                    <div class="input-box" style="display: flex; align-items: center;">
+                        <!-- 이메일 인풋 크기 조금 더 늘림 -->
+                        <input type="email" id="user-email" placeholder="이메일 주소 입력" required style="flex: 1.2; margin-right: 10px;">
+                        <!-- 버튼 크기 줄임 -->
+                        <button type="button" id="verify-btn" class="btn verify-btn" style="padding: 5px 15px; background: #071F4B;">인증하기</button>
+                    </div>
+                    <!-- 인증코드 입력란, 처음에는 숨김 -->
+                    <div class="input-box" id="verification-box" style="display:none;">
+                        <input type="text" id="verification-code" placeholder="인증코드 입력" required>
                     </div>
                     <div class="btn-container">
                         <button type="button" class="btn cancel-btn">취소</button>
                         <button type="submit" class="btn login-btn">아이디 찾기</button>
                     </div>
                 </form>
-        
+                
                 <div id="result-message"></div>
             </section>
         </main>
