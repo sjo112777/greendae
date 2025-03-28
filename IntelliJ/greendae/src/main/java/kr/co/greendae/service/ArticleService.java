@@ -12,6 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 
 @Slf4j
@@ -42,4 +45,30 @@ public class ArticleService {
         return savedArticle.getNo();
     }
 
+    public List<ArticleDTO> findAllByCate(String freeboard) {
+
+        List<BasicArticle> list =  basicArticleRepository.findByCate(freeboard);
+
+        List<ArticleDTO> articleDTOList = new ArrayList<>();
+        for (BasicArticle basicArticle : list) {
+            ArticleDTO articleDTO = modelMapper.map(basicArticle, ArticleDTO.class);
+            articleDTOList.add(articleDTO);
+        }
+
+        return articleDTOList;
+
+    }
+
+    public ArticleDTO findById(int no) {
+
+        Optional<BasicArticle> optArticle = basicArticleRepository.findById(no);
+
+        if(optArticle.isPresent()){
+            BasicArticle basicArticle = optArticle.get();
+            ArticleDTO articleDTO = modelMapper.map(basicArticle, ArticleDTO.class);
+
+            return articleDTO;
+        }
+        return null;
+    }
 }

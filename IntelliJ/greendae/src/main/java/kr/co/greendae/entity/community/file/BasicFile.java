@@ -12,7 +12,7 @@ import org.hibernate.annotations.CreationTimestamp;
 @Builder
 @Entity
 @Table(name = "BasicFile")
-public class Basic_File {
+public class BasicFile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
