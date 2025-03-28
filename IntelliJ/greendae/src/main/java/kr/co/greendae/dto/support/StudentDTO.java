@@ -23,6 +23,8 @@ public class StudentDTO {
     private String advisor;         //지도교수
     private String stdStatus;       //재학상태
 
+    private int registerCredits;    //학생 신청 학점 총점;
+
     //추가필드
 
     private String name;

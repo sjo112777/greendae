@@ -64,14 +64,14 @@
                                     <td colspan="9">수강 가능한 과목이 없습니다.</td>
                                 </tr>
                                 <tr th:each="lecture : ${lectureDTOList} ">
-                                    <td>[[${lecture.lecClass}]]</td>
-                                    <td>[[${lecture.lecCate}]]</td>
-                                    <td>[[${lecture.lecGrade}]]</td>
-                                    <td>[[${lecture.lecNo}]]</td>
-                                    <td>[[${lecture.lecName}]]</td>
-                                    <td>[[${lecture.lecCredit}]]</td>
-                                    <td>[[${lecture.proName}]]</td>
-                                    <td>[[${lecture.lecStdCount}]]</td>
+                                    <td th:text="${lecture.lecClass}">[[${lecture.lecClass}]]</td>
+                                    <td th:text="${lecture.lecCate}">[[${lecture.lecCate}]]</td>
+                                    <td th:text="${lecture.lecGrade}">[[${lecture.lecGrade}]]</td>
+                                    <td th:text="${lecture.lecNo}">[[${lecture.lecNo}]]</td>
+                                    <td th:text="${lecture.lecName}">[[${lecture.lecName}]]</td>
+                                    <td th:text="${lecture.lecCredit}">[[${lecture.lecCredit}]]</td>
+                                    <td th:text="${lecture.proName}">[[${lecture.proName}]]</td>
+                                    <td th:text="${lecture.lecStdCount}">[[${lecture.lecStdCount}]]</td>
                                     <td> </td>
                                     <td>
                                         <button class="submit" th:data-lecNo="${lecture.lecNo}" onclick="registerLecture(this)">신청</button>

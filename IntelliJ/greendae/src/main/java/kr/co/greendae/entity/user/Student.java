@@ -30,6 +30,8 @@ public class Student {
     private int stdYear;            //학년
     private String stdSemester;     //학기
 
+    private int registerCredits;    //총점
+
     @ManyToOne
     @JoinColumn(name = "deptNo")
     private Department department;
