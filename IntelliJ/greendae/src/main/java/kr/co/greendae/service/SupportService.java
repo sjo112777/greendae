@@ -12,11 +12,12 @@ import kr.co.greendae.repository.support.RegisterRepository;
 import kr.co.greendae.repository.user.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Param;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -40,16 +41,66 @@ public class SupportService {
                 .collect(Collectors.toList());
     }
 
-    public List<RegisterDTO> findRegisterByStdNo(@Param("stdNo") String stdNo){
+
+    public int findStudentYearByStdNo(String stdNo) {
+        log.info("service##stdNo: {}", stdNo);
+
+        return studentRepository.findYearByStdNo(stdNo);
+    }
+
+    public List<LectureDTO> findRegisterByStdNoByGrade(int stdYear) {
+
+        Optional<Lecture> optlectures =lectureRepository.findByLecGrade(stdYear);
+
+        List<Lecture> lectureList = new ArrayList<>();
+
+        if (optlectures.isPresent()) {
+            Lecture lecture = optlectures.get();  // 값 꺼내기
+            lectureList.add(lecture);  // 리스트에 추가
+        }
+
+        System.out.println("123");
+        System.out.println("123");
+        System.out.println("123");
+        System.out.println("123");
+        System.out.println(lectureList);
+
+
+        /*
+        List<Object[]> optLectureStd = lectureRepository.findLecturesByYear(stdYear);
+        log.info("service##stdYear: {}", stdYear);
+
+
+
+        //ModelMapper
+        List<LectureDTO> lectureDTOList = optLectureStd.stream().map(obj ->{
+            LectureDTO lectureDTO = modelMapper.map(obj, LectureDTO.class);
+
+            //lectureDTO.setLecClass((String) obj[3]);
+            //lectureDTO.setLecCate((String) obj[2]);
+            //lectureDTO.setLecGrade((Integer) obj[5]);
+            //lectureDTO.setLecName((String) obj[6]);
+            //lectureDTO.setLecCredit((Integer) obj[4]);
+            //lectureDTO.setProName((String) obj[12]); // 교수명 설정
+            //lectureDTO.setLecStdCount((Integer) obj[9]);
+            //lectureDTO.setLecStdTotal((Integer) obj[10]);
+
+
+            return lectureDTO;
+        }).collect(Collectors.toList());
+        log.info("service##lectureDTOList: {}", lectureDTOList);
+        */
+
+
+        return null;
+
+    }
+
+
+
+    public List<RegisterDTO> findRegisterByStdNo(String stdNo){
         List<Object[]> optRegisterStd = registerRepository.findRegisterByStdNo(stdNo);
         log.info("optRegisterStd : {}", optRegisterStd);
-
-        // 각 obj의 타입을 로그로 찍어보기
-        optRegisterStd.stream().forEach(obj -> {
-            for (int i = 0; i < obj.length; i++) {
-                log.info("obj[{}] type: {}", i, obj[i].getClass().getName());
-            }
-        });
 
         // ModelMapper의 커스텀 매핑을 사용하여 RegisterDTO로 변환
         List<RegisterDTO> registerDTOList = optRegisterStd.stream().map(obj ->{
@@ -68,12 +119,12 @@ public class SupportService {
             return registerDTO;
         }).collect(Collectors.toList());
 
-        log.info("registerDTOList : {}", registerDTOList);
+        log.info("service##registerDTOList : {}", registerDTOList);
 
         return registerDTOList;
     }
 
-    public List<RegisterDTO> findGradeByStdNo(@Param("stdNo") String stdNo){
+    public List<RegisterDTO> findGradeByStdNo(String stdNo){
         List<Object[]> optGradeStd = registerRepository.findGradeByStdNo(stdNo);
         log.info("optGradeStd : {}", optGradeStd);
 
@@ -104,9 +155,9 @@ public class SupportService {
         return gradeDTOList;
     }
 
-    public List<StudentDTO> findRecordByStdNo(@Param("stdNo") String stdNo) {
+    public List<StudentDTO> findRecordByStdNo(String stdNo) {
         List<Object[]> optRecordStd = studentRepository.findRecordByStdNo(stdNo);
-        log.info("optRecordStd : {}", optRecordStd);
+        log.info("service##optRecordStd : {}", optRecordStd);
 
         // 각 obj의 타입을 로그로 찍어보기
         optRecordStd.stream().forEach(obj -> {
@@ -131,14 +182,14 @@ public class SupportService {
 
         }).collect(Collectors.toList());
 
-        log.info("recordList : {}", recordList);
+        log.info("service##recordList : {}", recordList);
 
         return recordList;
     }
 
     public CreditSummary calculateCredits(String stdNo){
         List<Object[]> registerList = registerRepository.findRegisterByStdNo(stdNo);
-        log.info("registerList : {}", registerList);
+        log.info("service##registerList : {}", registerList);
 
         // 학점을 합산할 변수들
         int major = 0;
@@ -147,21 +198,41 @@ public class SupportService {
         int volunteer = 0;
         int other = 0;
 
+        log.info("here1");
+
         // 'registerList'에서 각 Object[]를 순회하면서 학점 계산
         for (Object[] register : registerList) {
+            registerList.stream().forEach(obj -> {
+                for (int i = 0; i < obj.length; i++) {
+                    log.info("obj[{}] type: {}", i, obj[i].getClass().getName());
+                }
+            });
+            log.info("service##register : {}", register);
             // regLecNo를 통해 해당 lecture 엔티티 정보 가져오기
-            String regLecNo = (String) register[0]; // regLecNo를 추출
+            String regstdNo = (String) register[0]; // regLecNo를 추출
+            String regLecNo = (String) register[1];
+
+            log.info("service##regLecNo : {}", regLecNo);
 
             // regLecNo를 이용해 Lecture 엔티티를 조회
-            Lecture lecture = lectureRepository.findByLecNo(regLecNo); // regLecNo를 통해 Lecture 엔티티 조회
+            Optional<Lecture> optlec = lectureRepository.findById(regLecNo); // regLecNo를 통해 Lecture 엔티티 조회
+            Lecture lecture = optlec.get();
+
+            log.info("service##lecture : {}", lecture);
+            log.info("service##lecturecate : {}", lecture.getLecCate());
+
+
             if (lecture == null) {
+                log.info("here2");
                 continue; // 만약 해당하는 Lecture가 없다면, 해당 항목을 무시하고 넘어갑니다.
             }
 
+            log.info("here3");
+
             // Object 배열에서 필요한 데이터를 추출
-            String lecCate = (String) register[1]; // '전공', '교양' 등 카테고리 정보
-            String lecCreditStr = (String) register[2];
-            int lecCredit = Integer.parseInt(lecCreditStr); // 과목 학점
+            String lecCate = (String) register[4]; // '전공', '교양' 등 카테고리 정보
+
+            log.info("service##lecCate : {}", lecCate);
 
             // 카테고리에 따라 학점 계산
             switch (lecCate) {
@@ -183,17 +254,20 @@ public class SupportService {
             }
         }
         //각 카테고리별 학점 계산 (갯수 * 3)
+        int majorCredit = major * 3;
+        int liberalArtsCredit = liberalArts * 3;
+        int electiveCredit = elective * 3;
+        int volunteerCredit = volunteer * 3;
+        int otherCredit = other * 3;
 
 
-                // 총 취득 학점 계산
-                int total = major + liberalArts + elective + volunteer + other;
+        // 총 취득 학점 계산
+        int total = majorCredit + liberalArtsCredit + electiveCredit + volunteerCredit + otherCredit;
 
-                // CreditSummary 객체로 결과 반환
-                return new CreditSummary(major, liberalArts, elective, volunteer, other, total);
+        // CreditSummary 객체로 결과 반환
+        return new CreditSummary(majorCredit, liberalArtsCredit, electiveCredit, volunteerCredit, otherCredit, total);
 
-        }
-
-
+    }
 
     public static class CreditSummary {
         private int major;
@@ -239,13 +313,19 @@ public class SupportService {
     }
 
 
+    //학과별
+    public void findByClass(){}
 
-
-    public void findByName(){}
-
+    //과목명
     public void findByClassName(){}
 
+    //교수명
     public void findByProfessor(){}
+
+    //구분
+    public void findByCate(){}
+
+
 
     public void modify(){}
 

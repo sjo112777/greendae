@@ -12,16 +12,22 @@ import lombok.NoArgsConstructor;
 public class LectureDTO {
 
     private String lecNo;
+    private String proNo;
+
     private String lecClass;
-    private String book;
-    private String lecCate;
-    private int lecCredit;
-    private int lecGrade;   //학년
     private String lecName;
-    private String lecRoom;
-    private String lecSchedule;
+    private String lecCate;
+    private int lecGrade;   //학년
+    private int lecCredit;
+    private int lecStdTotal; //총 수강인원
     private int lecStdCount;
+    private String lecRoom;
     private String lecTime;
+    private String lecSchedule;
+    private String book;
+
+
+
     private String proName;
 
 

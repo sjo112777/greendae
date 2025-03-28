@@ -18,5 +18,7 @@ public interface StudentRepository extends JpaRepository<Student, String> {
             "where s.stdNo = :stdNo")
     public List<Object[]> findRecordByStdNo(@Param("stdNo") String stdNo);
 
-    UserDTO findByUid(String uid);
+    //학번으로 학년 조회
+    @Query("SELECT s.stdYear FROM Student s WHERE s.stdNo = :stdNo")
+    public int findYearByStdNo(String stdNo);
 }
