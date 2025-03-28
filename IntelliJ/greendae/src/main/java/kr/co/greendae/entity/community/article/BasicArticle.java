@@ -2,7 +2,8 @@ package kr.co.greendae.entity.community.article;
 
 import jakarta.persistence.*;
 import kr.co.greendae.entity.community.comment.BasicComment;
-import kr.co.greendae.entity.community.file.Basic_File;
+import kr.co.greendae.entity.community.file.BasicFile;
+import kr.co.greendae.entity.community.file.BasicFile;
 import kr.co.greendae.entity.user.User;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -32,10 +33,10 @@ public class BasicArticle {
     private int hit;
 
     @OneToMany(mappedBy = "parent")
-    private List<BasicComment> basic_comment;
+    private List<BasicComment> basisComment;
 
     @OneToMany(mappedBy = "ano") //mappedBy 속성은 매핑되는 엔티티의 FK 컬럼
-    private List<Basic_File> basic_files;
+    private List<BasicFile> basicFiles;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "writer")
