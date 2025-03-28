@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface LectureRepository extends JpaRepository<Lecture, String> {
 
+    Lecture findByLecNo(String regLecNo);
 }

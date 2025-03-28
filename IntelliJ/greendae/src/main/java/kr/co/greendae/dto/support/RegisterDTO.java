@@ -31,6 +31,6 @@ public class RegisterDTO {
     private String lecProName;  //담당 교수
     private String lecRoom; //강의실
     private String lecTime; //강의 날짜
-    private String lecCredit;
+    private int lecCredit;
 
 }

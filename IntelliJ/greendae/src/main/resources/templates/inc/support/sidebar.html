@@ -7,7 +7,7 @@
       <div id="register">수강신청</div>
     </a>
     <a th:href="@{/support/register_list}">
-      <div id="list">수강신청내역</div>
+      <div id="register_list">수강신청내역</div>
     </a>
     <a th:href="@{/support/classes}">
       <div id="classes">교과과정</div>
@@ -27,10 +27,10 @@
 
     if (path.includes("classes")) {
       document.getElementById("classes").classList.add("active");
+    }else if (path.includes("list")) {
+      document.getElementById("register_list").classList.add("active");
     }else if (path.includes("register")) {
       document.getElementById("register").classList.add("active");
-    }else if (path.includes("list")) {
-      document.getElementById("list").classList.add("active");
     }else if (path.includes("grade")) {
       document.getElementById("grade").classList.add("active");
     }else if (path.includes("record")) {

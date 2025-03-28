@@ -88,14 +88,14 @@
                                     <td colspan="9">수강신청내역이 없습니다</td>
                                 </tr>
                                 <tr th:each="lecture: ${registerList}">
-                                    <td>[[${lecture.regLecNo}]]</td>
-                                    <td>[[${lecture.lecName}]]</td>
-                                    <td>[[${lecture.lecGrade}]]</td>
-                                    <td>[[${lecture.proName}]]</td>
-                                    <td>[[${lecture.regCredit}]]</td>
-                                    <td>[[${lecture.lecCate}]]</td>
-                                    <td>[[${lecture.lecTime}]]</td>
-                                    <td>[[${lecture.lecRoom}]]</td>
+                                    <td th:text="${lecture.regLecNo}"></td>
+                                    <td th:text="${lecture.lecName}"></td>
+                                    <td th:text="${lecture.lecGrade}"></td>
+                                    <td th:text="${lecture.lecProName}"></td>
+                                    <td th:text="${lecture.lecCredit}"></td>
+                                    <td th:text="${lecture.lecCate}"></td>
+                                    <td th:text="${lecture.lecTime}"></td>
+                                    <td th:text="${lecture.lecRoom}"></td>
                                     <td>
                                         <button class="cancel" th:data-lecNo="${lecture.regLecNo}" onclick="cancelRegistration(this)" >취소</button>
                                     </td>
