@@ -543,6 +543,7 @@ main{
 
 .collage_info tr td{
     padding-left: 12.5px;
+    text-align: center;
 }
 
 .collage_info tr td:nth-child(1){
@@ -621,6 +622,7 @@ main{
 .department_info tr td{
     padding-left: 12.5px;
     height: 48.5px;
+    text-align: center;
 }
 
 .department_info tr td:nth-child(1){
@@ -646,3 +648,17 @@ main{
     float: left;
     color: #BC2E13;
 }
+
+.department_info .ipt1{
+    width: 200px;
+    height: 33px;
+    float: left;
+    padding-left: 7px;
+}
+
+.department_info select{
+    width: 150px;
+    height: 35px;
+    float: left;
+}
+
