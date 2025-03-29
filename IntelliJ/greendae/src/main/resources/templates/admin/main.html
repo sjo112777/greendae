@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>샘플</title>
     <link rel="stylesheet" href="/css/admin/admin.css">
+
 </head>
 <body>
     <div id="wrapper">
@@ -19,8 +20,8 @@
             
             <section class="content">
                 <!-- 왼쪽 사이드바 -->
-                <aside class="sidebar">
-                    <article class="side_content">                       
+                <aside class="sidebar" style="height: 1190px;">
+                    <article class="side_content">
 
                         <div>
                             <div class="side_img">
@@ -75,7 +76,7 @@
                             </div>
                             <div class="side_txt">
                                 <p>· 대학 및 학과 목록</p>
-                                <p>· 대학 및 학과 등록</p>
+                                <a th:href="@{/admin/college/register}"><p>· 대학 및 학과 등록</p></a>
                             </div>
                         </div>
 
@@ -96,7 +97,7 @@
                                 <p>· 자료실</p>
                             </div>
                         </div>
-        
+
                     </article>
                 </aside>
                 <!-- 오른쪽 글 -->

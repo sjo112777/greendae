@@ -9,7 +9,7 @@ import lombok.*;
 @ToString
 @Builder
 @Entity
-@Table(name = "event")
+@Table(name = "Event")
 public class Event {
 
     @Id

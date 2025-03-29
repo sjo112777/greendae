@@ -1,23 +1,24 @@
-package kr.co.greendae.entity.university;
+package kr.co.greendae.dto.college;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Builder
-@Entity
-@Table(name = "University")
-public class University {
+public class CollegeDTO {
 
-    @Id
     private String name;       // 대학 이름
     private String engName;    // 대학 영어 이름
     private String title;      // 소개 제목
     private String content;    // 소개 내용
+    
+    // 이미지를 위한 필드1
+    private MultipartFile image;
+    private String oName;
+    private String sName;
+    
 
 }
