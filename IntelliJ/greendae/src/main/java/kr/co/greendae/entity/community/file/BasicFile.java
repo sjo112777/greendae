@@ -5,10 +5,12 @@ import kr.co.greendae.entity.community.article.BasicArticle;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+@Getter
+@Setter
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = "basicarticle")
+@ToString
 @Builder
 @Entity
 @Table(name = "BasicFile")
