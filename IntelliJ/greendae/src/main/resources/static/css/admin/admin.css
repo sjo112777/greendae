@@ -662,3 +662,149 @@ main{
     float: left;
 }
 
+
+.professor_info .ipt1{
+    width: 200px;
+    height: 33px;
+}
+
+.professor_info{
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.professor_info tr td{
+    padding-left: 10px;
+
+}
+
+.professor_info tr td:nth-child(1){
+    width: 163px;
+    height: 46px;
+    background-color: #FAFAFA;
+}
+
+.professor_info tr td:nth-child(2){
+    width: 420px;
+    height: 46px;
+}
+
+.professor_info tr td:nth-child(3){
+    width: 163px;
+    height: 46px;
+    background-color: #FAFAFA;
+}
+
+.professor_info tr td:nth-child(4){
+    width: 420px;
+    height: 46px;
+}
+
+.professor_info input{
+    border: 1px solid #959595;
+    padding-left: 8px;
+    float: left;
+    width: 200px;
+    height: 33px;
+
+}
+
+.professor_info .ipt1{
+    width: 200px;
+    height: 33px;
+
+}
+
+.professor_info select{
+    width: 150px;
+    height: 35px;
+    float: left;
+    margin-right: 5px;
+}
+
+.professor_basic_info tr td{
+    border: 1px solid #E5E5E5
+}
+
+.professor_basic_info{
+    text-align: center;
+    border-top: 2px solid #8798A3;
+    border-collapse: collapse;
+}
+
+.professor_basic_info tr td{
+    height: 46px;
+    padding-left: 10px;
+}
+
+.professor_basic_info tr:nth-child(1) td:nth-child(1){
+    width: 163px;
+}
+
+.professor_basic_info .td1{
+    width: 163px;
+    background: #FAFAFA;
+}
+
+
+.professor_basic_info .td2{
+    width: 301px;
+}
+
+.professor_basic_info input{
+    border: 1px solid #959595;
+    float: left;
+    padding-left: 7px;
+    width: 200px;
+    height: 33px;
+    box-sizing: border-box;
+}
+
+.professor_basic_info .iptc1{
+    width: 15px;
+    height: 15px;
+    margin-right: 15px;
+}
+
+.td2 >  div{
+    height: 15px;
+}
+
+.td2 {
+    display: flex;
+    gap: 10px; /* 라디오 버튼과 텍스트 간격 조절 */
+    align-items: center; /* 수직 정렬 */
+}
+
+.professor_basic_info select{
+    width: 150px;
+    height: 35px;
+}
+
+.professor_basic_info .ipt1{
+    width: 150px;
+    height: 33px;
+}
+
+.professor_basic_info tr:nth-last-child(1) td{
+    height: 116px;
+}
+
+#zip,#addr1, #addr2 {
+    display: block;
+    margin-bottom: 5px; /* 줄 간격 조정 */
+    float: none;
+}
+
+#zip{
+    width: 150px;
+    float: left;
+}
+
+#addr1, #addr2{
+    width: 400px;
+}
+
+
+
+

@@ -40,4 +40,22 @@ public class Professor {
     private String graduationSchool;  //졸업대학
     private String degree;            //학위
 
+    // 재직정보
+    private String status;
+
+    // 직위 (정교수, 조교수, 부교수)
+    private String position;
+
+    @PrePersist
+    public void prePersist(){
+        if(this.status == null){
+            this.status = "재직중";
+        }
+
+        if(this.position == null){
+            this.position = "정교수";
+        }
+    }
+
+
 }

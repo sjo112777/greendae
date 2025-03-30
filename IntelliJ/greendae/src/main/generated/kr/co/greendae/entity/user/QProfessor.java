@@ -32,7 +32,11 @@ public class QProfessor extends EntityPathBase<Professor> {
 
     public final StringPath graduationSchool = createString("graduationSchool");
 
+    public final StringPath position = createString("position");
+
     public final StringPath proNo = createString("proNo");
+
+    public final StringPath status = createString("status");
 
     public final QUser user;
 

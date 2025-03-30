@@ -1,5 +1,7 @@
 package kr.co.greendae.dto.support;
 
+import kr.co.greendae.dto.user.ProfessorDTO;
+import kr.co.greendae.dto.user.UserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,6 +24,9 @@ public class StudentDTO {
     private String major;           //전공
     private String advisor;         //지도교수
     private String stdStatus;       //재학상태
+
+    private UserDTO user;
+    private ProfessorDTO professor;
 
     private int registerCredits;    //학생 신청 학점 총점;
 
