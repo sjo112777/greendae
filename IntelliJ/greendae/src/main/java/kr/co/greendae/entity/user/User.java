@@ -5,6 +5,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -29,7 +32,11 @@ public class User {
     private String ename;   // 영문명
     private String gender;  // 성
     private String nationality; // 국적
-    private String regDate; // 가입일자
+    private String zip;         // 우편번호
+
+    @CreationTimestamp
+    private LocalDateTime regDate; // 가입일자
+
     private String leaveDate; //탈퇴일자
 
     @OneToOne(mappedBy = "user")

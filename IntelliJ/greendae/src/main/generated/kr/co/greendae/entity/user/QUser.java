@@ -42,7 +42,7 @@ public class QUser extends EntityPathBase<User> {
 
     public final StringPath pass = createString("pass");
 
-    public final StringPath regDate = createString("regDate");
+    public final DateTimePath<java.time.LocalDateTime> regDate = createDateTime("regDate", java.time.LocalDateTime.class);
 
     public final StringPath regip = createString("regip");
 
@@ -53,6 +53,8 @@ public class QUser extends EntityPathBase<User> {
     public final QStudent student;
 
     public final StringPath uid = createString("uid");
+
+    public final StringPath zip = createString("zip");
 
     public QUser(String variable) {
         this(User.class, forVariable(variable), INITS);

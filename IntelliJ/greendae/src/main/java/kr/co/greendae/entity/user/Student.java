@@ -35,6 +35,7 @@ public class Student {
     @ManyToOne
     @JoinColumn(name = "deptNo")
     private Department department;
+
     // private String major;           //전공 예)(인문사회대학)
     private String stdClass;        //학과 예)(영어영문학과)
 
@@ -42,5 +43,13 @@ public class Student {
     @JoinColumn(name = "prodNo")
     private Professor professor;         //지도교수
     private String stdStatus;       //재학상태
+
+    @PrePersist
+    public void prePersist(){
+        if(this.stdStatus == null){
+            this.stdStatus = "재학중";
+        }
+
+    }
 
 }
