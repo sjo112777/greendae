@@ -1,5 +1,6 @@
 package kr.co.greendae.dto.community;
 
+
 import kr.co.greendae.dto.user.UserDTO;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,7 +19,7 @@ public class ArticleDTO {
     private String title;
     private String content;
     private String comment;
-    private int file ;
+    private int file;
     private int hit;
     private String writer;
     private String regip;

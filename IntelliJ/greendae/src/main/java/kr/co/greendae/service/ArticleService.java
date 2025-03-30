@@ -24,6 +24,7 @@ public class ArticleService {
 
     private final BasicArticleRepository basicArticleRepository;
     private final ModelMapper modelMapper;
+
     public int basicRegister(ArticleDTO articleDTO) {
 
         // 엔티티 변환
