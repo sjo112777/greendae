@@ -515,7 +515,7 @@ main{
 }
 
 .basic_info tr td:nth-child(4){
-    width: 290px;
+    width: 360px;
     height: 48px;
     border: 1px solid #E5E5E5;
 }
@@ -523,6 +523,56 @@ main{
 .basic_info tr:nth-last-child(1) td{
     height: 143px;
 }
+
+.basic_info tr td{
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+.basic_info input{
+    width: 150px;
+    height: 35px;
+    float: left;
+    border: 1px solid #959595;
+    padding-left: 7px;
+    box-sizing: border-box;
+}
+
+.basic_info select{
+    width: 150px;
+    height: 35px;
+    float: left;
+    padding-left: 7px;
+    box-sizing: border-box;
+    margin-right: 10px;
+}
+
+.basic_info .ipt2{
+    width: 426px;
+}
+
+.basic_info .iptr{
+    width: 15px;
+    height: 15px;
+    float: none;
+    
+}
+
+.lec_div{
+    float: left;
+    margin-right: 20px;
+}
+
+.basic_info textarea{
+    width: 426px;
+    height: 126px;
+    float: left;
+    resize: none;
+    border: 1px solid #959595;
+    padding: 7px;
+    box-sizing: border-box;
+}
+
 
 .collage_info{
     border: 1px solid #E5E5E5;
@@ -803,4 +853,6 @@ main{
 #addr1, #addr2{
     width: 400px;
 }
+
+
 
