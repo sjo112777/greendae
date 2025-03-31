@@ -140,14 +140,63 @@ public class UserService {
         return String.valueOf(code);
     }
 
-    public User findUserByEmail(String email){
-        return userRepository.findByEmail(email);
-
+    public UserDTO findUserByEmail(String email){
+        User user = userRepository.findByEmail(email);
+        UserDTO userDTO = modelMapper.map(user, UserDTO.class);
+        return userDTO;
+    }
+    private String generateAuthCode() {
+        // 6자리 인증 코드 생성 (100000 ~ 999999 범위)
+        int code = ThreadLocalRandom.current().nextInt(100000, 1000000);
+        return String.valueOf(code);  // 생성된 인증 코드를 문자열로 반환
     }
 
 
+    public String sendPasswordResetEmailCode(String email) {
+        // 인증 코드 생성
+        String authCode = generateAuthCode();
 
+        // 이메일 전송 시 로그 추가
+        log.info("이메일 전송 시작 - 이메일: {}, 인증 코드: {}", email, authCode);
 
+        // 이메일 전송
+        boolean emailSent = sendResetPasswordEmail(email, authCode);
+
+        if (emailSent) {
+            log.info("이메일 전송 성공 - 이메일: {}", email);
+            return authCode;
+        } else {
+            log.error("이메일 전송 실패 - 이메일: {}", email);
+            throw new RuntimeException("이메일 전송에 실패했습니다.");
+        }
+    }
+
+    private boolean sendResetPasswordEmail(String receiver, String authCode) {
+        // MimeMessage 생성
+        MimeMessage message = mailSender.createMimeMessage();
+
+        // 이메일 제목과 내용 설정
+        String subject = "greendae 비밀번호 재설정 인증코드 안내";
+        String content = "<h1>greendae 비밀번호 재설정 인증코드는 " + authCode + " 입니다.</h1>";
+
+        try {
+            // 발신자 설정
+            message.setFrom(new InternetAddress(sender, "보내는사람", "UTF-8"));
+            // 수신자 설정
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(receiver));
+            // 제목 설정
+            message.setSubject(subject);
+            // 내용 설정
+            message.setContent(content, "text/html;charset=UTF-8");
+
+            // 이메일 전송
+            mailSender.send(message);
+            return true;
+        } catch (Exception e) {
+            log.error("이메일 전송 실패: " + e.getMessage());
+            return false;
+        }
+    }
 
 
 

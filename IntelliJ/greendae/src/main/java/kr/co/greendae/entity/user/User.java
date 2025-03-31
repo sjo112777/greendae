@@ -1,9 +1,6 @@
 package kr.co.greendae.entity.user;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -37,9 +34,17 @@ public class User {
     @CreationTimestamp
     private LocalDateTime regDate; // 가입일자
 
-    private String leaveDate; //탈퇴일자
+    private LocalDateTime leaveDate; //탈퇴일자
 
     @OneToOne(mappedBy = "user")
     private Student student;
+
+    @PrePersist
+    public void prePersist() {
+        // 엔티티 기본 속성 값 초기화
+        if (this.role == null) {
+            this.role = "Normal";
+        }
+    }
 
 }
