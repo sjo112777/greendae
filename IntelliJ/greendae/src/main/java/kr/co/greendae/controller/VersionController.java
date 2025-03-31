@@ -19,7 +19,7 @@ public class VersionController {
 
     @GetMapping("/version")
     public String index(){
-        return "123" + appName + ":" + version;
+        return appName + ": " + version;
     }
 
 }

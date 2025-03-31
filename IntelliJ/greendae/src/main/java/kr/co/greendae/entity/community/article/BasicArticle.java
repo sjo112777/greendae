@@ -8,6 +8,7 @@ import kr.co.greendae.entity.user.User;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -34,8 +35,10 @@ public class BasicArticle {
     private int file;
     private int hit;
 
+    /*
     @OneToMany(mappedBy = "parent")
     private List<BasicComment> basisComment;
+     */
 
     @OneToMany(mappedBy = "ano") //mappedBy 속성은 매핑되는 엔티티의 FK 컬럼
     private List<BasicFile> basicFiles;
@@ -47,7 +50,7 @@ public class BasicArticle {
     private String regip;
 
     @CreationTimestamp
-    private String wdate;
+    private LocalDateTime wdate;
 
     @PrePersist
     public void prePersist() {

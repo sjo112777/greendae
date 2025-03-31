@@ -1,4 +1,77 @@
 <link rel="stylesheet" href="/css/community/view.css">
+<script>
+
+    document.addEventListener('DOMContentLoaded', function(){
+
+        const formComment = document.formComment;
+        const commentList = document.getElementsByClassName('commentList')[0];
+        const empty = document.getElementsByClassName('empty')[0];
+
+        // 댓글 목록 출력
+        const parent = formComment.parent.value;
+        console.log("parent : " + parent);
+
+        fetch(`/comment/list?parent=${parent}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+
+                empty.remove();
+
+                data.forEach(comment => {
+                    // 동적 태그 생성
+                    const article = `<article>
+                                    <span class="nick">${comment.user.name}</span>
+                                    <span class="date">${comment.wdate}</span>
+                                    <p class="content">${comment.content}</p>
+                                    <div>
+                                        <a href="#" class="remove">삭제</a>
+                                        <a href="#" class="modify">수정</a>
+                                    </div>
+                                </article>`;
+                    commentList.insertAdjacentHTML('beforeend', article);
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            });
+
+        // 댓글 등록
+        formComment.onsubmit = async function(e){
+            e.preventDefault();
+
+            const jsonData = {
+                "parent": this.parent.value,
+                "writer": this.writer.value,
+                "content": this.comment.value
+            };
+
+            const response = await fetch('/comment/write', {
+                method: 'POST',
+                headers: {"Content-type": "application/json"},
+                body: JSON.stringify(jsonData)
+            });
+
+            const data = await response.json();
+            console.log(data);
+
+            // 동적 태그 생성
+            const article = `<article>
+                                    <span class="name">${data.user.name}</span>
+                                    <span class="date">${data.wdate}</span>
+                                    <p class="content">${data.content}</p>
+                                    <div>
+                                        <a href="#" class="remove">삭제</a>
+                                        <a href="#" class="modify">수정</a>
+                                    </div>
+                                </article>`;
+
+            this.comment.value = '';
+            empty.remove();
+            commentList.insertAdjacentHTML('beforeend', article);
+        }
+    });
+</script>
 <table border="0">
     <tr>
         <th>제목</th>
@@ -25,8 +98,10 @@
 </table>
 
 <div>
-    <a href="#" class="btn btnRemove">삭제</a>
-    <a href="#" class="btn btnModify">수정</a>
+    <!-- 로그인한 사용자만 삭제 버튼 표시 -->
+    <a th:if="${#authorization.expression('isAuthenticated()') and #authentication.principal.user.uid == articleDTO.user.uid}"
+       th:href="@{/community/freeboard/delete(no=${articleDTO.no})}" class="btn btnRemove">삭제</a>
+    <a th:href="@{/community/freeboard/modify(no=${articleDTO.no})}" class="btn btnModify">수정</a>
     <a th:href="@{/community/freeboard}" class="btn btnList">목록</a>
 </div>
 
@@ -36,11 +111,18 @@
     <p class="empty">등록된 댓글이 없습니다.</p>
 </section>
 
-<!-- 댓글쓰기 -->
+<!-- 댓글 쓰기-->
 <section class="commentForm">
     <h3>댓글쓰기</h3>
+
+    <!-- 로그인하지 않은 경우 안내 메시지 -->
+    <div th:if="${not #authorization.expression('isAuthenticated()')}">
+        <p>댓글을 작성하려면 <a th:href="@{/user/login}">로그인</a>하세요.</p>
+    </div>
+
+
     <form name="formComment" method="post">
-        <input type="hidden" name="writer" th:value="${#authentication.principal.user.uid}">
+        <input type="hidden" name="writer" th:value="${#authorization.expression('isAuthenticated()') ? #authentication.principal.user.uid : ''}">
         <input type="hidden" name="parent" th:value="${articleDTO.no}">
         <textarea name="comment" placeholder="댓글내용 입력"></textarea>
         <div>
@@ -49,6 +131,7 @@
         </div>
     </form>
 </section>
+
 
 </div>
 </article>

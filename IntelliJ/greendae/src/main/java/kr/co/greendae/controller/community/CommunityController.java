@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpSession;
 import kr.co.greendae.dto.community.ArticleDTO;
 import kr.co.greendae.dto.community.FileDTO;
 import kr.co.greendae.service.ArticleService;
+import kr.co.greendae.service.CommentService;
 import kr.co.greendae.service.FileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,7 @@ public class CommunityController {
     private final HttpServletRequest request;
     private final ArticleService articleService;
     private final FileService fileService;
+    private final CommentService commentService;
 
     // 공지사항
     @GetMapping("/notice")
@@ -108,13 +110,50 @@ public class CommunityController {
 
         System.out.println(no);
         // 글 조회 서비스 호출
-         ArticleDTO articleDTO = articleService.findById(no);
+        ArticleDTO articleDTO = articleService.findById(no);
+        
+        // 파일 조회 서비스 호출
+        // List로 파일 정보를 들고와서
+        // no 기반으로 file 테이블 검색해서 List 가져오기
+        List<FileDTO> fileDTOList = fileService.findById(no);
+        articleDTO.setFiles(fileDTOList);
 
          model.addAttribute(articleDTO);
          model.addAttribute("isViewing", true);
 
         // return "redirect:/community/freeboard";
         return "/community/freeboard";
+    }
+
+    @GetMapping("/freeboard/delete")
+    public String delete(int no){
+
+        fileService.deletebasicFile(no);
+        commentService.deletebasicComment(no);
+        articleService.deletebasicArticle(no);
+        return "redirect:/community/freeboard";
+    }
+
+    @GetMapping("/freeboard/modify")
+    public String modify(int no, Model model) {
+
+        // 수정 데이터 조회 서비스
+        ArticleDTO articleDTO = articleService.findById(no);
+        //모델 참조
+        model.addAttribute("isModifying", true);
+        model.addAttribute(articleDTO);
+
+        return "/community/freeboard";
+    }
+
+    @PostMapping("/freeboard/modify")
+    public String modify(ArticleDTO articleDTO) {
+        //서비스 호출
+
+        articleService.modifybasicArticle(articleDTO);
+
+        // 리다이렉트
+        return "redirect:/community/freeboard";
     }
 
 

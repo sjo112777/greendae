@@ -10,4 +10,7 @@ import java.util.List;
 public interface BasicCommentRepository extends JpaRepository<BasicComment, Integer> {
 
     public List<BasicComment> findByParent(int parent);
+
+
+    void deleteByParent(int no);
 }
