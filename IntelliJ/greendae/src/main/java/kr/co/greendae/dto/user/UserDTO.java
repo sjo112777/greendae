@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -25,7 +27,7 @@ public class UserDTO{
     private String ename;   // 영문명
     private String gender;  // 성
     private String nationality; // 국적
-    private String regDate; // 가입일자
-    private String leaveDate; //탈퇴일자
+    private LocalDateTime regDate; // 가입일자
+    private LocalDateTime leaveDate; //탈퇴일자
 
 }
