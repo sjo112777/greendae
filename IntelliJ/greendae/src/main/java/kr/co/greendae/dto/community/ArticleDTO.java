@@ -18,7 +18,7 @@ public class ArticleDTO {
     private String cate;    // Employ_Article에는 없음
     private String title;
     private String content;
-    private String comment;
+    private int comment;
     private int file;
     private int hit;
     private String writer;

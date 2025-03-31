@@ -10,7 +10,6 @@ import lombok.*;
 @Builder
 public class CommentDTO {
 
-
     private int cno;
     private int parent;
     private String content;

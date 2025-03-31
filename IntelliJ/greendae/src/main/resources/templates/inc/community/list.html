@@ -37,7 +37,9 @@
     <a href="" class="next"><img src="/images/btn-next-page.png" alt=""></a>
     <a href="" class="last"><img src="/images/btn-last-page.png" alt=""></a>
 </div>
-<a th:href="@{/community/freeboard/write}" class="btn btnWrite">글쓰기</a>
+<!-- 로그인 여부에 따라 글쓰기 버튼 이동 -->
+<a th:href="${#authorization.expression('isAuthenticated()') ? '/community/freeboard/write' : '/user/login'}"
+   class="btn btnWrite">글쓰기</a>
 
 </div>
 </article>

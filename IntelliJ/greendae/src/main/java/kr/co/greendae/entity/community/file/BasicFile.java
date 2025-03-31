@@ -5,6 +5,8 @@ import kr.co.greendae.entity.community.article.BasicArticle;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Data
@@ -26,7 +28,7 @@ public class BasicFile {
     private int download;
 
     @CreationTimestamp
-    private String rdate;
+    private LocalDateTime rdate;
 
 
 }
