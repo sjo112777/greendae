@@ -4,6 +4,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import kr.co.greendae.dto.community.ArticleDTO;
 import kr.co.greendae.dto.community.FileDTO;
+import kr.co.greendae.dto.page.PageRequestDTO;
+import kr.co.greendae.dto.page.PageResponseDTO;
 import kr.co.greendae.service.ArticleService;
 import kr.co.greendae.service.CommentService;
 import kr.co.greendae.service.FileService;
@@ -48,6 +50,20 @@ public class CommunityController {
     public String employment(){
         return "/community/employment";
     }
+
+    // 자유게시판 검색
+    @GetMapping("/freeboard/search")
+    public String search(PageRequestDTO pageRequestDTO, Model model){
+        log.info("pageRequestDTO:{}", pageRequestDTO);
+
+        //서비스 호출
+        PageResponseDTO pageResponseDTO = articleService.searchAll(pageRequestDTO);
+
+        model.addAttribute(pageResponseDTO);
+
+        return "/freeboard/searchList";
+    }
+
 
     // 자유게시판 리스트 list
     @GetMapping("/freeboard")
