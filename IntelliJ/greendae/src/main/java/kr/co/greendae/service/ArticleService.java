@@ -2,7 +2,10 @@ package kr.co.greendae.service;
 
 
 
+import com.querydsl.core.Tuple;
 import kr.co.greendae.dto.community.ArticleDTO;
+import kr.co.greendae.dto.page.PageRequestDTO;
+import kr.co.greendae.dto.page.PageResponseDTO;
 import kr.co.greendae.entity.community.article.BasicArticle;
 import kr.co.greendae.entity.user.User;
 import kr.co.greendae.repository.community.article.BasicArticleRepository;
@@ -10,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -114,6 +119,39 @@ public class ArticleService {
             basicArticleRepository.save(basicArticle);
 
         }
+
+    }
+
+    public PageResponseDTO searchAll(PageRequestDTO pageRequestDTO) {
+
+        // 페이징 처리를 위한 pageable 객체 생성
+        Pageable pageable = pageRequestDTO.getPageable("no");
+
+        Page<Tuple> pageArticle = basicArticleRepository.selectAllForSearch(pageRequestDTO, pageable);
+        log.info("pageArticle : {}", pageArticle);
+
+        // Article Entity 리스트를 ArticleDTO 리스트로 변환
+        List<ArticleDTO> articleDTOList = pageArticle.getContent().stream().map(tuple -> {
+
+            BasicArticle article = tuple.get(0, BasicArticle.class);
+            String nick = tuple.get(1, String.class);
+
+            ArticleDTO articleDTO = modelMapper.map(article, ArticleDTO.class);
+            articleDTO.setNick(nick);
+
+            return articleDTO;
+
+        }).toList();
+
+        int total = (int) pageArticle.getTotalElements();
+
+        return PageResponseDTO
+                .builder()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(articleDTOList)
+                .total(total)
+                .build();
+
 
     }
 }
