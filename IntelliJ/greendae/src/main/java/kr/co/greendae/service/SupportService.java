@@ -6,6 +6,7 @@ import kr.co.greendae.dto.support.RegisterDTO;
 
 import kr.co.greendae.dto.support.StudentDTO;
 import kr.co.greendae.entity.Lecture.Lecture;
+import kr.co.greendae.entity.user.Student;
 import kr.co.greendae.repository.support.LectureRepository;
 import kr.co.greendae.repository.support.RegisterRepository;
 
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -49,15 +51,7 @@ public class SupportService {
     }
 
     public List<LectureDTO> findRegisterByStdNoByGrade(int stdYear) {
-
-        Optional<Lecture> optlectures =lectureRepository.findByLecGrade(stdYear);
-
-        List<Lecture> lectureList = new ArrayList<>();
-
-        if (optlectures.isPresent()) {
-            Lecture lecture = optlectures.get();  // 값 꺼내기
-            lectureList.add(lecture);  // 리스트에 추가
-        }
+        List<Lecture> lectureList = lectureRepository.findByLecGrade(stdYear);
 
         System.out.println("123");
         System.out.println("123");
@@ -65,35 +59,18 @@ public class SupportService {
         System.out.println("123");
         System.out.println(lectureList);
 
+        // lectureList를 LectureDTO 리스트로 변환
+        List<LectureDTO> lectureDTOList = new ArrayList<>();
+        for (Lecture lecture : lectureList) {
+            // Lecture 객체를 LectureDTO로 변환
+            LectureDTO lectureDTO = modelMapper.map(lecture, LectureDTO.class);
 
-        /*
-        List<Object[]> optLectureStd = lectureRepository.findLecturesByYear(stdYear);
-        log.info("service##stdYear: {}", stdYear);
+            // 변환된 LectureDTO를 DTO 리스트에 추가
+            lectureDTOList.add(lectureDTO);
+        }
 
-
-
-        //ModelMapper
-        List<LectureDTO> lectureDTOList = optLectureStd.stream().map(obj ->{
-            LectureDTO lectureDTO = modelMapper.map(obj, LectureDTO.class);
-
-            //lectureDTO.setLecClass((String) obj[3]);
-            //lectureDTO.setLecCate((String) obj[2]);
-            //lectureDTO.setLecGrade((Integer) obj[5]);
-            //lectureDTO.setLecName((String) obj[6]);
-            //lectureDTO.setLecCredit((Integer) obj[4]);
-            //lectureDTO.setProName((String) obj[12]); // 교수명 설정
-            //lectureDTO.setLecStdCount((Integer) obj[9]);
-            //lectureDTO.setLecStdTotal((Integer) obj[10]);
-
-
-            return lectureDTO;
-        }).collect(Collectors.toList());
-        log.info("service##lectureDTOList: {}", lectureDTOList);
-        */
-
-
-        return null;
-
+        // 변환된 DTO 리스트 반환
+        return lectureDTOList;
     }
 
 
@@ -114,7 +91,7 @@ public class SupportService {
             registerDTO.setLecGrade((Integer) obj[5]);  // 강의 학년
             registerDTO.setLecProName((String) obj[6]);  // 교수명
             registerDTO.setLecRoom((String) obj[7]);  // 강의실
-            registerDTO.setLecTime((String) obj[8]);  // 강의 시간
+            registerDTO.setLecWeekday((String) obj[8]);
 
             return registerDTO;
         }).collect(Collectors.toList());
@@ -177,6 +154,7 @@ public class SupportService {
             studentDTO.setHp((String) obj[6]);
             studentDTO.setEmail((String) obj[7]);
             studentDTO.setSsn((String) obj[8]);
+            studentDTO.setRegisterCredits((Integer) obj[9]);
 
             return studentDTO;
 
@@ -268,6 +246,66 @@ public class SupportService {
         return new CreditSummary(majorCredit, liberalArtsCredit, electiveCredit, volunteerCredit, otherCredit, total);
 
     }
+
+    public StudentDTO findStudentByStdNo(String stdNo) {
+
+        Optional<Student> optstd = studentRepository.findById(stdNo);
+
+        if (optstd.isPresent()){
+            return modelMapper.map(optstd.get(), StudentDTO.class);
+        }
+
+        return null;
+
+    }
+
+    public List<LectureDTO> findLectureByLecCate(StudentDTO studentDTO, String year) {
+
+        int lecGrade = Integer.parseInt(year);
+        String lecClass = studentDTO.getStdClass();
+
+        // 전공필수 전공선택
+        List<Lecture> lectureList = lectureRepository.findByLecClassAndLecGrade(lecClass, lecGrade);
+
+        List<LectureDTO> lectureDTOList = new ArrayList<>();
+
+        for(Lecture lecture : lectureList){
+            LectureDTO lectureDTO = modelMapper.map(lecture, LectureDTO.class);
+
+            if(lectureDTO.getLecCate().contains("전공")){
+                lectureDTOList.add(lectureDTO);
+            }
+        }
+
+        return lectureDTOList;
+    }
+
+    public List<LectureDTO> findLectureByLecClass(StudentDTO studentDTO, String cate) {
+        String lecClass = studentDTO.getStdClass();
+        List<Lecture> lectureGeneralList = lectureRepository.findByLecClassAndLecCate(lecClass, cate);
+
+        List<LectureDTO> lectureDTOList = new ArrayList<>();
+        for(Lecture lecture : lectureGeneralList){
+            LectureDTO lectureDTO = modelMapper.map(lecture, LectureDTO.class);
+            lectureDTOList.add(lectureDTO);
+        }
+
+        return lectureDTOList;
+    }
+
+    public Map<Integer, List<LectureDTO>> getGroupedLectureList(StudentDTO studentDTO, String year){
+        int lecGrade = Integer.parseInt(year);
+        String lecClass = studentDTO.getStdClass();
+
+        // 📌 해당 학년 & 학과의 강의 리스트 조회
+        List<Lecture> lectureList = lectureRepository.findByLecClassAndLecGrade(lecClass, lecGrade);
+
+        // 📌 Lecture -> LectureDTO 변환 후 lecGrade 기준으로 그룹화
+        return lectureList.stream()
+                .map(lecture -> modelMapper.map(lecture, LectureDTO.class))
+                .collect(Collectors.groupingBy(LectureDTO::getLecGrade));
+    }
+
 
     public static class CreditSummary {
         private int major;

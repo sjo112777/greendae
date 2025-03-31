@@ -35,159 +35,39 @@
                         <h5> 공통과목(전공)</h5>
                         <table class="common">
                             <tr>
-                                <th>수준</th>
+                                <th>학년</th>
                                 <th>코드번호</th>
                                 <th>이수구분</th>
                                 <th>교과목명</th>
                                 <th>학점</th>
                             </tr>
-                            <tr>
-                                <td rowspan="6">1</td>
-                                <td>G01940</td>
-                                <td>공통</td>
-                                <td>C언어</td>
-                                <td>3</td>
+                            <tr th:each="grade1, stat : ${majorListLevel1}">
+                                <td th:if="${stat.first}" th:rowspan="${#lists.size(majorListLevel1)}">1</td>
+                                <td th:text="${grade1.lecNo}"></td>
+                                <td th:text="${grade1.lecCate}"></td>
+                                <td th:text="${grade1.lecName}"></td>
+                                <td th:text="${grade1.lecCredit}"></td>
                             </tr>
-                            <tr>
-                                <td>G01941</td>
-                                <td>공통</td>
-                                <td>프로그래밍언어론</td>
-                                <td>3</td>
+                            <tr th:each="grade2, stat : ${majorListLevel2}">
+                                <td th:if="${stat.first}" th:rowspan="${#lists.size(majorListLevel2)}">2</td>
+                                <td th:text="${grade2.lecNo}"></td>
+                                <td th:text="${grade2.lecCate}"></td>
+                                <td th:text="${grade2.lecName}"></td>
+                                <td th:text="${grade2.lecCredit}"></td>
                             </tr>
-                            <tr>
-                                <td>G01942</td>
-                                <td>공통</td>
-                                <td>컴퓨터과학개론</td>
-                                <td>3</td>
+                            <tr th:each="grade3, stat : ${majorListLevel3}">
+                                <td th:if="${stat.first}" th:rowspan="${#lists.size(majorListLevel3)}">3</td>
+                                <td th:text="${grade3.lecNo}"></td>
+                                <td th:text="${grade3.lecCate}"></td>
+                                <td th:text="${grade3.lecName}"></td>
+                                <td th:text="${grade3.lecCredit}"></td>
                             </tr>
-                            <tr>
-                                <td>G01943</td>
-                                <td>공통</td>
-                                <td>이산수학</td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td>G01944</td>
-                                <td>공통</td>
-                                <td>인터넷과웹기초</td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td>G01945</td>
-                                <td>공통</td>
-                                <td>컴퓨팅사과와인공지능</td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td rowspan="6">2</td>
-                                <td>G01946</td>
-                                <td>공통</td>
-                                <td>자바프로그래밍</td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td>G01947</td>
-                                <td>공통</td>
-                                <td>자료구조</td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td>G01948</td>
-                                <td>공통</td>
-                                <td>컴퓨터구조</td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td>G01949</td>
-                                <td>공통</td>
-                                <td>선형대수</td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td>G01950</td>
-                                <td>공통</td>
-                                <td>알고리즘</td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td>G01951</td>
-                                <td>공통</td>
-                                <td>HTML/CSS/Javascript</td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td rowspan="6">3</td>
-                                <td>G01952</td>
-                                <td>공통</td>
-                                <td>웹 프로그래밍</td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td>G01953</td>
-                                <td>공통</td>
-                                <td>프로그래밍언어론</td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td>G01954</td>
-                                <td>공통</td>
-                                <td>컴퓨터과학개론</td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td>G01955</td>
-                                <td>공통</td>
-                                <td>이산수학</td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td>G01956</td>
-                                <td>공통</td>
-                                <td>인터넷과웹기초</td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td>G01957</td>
-                                <td>공통</td>
-                                <td>컴퓨팅사고와인공지능</td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td rowspan="6">4</td>
-                                <td>G01958</td>
-                                <td>공통</td>
-                                <td>C언어</td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td>G01959</td>
-                                <td>공통</td>
-                                <td>프로그래밍언어론</td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td>G01960</td>
-                                <td>공통</td>
-                                <td>컴퓨터과학개론</td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td>G01961</td>
-                                <td>공통</td>
-                                <td>이산수학</td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td>G01962</td>
-                                <td>공통</td>
-                                <td>인터넷과웹기초</td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td>G01963</td>
-                                <td>공통</td>
-                                <td>컴퓨팅사고와인공지능</td>
-                                <td>3</td>
+                            <tr th:each="grade4, stat : ${majorListLevel4}">
+                                <td th:if="${stat.first}" th:rowspan="${#lists.size(majorListLevel4)}">4</td>
+                                <td th:text="${grade4.lecNo}"></td>
+                                <td th:text="${grade4.lecCate}"></td>
+                                <td th:text="${grade4.lecName}"></td>
+                                <td th:text="${grade4.lecCredit}"></td>
                             </tr>
                         </table>
 
@@ -195,48 +75,18 @@
                         <h5> 선택과목(교양)</h5>
                         <table class="option">
                             <tr>
-                                <th>수준</th>
+                                <th>학년</th>
                                 <th>코드번호</th>
                                 <th>이수구분</th>
                                 <th>교과목명</th>
                                 <th>학점</th>
                             </tr>
-                            <tr>
-                                <td rowspan="6">1</td>
-                                <td>G01964</td>
-                                <td>공통</td>
-                                <td>대학영어</td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td>G01965</td>
-                                <td>공통</td>
-                                <td>세계의역사</td>
-                                <td>2</td>
-                            </tr>
-                            <tr>
-                                <td>G01966</td>
-                                <td>공통</td>
-                                <td>고전 읽기와 토론</td>
-                                <td>2</td>
-                            </tr>
-                            <tr>
-                                <td>G01967</td>
-                                <td>공통</td>
-                                <td>컴퓨팅사고와인공지능</td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td>G01968</td>
-                                <td>공통</td>
-                                <td>인생과 철학</td>
-                                <td>2</td>
-                            </tr>
-                            <tr>
-                                <td>G01969</td>
-                                <td>공통</td>
-                                <td>기술과 의사소통</td>
-                                <td>2</td>
+                            <tr th:each="List, stat : ${generalList}">
+                                <td th:if="${stat.first}" th:rowspan="${#lists.size(generalList)}">1</td>
+                                <td th:text="${List.lecNo}"></td>
+                                <td th:text="${List.lecCate}"></td>
+                                <td th:text="${List.lecName}"></td>
+                                <td th:text="${List.lecCredit}"></td>
                             </tr>
                         </table>
 

@@ -14,8 +14,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 // 학생 지원
 @Slf4j
@@ -28,7 +31,42 @@ public class SupportController {
 
     //교과과정
     @GetMapping("/classes")
-    public String classes(){
+    public String classes(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+
+        // 학번
+        String stdNo = userDetails.getUsername();
+        StudentDTO studentDTO = supportService.findStudentByStdNo(stdNo);
+
+        // 학년, 학과
+
+        // 전공 데이터 출력
+        // 전공 1학년 데이터 출력
+        List<LectureDTO> majorListLevel1 = supportService.findLectureByLecCate(studentDTO, "1");
+
+        // 전공 2학년 데이터 출력
+        List<LectureDTO> majorListLevel2 = supportService.findLectureByLecCate(studentDTO, "2");
+
+        // 전공 3학년 데이터 출력
+        List<LectureDTO> majorListLevel3 = supportService.findLectureByLecCate(studentDTO, "3");
+
+        // 전공 4학년 데이터 출력
+        List<LectureDTO> majorListLevel4 = supportService.findLectureByLecCate(studentDTO, "4");
+
+        // 교양 데이터 출력
+        List<LectureDTO> generalList = supportService.findLectureByLecClass(studentDTO, "교양");
+
+        model.addAttribute("majorListLevel1", majorListLevel1);
+        model.addAttribute("majorListLevel2", majorListLevel2);
+        model.addAttribute("majorListLevel3", majorListLevel3);
+        model.addAttribute("majorListLevel4", majorListLevel4);
+        model.addAttribute("generalList", generalList);
+
+        // 데이터 필터링 예시 (lecGrade별로 그룹화)
+        Map<Integer, List<LectureDTO>> groupedGeneralList = generalList.stream()
+                .collect(Collectors.groupingBy(LectureDTO::getLecGrade));
+
+        model.addAttribute("groupedGeneralList", groupedGeneralList);
+
         return "/support/classes";
     }
 
@@ -45,18 +83,6 @@ public class SupportController {
     }
 
     //수강신청
-    /*
-    @GetMapping("/register")
-    public String register(Model model){
-
-        List<LectureDTO> lectureDTOList = supportService.findAll();
-        model.addAttribute("lectureDTOList", lectureDTOList);
-
-        return "/support/register";
-    }
-
-     */
-
     @GetMapping("/register")
     public String register(@AuthenticationPrincipal UserDetails userDetails, Model model){
         String stdNo = userDetails.getUsername();
@@ -94,67 +120,30 @@ public class SupportController {
 
         List<StudentDTO> studentList = supportService.findRecordByStdNo(stdNo);
 
-        StudentDTO studentDTO = studentList.get(0);
+        if (!studentList.isEmpty()) {
+            StudentDTO studentDTO = studentList.get(0);  // 첫 번째 학생의 정보 가져오기
+            String studentStdNo = studentDTO.getStdNo();  // 학번 가져오기
+            log.info("Student StdNo: " + studentStdNo);  // 학번 출력 (확인용)
 
-        SupportService.CreditSummary creditSummary = supportService.calculateCredits(stdNo);
+            // 학점 계산
+            SupportService.CreditSummary creditSummary = supportService.calculateCredits(stdNo);
 
-        if(!studentList.isEmpty()){
-            model.addAttribute("student", studentList.get(0));
+            double averageCredits = 0;
+            int totalCredits = creditSummary.getMajor() + creditSummary.getElective() + creditSummary.getOther();
+            if(totalCredits > 0){
+                averageCredits = (double) totalCredits / 3;
+            }
+
+            // 모델에 학생 정보와 학점 요약 추가
+            model.addAttribute("student", studentDTO);
             model.addAttribute("creditSummary", creditSummary);
-
+            model.addAttribute("averageCredits", averageCredits);
+        } else {
+            log.warn("No student found for stdNo: " + stdNo);  // 학생 정보가 없을 경우 경고 로그
         }
 
+        // 결과적으로 학적 정보를 보여주는 페이지로 포워드
         return "/support/record";
     }
-
-
-
-
-    /*
-        //수강신청
-        @GetMapping("/register")
-        public String register(Model model){
-
-
-            List<LectureDTO> lectureDTOList = supportService.findAll();
-            model.addAttribute("lectureDTOList", lectureDTOList);
-
-            return "/support/register";
-        }
-
-    @GetMapping("/register_list/{stdNo}")
-    public String registerListByStdNo(@PathVariable String stdNo, Model model){
-        log.info("stdNo: " + stdNo);
-
-        List<RegisterDTO> registerList = supportService.findRegisterByStdNo(stdNo);
-
-        log.info("registerList : {}", registerList);
-
-        model.addAttribute("registerList", registerList);
-
-        return "/support/register_list";
-    }
-
-        @GetMapping("/record/{stdNo}")
-    public String recordByStdNo(@PathVariable String stdNo, Model model){
-        log.info("stdNo: " + stdNo);
-
-        List<StudentDTO> studentList = supportService.findRecordByStdNo(stdNo);
-
-        StudentDTO studentDTO = studentList.get(0);
-
-        SupportService.CreditSummary creditSummary = supportService.calculateCredits(stdNo);
-
-        if(!studentList.isEmpty()){
-            model.addAttribute("student", studentList.get(0));
-            model.addAttribute("creditSummary", creditSummary);
-
-        }
-
-        return "/support/record";
-    }
-
-   */
-
 
 }
