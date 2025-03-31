@@ -5,13 +5,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import kr.co.greendae.dto.user.TermsDTO;
 import kr.co.greendae.dto.user.UserDTO;
-import kr.co.greendae.entity.user.User;
 import kr.co.greendae.service.TermsService;
 import kr.co.greendae.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.tool.schema.internal.SchemaTruncatorImpl;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -131,6 +129,47 @@ public class UserController {
         return "/user/findpassword";
     }
 
+    @PostMapping("/findpassword")
+    public ResponseEntity<?> findpassword(@RequestBody Map<String, String> map, HttpSession session) {
+        try {
+            String email = map.get("email");
+
+            // 이메일이 비어있는지 체크
+            if (email == null || email.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("이메일을 입력해 주세요.");
+            }
+
+            // 인증 코드 전송 로직
+            String authCode = userService.sendPasswordResetEmailCode(email);
+
+            // 인증 코드를 세션에 저장
+            session.setAttribute("authCode", authCode);
+
+            return ResponseEntity.ok().body(Collections.singletonMap("message", "인증코드를 이메일로 전송했습니다."));
+        } catch (Exception e) {
+            log.error("비밀번호 찾기 중 오류 발생", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 오류가 발생했습니다.");
+        }
+    }
+
+
+    @PostMapping("/findpassword/auth")
+    public ResponseEntity<Boolean> findPasswordAuth(@RequestBody Map<String, String> map, HttpSession session) {
+        String authCode = map.get("authCode");  // 사용자가 입력한 인증 코드
+        log.info("비밀번호 찾기 인증 코드: {}", authCode);
+
+        // 세션에서 저장된 인증 코드 가져오기
+        String sessionAuthCode = (String) session.getAttribute("findPasswordAuthCode");
+        log.info("세션 인증 코드: {}", sessionAuthCode);
+
+        // 인증 코드 비교
+        if (authCode != null && authCode.equals(sessionAuthCode)) {
+            return ResponseEntity.ok().body(true);  // 인증 성공
+        }
+
+        return ResponseEntity.ok().body(false);  // 인증 실패
+    }
+
     @GetMapping("/information")
     public String information(){
         return "/user/information";
@@ -142,25 +181,13 @@ public class UserController {
     }
 
     @GetMapping("/lookupresult")
-    public String lookupresult(){
+    public String lookupresult(UserDTO userDTO, Model model){
+
+        UserDTO findUser = userService.findUserByEmail(userDTO.getEmail());
+
+        model.addAttribute("userDTO", findUser);
+
         return "/user/lookupresult";
-    }
-
-    @PostMapping("/lookupresult")
-    public String lookupresult(@RequestBody String name, Model model){
-
-        try {
-    //        User user = userService.findUserByEmail(email);
-    //        model.addAttribute("user", user);
-            return "/user/lookupresult";
-
-        }catch(RuntimeException e) {
-            model.addAttribute("username", name);
-            return "/user/findid";
-        }
-
-
-    //    return "/user/lookupresult";
     }
 
     @GetMapping("/termsandconditions")
