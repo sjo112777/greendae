@@ -18,7 +18,7 @@
     <a th:href="@{/academic/graduation}">
       <div id="graduation">수료 및 졸업</div>
     </a>
-    <a th:href="@{/academic/graduation}">    <!-- 각자 주소 넣기 -->
+    <a th:href="@{/academic/faq}">    <!-- 각자 주소 넣기 -->
       <div id="FAQ">자주하는 질문</div>
     </a>
 
@@ -49,7 +49,7 @@
       document.getElementById("grade").classList.add("active");
     }else if (path.includes("graduation")) {
       document.getElementById("graduation").classList.add("active");
-    }else if (path.includes("FAQ")) {
+    }else if (path.includes("faq")) {
       document.getElementById("FAQ").classList.add("active");
     }
   });
