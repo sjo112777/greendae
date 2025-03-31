@@ -1,5 +1,5 @@
-        .green_txt{
-            color: blue;
+.green_txt{
+    color: blue;
             font-weight: bold;
         }
         h5 {
@@ -10,7 +10,7 @@
             color: #145074;
         }
         .main_content > div > h5::before{
-        content: url('/static/images/bullet-h4.png');
+        content: url('/images/bullet-h4.png');
         }
         .main_content > div:nth-child(2) {
             margin-top: 40px;
