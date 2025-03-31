@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>그린대학교 학사관리시스템 교육윤영현황</title>
+    <link rel="stylesheet" href="/css/admin/admin.css">
+</head>
+<body>
+<div id="wrapper">
+    <!-- 헤더 시작작-->
+    <th:block th:include="/inc/admin/_header"/>
+    <!-- 헤더 끝-->
+    <!-- 메인 시작작-->
+    <main>
+        <section class="content">
+            <!-- 왼쪽 사이드바 -->
+            <th:block th:include="/inc/admin/sidebar"/>
+            <!-- 오른쪽 글 -->
+            <article class="main_content">
+                <div class="main_title">
+                    <p>학과 목록<span class="title_span">학과 목록</span> <span>대학 및 학과 > &nbsp; </span></p>
+                </div>
+                <div class="main_content_detail">
+                    <div class="Operations_main">
+
+
+                        <p class="Operations_title">
+                            <img src="/images/bullet-h4.png" alt="기호">
+                            교육 운영 현황
+                        </p>
+
+                        <!--검색-->
+                        <div style="width: 100%; height: 50px;">
+                            <div style="float: right;">
+                                <form action="">
+                                    <select class="search_select" name="searchType">
+                                        <option value="title">제목</option>
+                                        <option value="content">내용</option>
+                                        <option value="writer">글쓴이</option>
+                                    </select>
+                                    <input type="text" name="keyword" class="search_text" placeholder="검색 키워드 입력">
+                                    <input type="submit" class="search_btn" value="검색">
+                                </form>
+                            </div>
+                        </div>
+                        <!--검색-->
+
+                        <!-- 학과목록 시작-->
+                        <table class="Education_Operations">
+                            <thead>
+                                <th style="width: 109px;">학과번호</th>
+                                <th style="width: 190px;">단과대학</th>
+                                <th style="width: 190px;">학과</th>
+                                <th style="width: 109px;">학과장</th>
+                                <th style="width: 163px;">학과 연락처</th>
+                                <th style="width: 109px;">소속 교수 수</th>
+                                <th style="width: 109px;">소속 학생 수</th>
+                                <th style="width: 109px;">개설 강의 수 </th>
+                                </thead>
+                            <tbody>
+                                <tr>
+                                    <td>10</td>
+                                    <td>인문</td>
+                                    <td>국문</td>
+                                    <td>김국어</td>
+                                    <td>051-512-1010</td>
+                                    <td>23</td>
+                                    <td>322</td>
+                                    <td>42</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- 학과 목록 끝-->
+
+
+                    </div>
+                </div>
+            </article>
+        </section>
+    </main>
+    <!-- 메인 끝-->
+    <!-- 푸터 시작작-->
+    <footer>
+        <div>
+            <div>
+                <ul>
+                    <li><a href="#">개인정보처리방침</a></li>
+                    <li><a href="#">통합정보시스템</a></li>
+                    <li><a href="#">학사일정</a></li>
+                    <li><a href="#">주요인원 연락처</a></li>
+                    <li><a href="#">교내공지사항</a></li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <div>
+                <img src="/images/footer_logo.png" alt="그린대학교">
+                <p>
+                    그린대학교 <br>
+                    [12345] 부산광역시 부산진구 부전대로 123 그린대학교 / 대표전화 : 051-123-1000 / <br>
+                    입학안내 : 051-123-1302 팩스 : 051-123-3333
+
+                    <br><br>
+                    copyright ©Green University All rights reserved.
+                </p>
+                <div>
+                    <p>주요사이트
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ▾</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- 푸터 끝-->
+</div>
+</body>
+</html>
