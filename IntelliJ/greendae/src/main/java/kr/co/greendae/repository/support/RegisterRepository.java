@@ -11,7 +11,12 @@ import java.util.List;
 
 public interface RegisterRepository extends JpaRepository<Register, String> {
     //Register_list 페이지에 출력할 정보 JOIN
-    @Query("select (r.student.stdNo, r.lecture.lecNo, l.lecCredit, l.lecName, l.lecCate, l.lecGrade, l.professor, l.lecRoom, l.lecTime) from Register as r " +
+
+    /*
+    * l.lecTime 수정했어요.   맨 마지막 l.lecCate 붙인거!!
+    *
+    * */
+    @Query("select (r.student.stdNo, r.lecture.lecNo, l.lecCredit, l.lecName, l.lecCate, l.lecGrade, l.professor, l.lecRoom, l.lecCate) from Register as r " +
             "join Lecture as l on r.lecture.lecNo = l.lecNo " +
             "where r.student.stdNo = :stdNo")
     public List<Object[]> findRegisterByStdNo(@Param("stdNo") String stdNo);

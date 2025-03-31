@@ -563,6 +563,68 @@ main{
     margin-right: 20px;
 }
 
+.lec_div1{
+    width: 317px;
+    float: left;
+}
+
+.lec_div2 .r1{
+    margin-left: 10px;}
+
+.lec_div2{
+    margin-top: 10px;
+    width: 330px;
+    float: left;
+}
+
+.lec_info .ipt2{
+    width: 450px;
+    height: 33px;
+    float: left;
+    padding-left: 7px;
+    box-sizing: border-box;
+}
+
+.lec_info .ipt3{
+    width: 200px;
+    height: 33px;
+    float: left;
+    padding-left: 7px;
+    box-sizing: border-box;
+}
+
+.lec_info .lecdate{
+    width: 150px;
+    height: 35px;
+    box-sizing: border-box;
+}
+
+.lec_info tr td{
+    height: 48px;
+    box-sizing: border-box;
+    border: 1px solid #E5E5E5;
+    padding-left: 10px;
+}
+
+.lec_info tr td:nth-child(1){
+    width: 217px;
+    background-color: #FAFAFA;
+}
+
+.lec_info tr td:nth-child(2){
+    width: 326px;
+}
+
+.lec_info tr td:nth-child(3){
+    width: 217px;
+    background-color: #FAFAFA;
+}
+
+.lec_info tr td:nth-child(4){
+    width: 326px;
+    
+}
+
 .basic_info textarea{
     width: 426px;
     height: 126px;
