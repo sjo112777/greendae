@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,8 +69,51 @@ public class ArticleService {
             BasicArticle basicArticle = optArticle.get();
             ArticleDTO articleDTO = modelMapper.map(basicArticle, ArticleDTO.class);
 
+            basicArticle.setHit(articleDTO.getHit() + 1);
+            basicArticleRepository.save(basicArticle);
+
             return articleDTO;
         }
         return null;
+    }
+
+
+    @Transactional
+    public void deletebasicArticle(int no) {
+        basicArticleRepository.deleteById(no);
+    }
+
+
+    @Transactional
+    public void modifybasicArticle(ArticleDTO articleDTO) {
+
+        // pk
+        Optional<BasicArticle> optArticle = basicArticleRepository.findById(articleDTO.getNo());
+        if (optArticle.isPresent()) {
+            BasicArticle basicArticle = optArticle.get(); // 기존 데이터 조회
+
+            // 새로운 값으로 업데이트
+            basicArticle.setTitle(articleDTO.getTitle());
+            basicArticle.setContent(articleDTO.getContent());
+
+            // 저장 (변경 감지가 자동으로 작동함)
+            basicArticleRepository.save(basicArticle);
+        } else {
+            throw new IllegalArgumentException("해당 글이 존재하지 않습니다.");
+        }
+
+    }
+
+    public void CountUpComment(int no) {
+
+        Optional<BasicArticle> optArticle = basicArticleRepository.findById(no);
+
+        if(optArticle.isPresent()){
+            BasicArticle basicArticle = optArticle.get();
+            basicArticle.setComment(basicArticle.getComment() + 1);
+            basicArticleRepository.save(basicArticle);
+
+        }
+
     }
 }

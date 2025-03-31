@@ -16,6 +16,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -43,7 +44,7 @@ public class FileService {
 
     public List<FileDTO> uploadFile(ArticleDTO articleDTO) {
         // 파일 업로드 디렉터리 객체 생성
-        java.io.File fileUploadDir = new java.io.File(uploadDir);
+        File fileUploadDir = new File(uploadDir);
 
         if(!fileUploadDir.exists()){
             // 파일 업로드 디렉터리가 존재하지 않으면 생성
@@ -137,5 +138,21 @@ public class FileService {
                 .status(HttpStatus.NOT_FOUND)
                 .build();
 
+    }
+
+    public List<FileDTO> findById(int no) {
+        List<BasicFile> list = basicFileRepository.findByAno(no);
+
+        List<FileDTO> fileDTOList = new ArrayList<>();
+        for(BasicFile basicFile : list){
+            FileDTO fileDTO = modelMapper.map(basicFile, FileDTO.class);
+            fileDTOList.add(fileDTO);
+        }
+        return fileDTOList;
+    }
+
+    @Transactional
+    public void deletebasicFile(int no) {
+        basicFileRepository.deleteByAno(no);  // pk
     }
 }

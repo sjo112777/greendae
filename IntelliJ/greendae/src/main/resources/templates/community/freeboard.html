@@ -43,6 +43,9 @@
                         <th:block th:if="${isViewing}">
                             <th:block th:include="/inc/community/view.html"/>
                         </th:block>
+                        <th:block th:if="${isModifying}">
+                            <th:block th:include="/inc/community/modify.html"/>
+                        </th:block>
 
         <!-- 메인 끝-->
         <!-- 푸터 시작작-->

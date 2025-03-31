@@ -6,10 +6,12 @@ import kr.co.greendae.entity.user.User;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = "basicarticle")
+@ToString
 @Builder
 @Entity
 @Table(name = "BasicComment")
@@ -29,7 +31,7 @@ public class BasicComment {
     private String regip;
 
     @CreationTimestamp
-    private String wdate;
+    private LocalDateTime wdate;
 
 
 }

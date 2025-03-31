@@ -18,6 +18,10 @@ public class ChairPersonData {
 
     @Test
     public void  CollegeTest(){
+
+
+
+
         Chairperson chairperson1 = Chairperson.builder().no(1).name("김국어").build();
         Chairperson chairperson2 = Chairperson.builder().no(2).name("김영어").build();
         Chairperson chairperson3 = Chairperson.builder().no(3).name("김일어").build();
