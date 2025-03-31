@@ -41,17 +41,28 @@ public class Lecture {
     @JoinColumn(name = "proNo")
     private Professor professor;  //담당교수
 
+    private String lecMajor;
     private String lecClass;
+
     private String lecName;  //과목명
     private String lecCate;  //과목 구분(전공선택)
     private int lecGrade;    //학년
     private int lecCredit;   //학점
     private int lecStdTotal; //총 수강인원(추가)
     private int lecStdCount; //현재 수강인원
+    private int lecLevel;    // 1,2,3,4 레벨
     private String lecRoom;  //강의실
-    private String lecTime;  //강의시간
+
+    private String lecWeekday; // 요일 
+    private String lecScheduleStart; // 수강기간(mm/dd/yy) 시작
+    private String lecScheduleEnd; // 수강기간(mm/dd/yy) 종료
+    private String lecTimeStart; // 강의 시작시간
+    private String lecTimeEnd;   // 강의 종료시간
+    
     private String book;     //교재(출판사 - 도서명 - 저자 입력)
-    private String lecSchedule; // 수강기간(mm/dd/yy)
+
+    private String lecContent;      //강의설명
+    private String lecEvaluation ;  //평가방식
 
 
 }

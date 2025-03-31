@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>그린대학교 학사관리시스템 교육윤영현황</title>
     <link rel="stylesheet" href="/greendae/css/admin/admin.css">
+
 </head>
 <body>
     <div id="wrapper">
@@ -116,7 +117,7 @@
                 <!-- 오른쪽 글 -->
                 <article class="main_content">
                     <div class="main_title">
-                        <p>강의등록<span class="title_span">교육 운영 현황</span> <span>학사운영 > &nbsp; </span></p>
+                        <p>강의등록<span class="title_span">강의 등록</span> <span>학사운영 > &nbsp; </span></p>
                     </div>
                     <div class="main_content_detail">
                         <div class="Operations_main">
@@ -133,13 +134,12 @@
                                     <td>학과코드 + 연도 + 학기 + 순번 조합 자동생성</td>
                                     <td>개설학과</td>
                                     <td>
-                                        <select name="1">
-                                            <option value="1">인문사회대학</option>
+                                        <select name="departmentC">
+                                            <option th:each="collegeDTO : ${collegeDTOS}" th:value="${collegeDTO.name}">[[${collegeDTO.name}]]</option>
                                         </select>
-                                        <select name="2">
-                                            <option value="1">국어국문학과</option>
+                                        <select name="departmentD">
+                                            <option th:each="departmentDTO : ${departmentDTOS}" th:value="${departmentDTO.deptName}">[[${departmentDTO.deptName}]]</option>
                                         </select>
-
                                     </td>
                                 </tr>
                                 <tr>
@@ -212,7 +212,67 @@
                             
                             
                             <!-- 기본정보입력 끝-->
-                            <form action="#" method="post"></form>
+                            <!-- 수업정보입력 끝-->
+                            <p class="Operations_title">
+                                <img src="/greendae/images/bullet-h4.png" alt="기호">
+                                수업정보 입력
+                            </p>
+
+                            <table class="lec_info">
+                                <tr>
+                                    <td>수업기간</td>
+                                    <td colspan="3">
+                                        <div class="lec_div1">
+                                            <input type="date" class="lecdate" > ~ <input type="date" class="lecdate" >                              
+                                        </div>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>수업 시간</td>
+                                    <td colspan="3">
+                                        <div class="lec_div1">
+                                            <input type="time" name="appt-time" class="lecdate" value="10:00" step="3600" />
+                                            ~
+                                            <input type="time" name="appt-time" class="lecdate" value="12:00" step="3600" />                            
+                                        </div>
+                                        <div class="lec_div2">
+                                            <input type="radio" class="r1">월
+                                            <input type="radio" class="r1">화
+                                            <input type="radio" class="r1">수
+                                            <input type="radio" class="r1">목
+                                            <input type="radio" class="r1">금
+                                        </div>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>평가방식</td>
+                                    <td colspan="3">
+                                        <input type="text" class="ipt2" placeholder="출석 10%, 과제 30%, 시험 60%">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>교재</td>
+                                    <td colspan="3">
+                                        <input type="text" class="ipt2" placeholder="출판사 - 도서명 - 저자 입력">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>강의실</td>
+                                    <td>
+                                        <input type="text" class="ipt3" placeholder="강의실 입력">
+                                    </td>
+                                    <td>최대 수강인원</td>
+                                    <td>
+                                        <input type="text" class="ipt3" >
+                                    </td>
+                                    
+                                </tr>
+                               
+                            </table>
+
+                            <button type="submit" class="btn_b">등록</button>
                             
                         </div>                 
                     </div>  

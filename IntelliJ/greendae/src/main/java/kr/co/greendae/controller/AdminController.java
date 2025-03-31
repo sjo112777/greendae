@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import kr.co.greendae.dto.college.CollegeDTO;
 import kr.co.greendae.dto.department.ChairPersonDTO;
 import kr.co.greendae.dto.department.DepartmentDTO;
+import kr.co.greendae.dto.support.LectureDTO;
 import kr.co.greendae.dto.support.StudentDTO;
 import kr.co.greendae.dto.user.ProfessorDTO;
 import kr.co.greendae.dto.user.UserDTO;
@@ -164,6 +165,48 @@ public class AdminController {
         adminService.registerStudent(studentDTO, userDTO, departmentDTO);
 
         return "redirect:/admin/professor/register";
+    }
+
+    // 강의 등록
+    @GetMapping("/lecture/register")
+    public String lecture(Model model){
+
+        // Select 박스를 위한 대학 정보
+        List<CollegeDTO>  collegeDTOS = adminService.findAllCollege();
+        List<DepartmentDTO> departmentDTOS = adminService.findAllDepartmentByName(collegeDTOS.get(0).getName());
+
+        //대학 정보
+        model.addAttribute("collegeDTOS",collegeDTOS);
+        model.addAttribute("departmentDTOS",departmentDTOS);
+
+        return "/admin/register/lecture";
+    }
+
+    @PostMapping("/lecture/register")
+    public String lecture(LectureDTO lectureDTO){
+
+        // 과목 코드 만들기
+
+        String[] year = lectureDTO.getLecScheduleStart().split("-");
+        String lecNo = year[0];
+
+        DepartmentDTO departmentDTO = adminService.findDepartmentByName(lectureDTO.getLecClass());
+
+        lecNo += departmentDTO.getDeptNo();
+
+        System.out.println(lectureDTO);
+        System.out.println(lectureDTO);
+        System.out.println(lectureDTO);
+        System.out.println(lectureDTO);
+        System.out.println(lectureDTO);
+        adminService.registerLecture(lectureDTO, lecNo);
+
+        System.out.println(lecNo);
+        System.out.println(lecNo);
+        System.out.println(lecNo);
+        System.out.println(lecNo);
+        System.out.println(lectureDTO);
+        return "redirect:/admin/lecture/register";
     }
 
     // 대학을 선택하면 관련 학과를 출력

@@ -3,9 +3,11 @@ package kr.co.greendae.service;
 import kr.co.greendae.dto.college.CollegeDTO;
 import kr.co.greendae.dto.department.ChairPersonDTO;
 import kr.co.greendae.dto.department.DepartmentDTO;
+import kr.co.greendae.dto.support.LectureDTO;
 import kr.co.greendae.dto.support.StudentDTO;
 import kr.co.greendae.dto.user.ProfessorDTO;
 import kr.co.greendae.dto.user.UserDTO;
+import kr.co.greendae.entity.Lecture.Lecture;
 import kr.co.greendae.entity.college.College;
 import kr.co.greendae.entity.department.Chairperson;
 import kr.co.greendae.entity.department.Department;
@@ -15,6 +17,7 @@ import kr.co.greendae.entity.user.User;
 import kr.co.greendae.repository.department.ChairPersonRepository;
 import kr.co.greendae.repository.department.CollegeRepository;
 import kr.co.greendae.repository.department.DepartmentRepository;
+import kr.co.greendae.repository.support.LectureRepository;
 import kr.co.greendae.repository.user.ProfessorRepository;
 import kr.co.greendae.repository.user.StudentRepository;
 import kr.co.greendae.repository.user.UserRepository;
@@ -22,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -43,6 +47,7 @@ public class AdminService {
     private final UserRepository userRepository;
     private final ProfessorRepository professorRepository;
     private final StudentRepository studentRepository;
+    private final LectureRepository lectureRepository;
 
     @Value("${spring.servlet.multipart.location}")
     private String uploadDir;
@@ -213,5 +218,31 @@ public class AdminService {
             student.setProfessor(professor);
             studentRepository.save(student);
         }
+    }
+
+    public void registerLecture(LectureDTO lectureDTO, String lecNo) {
+
+        int number = 1;
+        String num = lecNo + "001";
+
+        while(lectureRepository.existsById(num)){
+            number += 1;
+            num = String.valueOf((Integer.parseInt(num) + number));
+        }
+
+        lectureDTO.setLecNo(num);
+        Lecture lecture = modelMapper.map(lectureDTO, Lecture.class);
+
+        User user = userRepository.findByName(lectureDTO.getProNo());
+        System.out.println(user);
+        System.out.println(user);
+        System.out.println(user);
+        Professor professor = professorRepository.findById(user.getUid()).get();
+        System.out.println(professor);
+        System.out.println(professor);
+        System.out.println(professor);
+        System.out.println(professor);
+        lecture.setProfessor(professor);
+        lectureRepository.save(lecture);
     }
 }
