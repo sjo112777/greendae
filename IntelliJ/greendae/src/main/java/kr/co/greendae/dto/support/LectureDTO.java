@@ -1,5 +1,6 @@
 package kr.co.greendae.dto.support;
 
+import kr.co.greendae.dto.user.ProfessorDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,6 +37,8 @@ public class LectureDTO {
     private String book;
     private String lecWeekday; // 요일
     private String proName;
+
+    private ProfessorDTO professor;
 
 
 

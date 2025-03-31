@@ -100,14 +100,14 @@
                             </tr>
                             <tr>
                                 <td>2025</td>
-                                <td th:text="${student.stdYear}">2020</td>
-                                <td th:text="${student.stdSemester}">2020</td>
-                                <td>18</td>
-                                <td th:text="${creditSummary.major}">2020</td>
-                                <td th:text="${creditSummary.elective}">2020</td>
-                                <td th:text="${creditSummary.other}">2020</td>
-                                <td th:text="${creditSummary.total}">2020</td>
-                                <td>3.2</td>
+                                <td th:text="${student.stdYear}">학년</td>
+                                <td th:text="${student.stdSemester}">학기</td>
+                                <td th:text="${student.registerCredits}">신청학점</td>
+                                <td th:text="${creditSummary.major}">전공학점</td>
+                                <td th:text="${creditSummary.elective}">선택학점</td>
+                                <td th:text="${creditSummary.other}">기타학점</td>
+                                <td th:text="${creditSummary.total}">총취득학점</td>
+                                <td th:text="${averageCredits}">평점평균</td>
                                 <td></td>
                             </tr>
                         </table>

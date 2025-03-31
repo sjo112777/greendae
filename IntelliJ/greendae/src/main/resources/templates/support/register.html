@@ -59,26 +59,25 @@
                                 <th>비고</th>
                                 <th>신청</th>
                             </tr>
-                            <tbody>
-                                <tr th:if="${#lists.isEmpty(lectureDTOList)}" style="text-align: center;">
-                                    <td colspan="9">수강 가능한 과목이 없습니다.</td>
-                                </tr>
-                                <tr th:each="lecture : ${lectureDTOList} ">
-                                    <td th:text="${lecture.lecClass}">[[${lecture.lecClass}]]</td>
-                                    <td th:text="${lecture.lecCate}">[[${lecture.lecCate}]]</td>
-                                    <td th:text="${lecture.lecGrade}">[[${lecture.lecGrade}]]</td>
-                                    <td th:text="${lecture.lecNo}">[[${lecture.lecNo}]]</td>
-                                    <td th:text="${lecture.lecName}">[[${lecture.lecName}]]</td>
-                                    <td th:text="${lecture.lecCredit}">[[${lecture.lecCredit}]]</td>
-                                    <td th:text="${lecture.proName}">[[${lecture.proName}]]</td>
-                                    <td th:text="${lecture.lecStdCount}">[[${lecture.lecStdCount}]]</td>
-                                    <td> </td>
-                                    <td>
-                                        <button class="submit" th:data-lecNo="${lecture.lecNo}" onclick="registerLecture(this)">신청</button>
-                                    </td>
-                            </tbody>
-
-                            </tr>
+                                <tbody>
+                                    <tr th:if="${#lists.isEmpty(lectureDTOList)}" style="text-align: center;">
+                                        <td colspan="10">수강 가능한 과목이 없습니다.</td>
+                                    </tr>
+                                    <tr th:each="lecture : ${lectureDTOList} ">
+                                        <td th:text="${lecture.lecClass}"></td>
+                                        <td th:text="${lecture.lecCate}"></td>
+                                        <td th:text="${lecture.lecGrade}"></td>
+                                        <td th:text="${lecture.lecNo}"></td>
+                                        <td th:text="${lecture.lecName}"></td>
+                                        <td th:text="${lecture.lecCredit}"></td>
+                                        <td th:text="${lecture.professor.user.name}"></td>
+                                        <td th:text="${lecture.lecStdCount}"></td>
+                                        <td> </td>
+                                        <td>
+                                            <button class="submit" th:data-lecNo="${lecture.lecNo}" onclick="registerLecture(this)">신청</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
                         </table>
                     </div>
                     <div id="confirmationModal" class="modal">

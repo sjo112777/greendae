@@ -16,7 +16,7 @@ public interface RegisterRepository extends JpaRepository<Register, String> {
     * l.lecTime 수정했어요.   맨 마지막 l.lecCate 붙인거!!
     *
     * */
-    @Query("select (r.student.stdNo, r.lecture.lecNo, l.lecCredit, l.lecName, l.lecCate, l.lecGrade, l.professor, l.lecRoom, l.lecCate) from Register as r " +
+    @Query("select (r.student.stdNo, r.lecture.lecNo, l.lecCredit, l.lecName, l.lecCate, l.lecGrade, l.professor, l.lecRoom, l.lecWeekday) from Register as r " +
             "join Lecture as l on r.lecture.lecNo = l.lecNo " +
             "where r.student.stdNo = :stdNo")
     public List<Object[]> findRegisterByStdNo(@Param("stdNo") String stdNo);
