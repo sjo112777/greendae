@@ -38,14 +38,16 @@ public class Register {
     @JoinColumn(name = "regLecNo", referencedColumnName = "lecNo")
     private Lecture lecture;
 
+    private String regYear;
+    private String regSemester;
+
+    private String regGradeScore; //A,B,C,D,E
     private String regAttenScore; // 출석점수
     private String regMidScore;   // 중간고수 점수
     private String regFinalScore; // 기말고수 점수
     private String regEtcScore;   // 기타점수
     private int regTotalScore;    // 총점
-    private String regYear;
-    private String regSemester;
-    private String regGradeScore; //A,B,C,D,E
+
 
     /*
     * 고민1 : A,B,C,D,E,F
@@ -56,6 +58,21 @@ public class Register {
     * https://drive.google.com/drive/folders/1Vow0jVg5fh3ROGwa9qywhuCgWfA1MFPy
     * */
 
+    @PrePersist
+    public void prePersist(){
+        if(this.regAttenScore == null){
+            this.regAttenScore = "0";
+        }
+        if(this.regMidScore == null){
+            this.regMidScore = "0";
+        }
+        if(this.regFinalScore == null){
+            this.regFinalScore = "0";
+        }
+        if(this.regEtcScore == null){
+            this.regEtcScore = "0";
+        }
+    }
 
 
 

@@ -99,16 +99,19 @@ select {
 }
 .page {
     margin-top: 30px;
-    width: 32px;
-    height: 29px;
     vertical-align: middle;
     text-align: center;
-    margin-left: 435px;
-    border: 1px solid #d8d8d8;
+
+}
+.page > a {
+    width: 15px;
+    display: inline-block;
+    padding: 8px;
+    border: 1px solid #d7d7d7;
 }
 .page a {
     font-weight: 350;
-    size: 15px;
+    font-size: 15px;
     line-height: 100%;
     color: #888888;
 }

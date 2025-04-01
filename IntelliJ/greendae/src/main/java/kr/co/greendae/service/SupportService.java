@@ -1,11 +1,18 @@
 package kr.co.greendae.service;
 
 
+import com.querydsl.core.Tuple;
+
 import kr.co.greendae.dto.support.LectureDTO;
 import kr.co.greendae.dto.support.RegisterDTO;
 
 import kr.co.greendae.dto.support.StudentDTO;
+import kr.co.greendae.dto.support.pageRegister.PageRequestDTO;
+import kr.co.greendae.dto.support.pageRegister.PageResponseDTO;
+import kr.co.greendae.dto.support.pageRegisterList.RegisteredPageRequestDTO;
+import kr.co.greendae.dto.support.pageRegisterList.RegisteredPageResponseDTO;
 import kr.co.greendae.entity.Lecture.Lecture;
+import kr.co.greendae.entity.Lecture.Register;
 import kr.co.greendae.entity.user.Student;
 import kr.co.greendae.repository.support.LectureRepository;
 import kr.co.greendae.repository.support.RegisterRepository;
@@ -14,6 +21,8 @@ import kr.co.greendae.repository.user.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -32,9 +41,7 @@ public class SupportService {
     private final StudentRepository studentRepository;
     private final ModelMapper modelMapper;
 
-    public void register(){}
-
-    public List<LectureDTO> findAll(){
+    public List<LectureDTO> findAll() {
         List<Lecture> lecturesEntities = lectureRepository.findAll();
         // ModelMapper를 사용하여 Lecture 엔티티를 LectureDTO로 변환 후 리스트로 반환
         return lecturesEntities
@@ -50,37 +57,106 @@ public class SupportService {
         return studentRepository.findYearByStdNo(stdNo);
     }
 
-    public List<LectureDTO> findRegisterByStdNoByGrade(int stdYear) {
-        List<Lecture> lectureList = lectureRepository.findByLecGrade(stdYear);
+    public PageResponseDTO searchAll(PageRequestDTO pageRequestDTO, int stdYear) {
+        //페이징 처리를 위한 pageable 객체 생성
+        Pageable pageable = pageRequestDTO.getPageable("no");
 
-        System.out.println("123");
-        System.out.println("123");
-        System.out.println("123");
-        System.out.println("123");
-        System.out.println(lectureList);
+        Page<Tuple> pageLecture = lectureRepository.searchLecturesByStdNoAndStdYear(pageRequestDTO, pageable, stdYear);
 
-        // lectureList를 LectureDTO 리스트로 변환
-        List<LectureDTO> lectureDTOList = new ArrayList<>();
-        for (Lecture lecture : lectureList) {
-            // Lecture 객체를 LectureDTO로 변환
+        //변환
+        List<LectureDTO> lectureDTOList = pageLecture.getContent().stream().map(tuple -> {
+            Lecture lecture = tuple.get(0, Lecture.class);
+            String proName = tuple.get(1, String.class);
+
             LectureDTO lectureDTO = modelMapper.map(lecture, LectureDTO.class);
+            lectureDTO.setProName(proName);
 
-            // 변환된 LectureDTO를 DTO 리스트에 추가
-            lectureDTOList.add(lectureDTO);
-        }
+            return lectureDTO;
+        }).toList();
 
-        // 변환된 DTO 리스트 반환
-        return lectureDTOList;
+        int total = (int) pageLecture.getTotalElements();
+
+        return PageResponseDTO
+                .builder()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(lectureDTOList)
+                .total(total)
+                .build();
+    }
+
+    public PageResponseDTO findRegisterByStdNoByGrade(PageRequestDTO pageRequestDTO, int stdYear) {
+
+        // 페이징 처리
+        Pageable pageable = pageRequestDTO.getPageable("lecNo");
+
+        // 페이징을 포함한 강의 목록 조회
+        Page<Tuple> pageLecture = lectureRepository.selectAllByStdNoAndStdYear(pageable, stdYear);
+        log.info("pageLecture: {}", pageLecture);
+
+        // 페이지 정보에서 강의 DTO 리스트 변환
+        List<LectureDTO> lectureDTOList = pageLecture.getContent().stream()
+                .map(tuple -> {
+                    Lecture lecture = tuple.get(0, Lecture.class);
+                    LectureDTO lectureDTO = modelMapper.map(lecture, LectureDTO.class);
+                    lectureDTO.setLecGrade(lecture.getLecGrade());
+                    return lectureDTO;
+                })
+                .toList();
+
+        // 전체 강의 수
+        int total = (int) pageLecture.getTotalElements();
+
+        // 페이지 DTO 반환
+        return PageResponseDTO.builder()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(lectureDTOList)
+                .total(total)
+                .build();
     }
 
 
+    public RegisteredPageResponseDTO findRegisterByStdNo(RegisteredPageRequestDTO registeredPageRequestDTO, String stdNo) {
+        //페이징
+        Pageable pageable = registeredPageRequestDTO.getPageable("no");
 
-    public List<RegisterDTO> findRegisterByStdNo(String stdNo){
-        List<Object[]> optRegisterStd = registerRepository.findRegisterByStdNo(stdNo);
-        log.info("optRegisterStd : {}", optRegisterStd);
+        //페이징을 포함한 목록 조회
+        Page<Tuple> pageRegistered = registerRepository.findRegisterByStdNo(pageable, stdNo);
+        log.info("pageRegistered: {}", pageRegistered);
+
+        List<RegisterDTO> registerDTOList = pageRegistered.getContent().stream()
+                .map(tuple -> {
+                    Register register = tuple.get(0, Register.class);
+                    RegisterDTO registerDTO = modelMapper.map(register, RegisterDTO.class);
+
+                    registerDTO.setRegStdNo(register.getStudent().getStdNo());// 학생 번호
+                    registerDTO.setRegLecNo(register.getLecture().getLecNo());  // 강의 번호
+                    registerDTO.setLecCredit(register.getLecture().getLecCredit()); // 학점
+                    registerDTO.setLecName(register.getLecture().getLecName());  // 강의명
+                    registerDTO.setLecCate(register.getLecture().getLecCate());  // 강의 카테고리
+                    registerDTO.setLecGrade(register.getLecture().getLecGrade());  // 강의 학년
+                    registerDTO.setLecProName(register.getLecture().getProfessor().getUser().getName());  // 교수명
+                    registerDTO.setLecRoom(register.getLecture().getLecRoom());  // 강의실
+                    registerDTO.setLecWeekday(register.getLecture().getLecWeekday());
+
+                    return registerDTO;
+                })
+                .toList();
+
+        //전체 강의 수
+        int total = (int) pageRegistered.getTotalElements();
+
+        //페이지 DTO 반환
+         return RegisteredPageResponseDTO.builder()
+                 .pageRequestDTO(registeredPageRequestDTO)
+                 .dtoList(registerDTOList)
+                 .total(total)
+                 .build();
+
+        //List<Object[]> optRegisterStd = registerRepository.findRegisterByStdNo(stdNo);
+        //log.info("optRegisterStd : {}", optRegisterStd);
 
         // ModelMapper의 커스텀 매핑을 사용하여 RegisterDTO로 변환
-        List<RegisterDTO> registerDTOList = optRegisterStd.stream().map(obj ->{
+        /*List<RegisterDTO> registerDTOList = optRegisterStd.stream().map(obj -> {
             RegisterDTO registerDTO = modelMapper.map(obj, RegisterDTO.class);
 
             registerDTO.setRegStdNo((String) obj[0]);  // 학생 번호
@@ -96,12 +172,10 @@ public class SupportService {
             return registerDTO;
         }).collect(Collectors.toList());
 
-        log.info("service##registerDTOList : {}", registerDTOList);
-
-        return registerDTOList;
+         */
     }
 
-    public List<RegisterDTO> findGradeByStdNo(String stdNo){
+    public List<RegisterDTO> findGradeByStdNo(String stdNo) {
         List<Object[]> optGradeStd = registerRepository.findGradeByStdNo(stdNo);
         log.info("optGradeStd : {}", optGradeStd);
 
@@ -165,7 +239,7 @@ public class SupportService {
         return recordList;
     }
 
-    public CreditSummary calculateCredits(String stdNo){
+    public CreditSummary calculateCredits(String stdNo) {
         List<Object[]> registerList = registerRepository.findRegisterByStdNo(stdNo);
         log.info("service##registerList : {}", registerList);
 
@@ -213,22 +287,16 @@ public class SupportService {
             log.info("service##lecCate : {}", lecCate);
 
             // 카테고리에 따라 학점 계산
-            switch (lecCate) {
-                case "전공":
-                    major++;
-                    break;
-                case "교양":
-                    liberalArts++;
-                    break;
-                case "선택":
-                    elective++;
-                    break;
-                case "사회봉사":
-                    volunteer++;
-                    break;
-                default:
-                    other++;
-                    break;
+            if ("전공".equals(lecCate) || "전공필수".equals(lecCate)) {
+                major++; // 전공 또는 전공필수는 전공으로 처리
+            } else if ("교양".equals(lecCate)) {
+                liberalArts++;
+            } else if ("선택".equals(lecCate)) {
+                elective++;
+            } else if ("사회봉사".equals(lecCate)) {
+                volunteer++;
+            } else {
+                other++;
             }
         }
         //각 카테고리별 학점 계산 (갯수 * 3)
@@ -251,7 +319,7 @@ public class SupportService {
 
         Optional<Student> optstd = studentRepository.findById(stdNo);
 
-        if (optstd.isPresent()){
+        if (optstd.isPresent()) {
             return modelMapper.map(optstd.get(), StudentDTO.class);
         }
 
@@ -269,10 +337,10 @@ public class SupportService {
 
         List<LectureDTO> lectureDTOList = new ArrayList<>();
 
-        for(Lecture lecture : lectureList){
+        for (Lecture lecture : lectureList) {
             LectureDTO lectureDTO = modelMapper.map(lecture, LectureDTO.class);
 
-            if(lectureDTO.getLecCate().contains("전공")){
+            if (lectureDTO.getLecCate().contains("전공")) {
                 lectureDTOList.add(lectureDTO);
             }
         }
@@ -285,7 +353,7 @@ public class SupportService {
         List<Lecture> lectureGeneralList = lectureRepository.findByLecClassAndLecCate(lecClass, cate);
 
         List<LectureDTO> lectureDTOList = new ArrayList<>();
-        for(Lecture lecture : lectureGeneralList){
+        for (Lecture lecture : lectureGeneralList) {
             LectureDTO lectureDTO = modelMapper.map(lecture, LectureDTO.class);
             lectureDTOList.add(lectureDTO);
         }
@@ -293,7 +361,7 @@ public class SupportService {
         return lectureDTOList;
     }
 
-    public Map<Integer, List<LectureDTO>> getGroupedLectureList(StudentDTO studentDTO, String year){
+    public Map<Integer, List<LectureDTO>> getGroupedLectureList(StudentDTO studentDTO, String year) {
         int lecGrade = Integer.parseInt(year);
         String lecClass = studentDTO.getStdClass();
 
@@ -304,6 +372,73 @@ public class SupportService {
         return lectureList.stream()
                 .map(lecture -> modelMapper.map(lecture, LectureDTO.class))
                 .collect(Collectors.groupingBy(LectureDTO::getLecGrade));
+    }
+
+/*
+    public boolean registerLecture(RegisterDTO registerDTO) {
+        try{
+            Lecture lecture = lectureRepository.findByLecNo(registerDTO.getRegLecNo());
+            Student student = studentRepository.findByStdNo(registerDTO.getRegLecNo());
+
+            //Register 엔티티 생성
+            Register register = Register.builder()
+                    .student(student)
+                    .lecture(lecture)
+                    .regYear(registerDTO.getRegYear())
+                    .regSemester(registerDTO.getRegSemester())
+                    .build();
+
+            registerRepository.save(register);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+*/
+    public Lecture findLectureByLecNo(String lecNo) {
+        Optional<Lecture> optLecture = lectureRepository.findById(lecNo);
+        return optLecture.get();
+
+    }
+
+    public boolean registerLecture(StudentDTO studentDTO, Lecture lecture) {
+
+        Student student = modelMapper.map(studentDTO, Student.class);
+
+        Register register = new Register();
+        register.setStudent(student);
+        register.setLecture(lecture);
+
+        String lecYear = lecture.getLecScheduleStart();
+        String[] strs = lecYear.split("-");
+
+        String year = strs[0];
+        String month = strs[1];
+
+        String regSemester = null;
+
+        if(month.equals("03") ||month.equals("04") || month.equals("05") || month.equals("06") ){
+            regSemester = "1학기";
+        }else{
+            regSemester = "2학기";
+        }
+
+        register.setRegSemester(regSemester);
+        register.setRegYear(year);
+
+        // 수강 등록하기
+        registerRepository.save(register);
+
+        // 수강 인원 수 더하기
+        // lecStdCount를 들고와서 +1하고 save하기
+        // lecture.set
+        int count = lecture.getLecStdCount();
+        lecture.setLecStdCount(count + 1);
+        lectureRepository.save(lecture);
+
+
+        return true;
     }
 
 
@@ -351,23 +486,27 @@ public class SupportService {
     }
 
 
+
+
+
+
     //학과별
-    public void findByClass(){}
+    public void findByClass() {
+    }
 
     //과목명
-    public void findByClassName(){}
+    public void findByClassName() {
+    }
 
     //교수명
-    public void findByProfessor(){}
+    public void findByProfessor() {
+    }
 
     //구분
-    public void findByCate(){}
+    public void findByCate() {
+    }
 
 
-
-    public void modify(){}
-
-
-
-
+    public void modify() {
+    }
 }

@@ -4,18 +4,23 @@ import kr.co.greendae.dto.support.LectureDTO;
 import kr.co.greendae.dto.support.RegisterDTO;
 
 import kr.co.greendae.dto.support.StudentDTO;
+import kr.co.greendae.dto.support.pageRegister.PageRequestDTO;
+import kr.co.greendae.dto.support.pageRegister.PageResponseDTO;
+import kr.co.greendae.dto.support.pageRegisterList.RegisteredPageRequestDTO;
+import kr.co.greendae.dto.support.pageRegisterList.RegisteredPageResponseDTO;
+import kr.co.greendae.entity.Lecture.Lecture;
 import kr.co.greendae.service.SupportService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -84,7 +89,9 @@ public class SupportController {
 
     //수강신청
     @GetMapping("/register")
-    public String register(@AuthenticationPrincipal UserDetails userDetails, Model model){
+    public String register(@AuthenticationPrincipal UserDetails userDetails, PageRequestDTO pageRequestDTO, Model model){
+
+        //학번조회
         String stdNo = userDetails.getUsername();
         log.info("stdNo: " + stdNo);
 
@@ -92,21 +99,76 @@ public class SupportController {
         int stdYear = supportService.findStudentYearByStdNo(stdNo);
         log.info("stdYear: " + stdYear);
 
-        List<LectureDTO> lectureDTOList = supportService.findRegisterByStdNoByGrade(stdYear);
-        model.addAttribute("lectureDTOList", lectureDTOList);
+        //글 조회 서비스 호출
+        PageResponseDTO pageResponseDTO = supportService.findRegisterByStdNoByGrade(pageRequestDTO, stdYear);
+
+        model.addAttribute("lectureDTOList", pageResponseDTO.getDtoList());
+        model.addAttribute("pageResponseDTO", pageResponseDTO);
+
+        return "/support/register";
+    }
+
+
+    //수강신청 버튼 활성화
+    @ResponseBody
+    @PostMapping("/register")
+    public ResponseEntity<?> registerLecture(@AuthenticationPrincipal UserDetails userDetails, @RequestBody RegisterDTO registerDTO) {
+
+        //학번조회
+        String stdNo = userDetails.getUsername();
+        String lecNo =registerDTO.getRegLecNo();
+
+        StudentDTO student = supportService.findStudentByStdNo(stdNo);
+        Lecture lecture = supportService.findLectureByLecNo(lecNo);
+
+        log.info("stdNo: " + stdNo);
+
+        boolean success = supportService.registerLecture(student,lecture);
+
+
+        if(success){
+            return ResponseEntity.ok().body(Collections.singletonMap("success", true));
+        }else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("success", false));
+        }
+    }
+
+
+    //수강신청 검색하기
+    @GetMapping("/search_register")
+    public String search(@AuthenticationPrincipal UserDetails userDetails, Model model, PageRequestDTO pageRequestDTO){
+
+        //학번조회
+        String stdNo = userDetails.getUsername();
+
+        // 학생의 학년 조회
+        int stdYear = supportService.findStudentYearByStdNo(stdNo);
+
+        //서비스 호출
+        PageResponseDTO pageResponseDTO = supportService.searchAll(pageRequestDTO, stdYear);
+
+        model.addAttribute("lectureDTOList", pageResponseDTO.getDtoList());
+        model.addAttribute("pageResponseDTO", pageResponseDTO);
 
         return "/support/register";
     }
 
     //내역
     @GetMapping("/register_list")
-    public String registerListByStdNo(@AuthenticationPrincipal UserDetails userDetails, Model model){
+    public String registerListByStdNo(@AuthenticationPrincipal UserDetails userDetails, RegisteredPageRequestDTO registeredPageRequestDTO, Model model){
+        //학번 조회
         String stdNo = userDetails.getUsername();
         log.info("stdNo: " + stdNo);
 
-        List<RegisterDTO> registerList = supportService.findRegisterByStdNo(stdNo);
+        //글 조회 서비스
+        RegisteredPageResponseDTO registeredPageResponseDTO = supportService.findRegisterByStdNo(registeredPageRequestDTO, stdNo);
 
-        model.addAttribute("registerList", registerList);
+        model.addAttribute("registeredDTOList", registeredPageResponseDTO.getDtoList());
+        model.addAttribute("pageResponseDTO", registeredPageResponseDTO);
+
+
+        //List<RegisterDTO> registerList = supportService.findRegisterByStdNo(stdNo);
+        //model.addAttribute("registerList", registerList);
 
         return "/support/register_list";
     }

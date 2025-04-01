@@ -1,5 +1,6 @@
 package kr.co.greendae.dto.support;
 
+import kr.co.greendae.entity.Lecture.Lecture;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,8 +24,12 @@ public class RegisterDTO {
     private String regLecNo;    //과목 코드
     //LecNo -> LecCate, LecPro, LecRoom, LecTime, LecName, LecGrade
 
+    // 추가 필드
+    private String regYear;
+    private String regSemester;
 
     // 추가된 Lecture 관련 필드
+    private Lecture lecture;
     private String lecName; //(Lecture테이블이랑 Join 한다고 추가해놓은것) 과목 명
     private String lecCate; //과목 구분
     private int lecGrade;   //수강 학년

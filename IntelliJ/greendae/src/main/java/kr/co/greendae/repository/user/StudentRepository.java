@@ -23,4 +23,5 @@ public interface StudentRepository extends JpaRepository<Student, String> {
     @Query("SELECT s.stdYear FROM Student s WHERE s.stdNo = :stdNo")
     public int findYearByStdNo(String stdNo);
 
+    public Student findByStdNo(String regLecNo);
 }
