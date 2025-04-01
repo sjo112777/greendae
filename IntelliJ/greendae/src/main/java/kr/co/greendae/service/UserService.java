@@ -15,10 +15,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j
@@ -36,8 +39,7 @@ public class UserService {
     private final HttpServletRequest request;
 
 
-    public void register(UserDTO userDTO){
-
+    public void register(UserDTO userDTO) {
         // 비밀번호 암호화
         String encodedPass = passwordEncoder.encode(userDTO.getPass());
         userDTO.setPass(encodedPass);
@@ -48,7 +50,6 @@ public class UserService {
         // 저장
         userRepository.save(user);
     }
-
     public long checkUser(String type, String value){
 
         long count = 0;
@@ -197,6 +198,21 @@ public class UserService {
             return false;
         }
     }
+
+    public ResponseEntity<Map<String, Object>> updatePassword(String email, String newPassword) {
+        User user = userRepository.findByEmail(email);
+
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("success", false, "message", "사용자를 찾을 수 없습니다."));
+        }
+
+        // 비밀번호 변경
+        user.setPass(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+
+        return ResponseEntity.ok(Map.of("success", true, "message", "비밀번호가 성공적으로 변경되었습니다."));
+    }
+
 
 
 

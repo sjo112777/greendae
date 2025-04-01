@@ -53,14 +53,9 @@ public class SecurityConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
-        // Security 암호화 인코더 설정
-
-        // 임시용 (암호화 x 비밀번호 확인) - 삭제 예정
-        return NoOpPasswordEncoder.getInstance();
-
+    public PasswordEncoder passwordEncoder() {
         // 암호화
-        // return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder();
     }
 
 

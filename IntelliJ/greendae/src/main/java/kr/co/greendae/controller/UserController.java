@@ -176,11 +176,35 @@ public class UserController {
     }
 
     @GetMapping("/Changepassword")
-    public String Changepassword(){
+    public String Changepassword(String name, String email, Model model){
+
+        log.info("name : " + name + ", email : " + email);
+
+        model.addAttribute("email", email);
+
         return "/user/Changepassword";
     }
 
-    @GetMapping("/lookupresult")
+
+    @PostMapping("/Changepassword")
+    public ResponseEntity<Map<String, Object>> changePassword(@RequestBody Map<String, String> map, HttpSession session) {
+        String email = map.get("email");  // 이메일을 map에서 추출
+        String newPassword = map.get("newPassword");  // 사용자가 입력한 새 비밀번호
+
+        log.info("email : {}", email);
+        log.info("newPassword : {}", newPassword);
+
+        if (email == null || email.isEmpty() || newPassword == null || newPassword.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("message", "이메일과 새 비밀번호를 입력해주세요."));
+        }
+
+        // 비밀번호 변경 서비스 호출
+        ResponseEntity<Map<String, Object>> response = userService.updatePassword(email, newPassword);
+
+        return response;
+    }
+
+        @GetMapping("/lookupresult")
     public String lookupresult(UserDTO userDTO, Model model){
 
         UserDTO findUser = userService.findUserByEmail(userDTO.getEmail());
