@@ -1,13 +1,14 @@
 package kr.co.greendae.service;
 
 import com.querydsl.core.Tuple;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import kr.co.greendae.dto.college.CollegeDTO;
-import kr.co.greendae.dto.department.ChairPersonDTO;
-import kr.co.greendae.dto.department.DepartmentDTO;
-import kr.co.greendae.dto.department.PageDepartmentRequestDTO;
-import kr.co.greendae.dto.department.PageDepartmentResponseDTO;
+import kr.co.greendae.dto.department.*;
+import kr.co.greendae.dto.page.PageRequestDTO;
 import kr.co.greendae.dto.support.LectureDTO;
 import kr.co.greendae.dto.support.StudentDTO;
+import kr.co.greendae.dto.user.PageProfessorResponseDTO;
+import kr.co.greendae.dto.user.PageStudentResponseDTO;
 import kr.co.greendae.dto.user.ProfessorDTO;
 import kr.co.greendae.dto.user.UserDTO;
 import kr.co.greendae.entity.Lecture.Lecture;
@@ -15,6 +16,7 @@ import kr.co.greendae.entity.college.College;
 import kr.co.greendae.entity.department.Chairperson;
 import kr.co.greendae.entity.department.Department;
 import kr.co.greendae.entity.user.Professor;
+import kr.co.greendae.entity.user.QStudent;
 import kr.co.greendae.entity.user.Student;
 import kr.co.greendae.entity.user.User;
 import kr.co.greendae.repository.department.ChairPersonRepository;
@@ -29,8 +31,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -63,7 +65,7 @@ public class AdminService {
 
         java.io.File fileUploadDir = new java.io.File(uploadDir);
 
-        if(!fileUploadDir.exists()){
+        if (!fileUploadDir.exists()) {
             // 파일 업로드 디렉터리가 존재하지 않으면 생성
             fileUploadDir.mkdirs();
         }
@@ -74,7 +76,7 @@ public class AdminService {
 
         MultipartFile multipartFile = collageDTO.getImage();
 
-        if(!multipartFile.isEmpty()){
+        if (!multipartFile.isEmpty()) {
             String oName = multipartFile.getOriginalFilename();
             String ext = oName.substring(oName.lastIndexOf("."));
             String sName = UUID.randomUUID().toString() + ext;
@@ -105,7 +107,7 @@ public class AdminService {
 
     public int getMaxDepNo() {
         Optional<Department> optDepartment = departmentRepository.findFirstByOrderByDeptNoDesc();
-        if(optDepartment.isPresent()){
+        if (optDepartment.isPresent()) {
             return optDepartment.get().getDeptNo() + 1;
         }
         return 10;
@@ -113,9 +115,9 @@ public class AdminService {
 
     public List<CollegeDTO> findAllCollege() {
 
-        List<College>  collegeList = collegeRepository.findAll();
+        List<College> collegeList = collegeRepository.findAll();
         List<CollegeDTO> collegeDTOS = new ArrayList<>();
-        for(College college : collegeList){
+        for (College college : collegeList) {
             CollegeDTO collegeDTO = modelMapper.map(college, CollegeDTO.class);
             collegeDTOS.add(collegeDTO);
         }
@@ -127,7 +129,7 @@ public class AdminService {
 
         List<Chairperson> list = chairPersonRepository.findAll();
         List<ChairPersonDTO> chairPersonDTOS = new ArrayList<>();
-        for(Chairperson chairperson : list){
+        for (Chairperson chairperson : list) {
             ChairPersonDTO chairPersonDTO = modelMapper.map(chairperson, ChairPersonDTO.class);
             chairPersonDTOS.add(chairPersonDTO);
         }
@@ -143,10 +145,10 @@ public class AdminService {
 
     public List<DepartmentDTO> findAllDepartmentByName(String name) {
 
-        List<Department> departments= departmentRepository.findAllByCollege(name);
+        List<Department> departments = departmentRepository.findAllByCollege(name);
         List<DepartmentDTO> departmentDTOS = new ArrayList<>();
 
-        for(Department department : departments){
+        for (Department department : departments) {
             DepartmentDTO departmentDTO = modelMapper.map(department, DepartmentDTO.class);
             departmentDTOS.add(departmentDTO);
         }
@@ -166,7 +168,7 @@ public class AdminService {
         int number = 1;
         String num = code + "001";
 
-        while(userRepository.existsById(num)){
+        while (userRepository.existsById(num)) {
             number += 1;
             num = String.valueOf((Integer.parseInt(num) + number));
         }
@@ -201,7 +203,7 @@ public class AdminService {
         System.out.println(findDepartment);
         List<Professor> professors = professorRepository.findByDepartment((findDepartment));
         List<ProfessorDTO> professorDTOS = new ArrayList<>();
-        for(Professor professor : professors){
+        for (Professor professor : professors) {
             professorDTOS.add(modelMapper.map(professor, ProfessorDTO.class));
         }
 
@@ -211,7 +213,7 @@ public class AdminService {
     public void registerStudent(StudentDTO studentDTO, UserDTO userDTO, DepartmentDTO departmentDTO) {
 
         Optional<User> adviser = userRepository.findById(studentDTO.getAdvisor());
-        if(adviser.isPresent()){
+        if (adviser.isPresent()) {
             Professor professor = professorRepository.findByUser(adviser.get());
 
             User user = modelMapper.map(userDTO, User.class);
@@ -230,7 +232,7 @@ public class AdminService {
         int number = 1;
         String num = lecNo + "001";
 
-        while(lectureRepository.existsById(num)){
+        while (lectureRepository.existsById(num)) {
             number += 1;
             num = String.valueOf((Integer.parseInt(num) + number));
         }
@@ -252,9 +254,9 @@ public class AdminService {
     }
 
     /*
-    * 등록 시 카운트 올려주는 메서드
-    * */
-    
+     * 등록 시 카운트 올려주는 메서드
+     * */
+
     public void CountUpProfessor(DepartmentDTO departmentDTO) {
 
         departmentDTO.setTotalProfessors(departmentDTO.getTotalProfessors() + 1);
@@ -280,10 +282,6 @@ public class AdminService {
 
         // 페이징 처리를 위한 pageable 객체 생성
         Pageable pageable = pageDepartmentRequestDTO.getPageable("no");
-        log.info("pageArticle : {}", pageable);
-        log.info("pageArticle : {}", pageable);
-        log.info("pageArticle : {}", pageable);
-
 
         Page<Tuple> pageDepartment = departmentRepository.selectAllForList(pageable);
 
@@ -313,11 +311,11 @@ public class AdminService {
         // 페이징 처리를 위한 pageable 객체 생성
         Pageable pageable = pageRequestDTO.getPageable("no");
 
-        Page<Tuple> pageArticle = departmentRepository.selectDepartmentForSearch(pageRequestDTO, pageable);
-        log.info("pageArticle : {}", pageArticle);
+        Page<Tuple> pageDepartment = departmentRepository.selectDepartmentForSearch(pageRequestDTO, pageable);
+        log.info("pageArticle : {}", pageDepartment);
 
         // Article Entity 리스트를 ArticleDTO 리스트로 변환
-        List<DepartmentDTO> articleDTOList = pageArticle.getContent().stream().map(tuple -> {
+        List<DepartmentDTO> articleDTOList = pageDepartment.getContent().stream().map(tuple -> {
 
             Department department = tuple.get(0, Department.class);
 
@@ -327,7 +325,7 @@ public class AdminService {
 
         }).toList();
 
-        int total = (int) pageArticle.getTotalElements();
+        int total = (int) pageDepartment.getTotalElements();
 
         return PageDepartmentResponseDTO
                 .builder()
@@ -338,6 +336,118 @@ public class AdminService {
 
     }
 
-    // 학과 출력용 임시 메서드
+    public PageStudentResponseDTO findAllStudent(PageRequestDTO pageRequestDTO) {
 
+        // 페이징 처리를 위한 pageable 객체 생성
+        Pageable pageable = pageRequestDTO.getPageable("no");
+
+        Page<Tuple> pageStudent = studentRepository.selectAllForList(pageable);
+
+        // Article Entity 리스트를 ArticleDTO 리스트로 변환
+        List<StudentDTO> studentDTOS = pageStudent.getContent().stream().map(tuple -> {
+
+            Student student = tuple.get(0, Student.class);
+
+            StudentDTO studentDTO = modelMapper.map(student, StudentDTO.class);
+
+            return studentDTO;
+
+        }).toList();
+
+        int total = (int) pageStudent.getTotalElements();
+
+        return PageStudentResponseDTO
+                .builder()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(studentDTOS)
+                .total(total)
+                .build();
+
+
+    }
+
+    public PageStudentResponseDTO searchAllStudent(PageRequestDTO pageRequestDTO) {
+
+        // 페이징 처리를 위한 pageable 객체 생성
+        Pageable pageable = pageRequestDTO.getPageable("no");
+
+        Page<Tuple> pageObject = studentRepository.selectStudentForSearch(pageRequestDTO, pageable);
+
+        List<StudentDTO> studentDTOList = pageObject.getContent().stream().map(tuple -> {
+
+            Student student = tuple.get(0, Student.class);
+
+            StudentDTO studentDTO = modelMapper.map(student, StudentDTO.class);
+
+            return studentDTO;
+
+        }).toList();
+
+        int total = (int) pageObject.getTotalElements();
+
+        return PageStudentResponseDTO
+                .builder()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(studentDTOList)
+                .total(total)
+                .build();
+
+    }
+
+    public PageProfessorResponseDTO findAllProfessor(PageRequestDTO pageRequestDTO) {
+
+        // 페이징 처리를 위한 pageable 객체 생성
+        Pageable pageable = pageRequestDTO.getPageable("no");
+
+        Page<Tuple> pageObject = professorRepository.selectAllForList(pageable);
+
+        // Article Entity 리스트를 ArticleDTO 리스트로 변환
+        List<ProfessorDTO> professorDTOS = pageObject.getContent().stream().map(tuple -> {
+
+            Professor professor = tuple.get(0, Professor.class);
+
+            ProfessorDTO professorDTO = modelMapper.map(professor, ProfessorDTO.class);
+
+            return professorDTO;
+
+        }).toList();
+
+        int total = (int) pageObject.getTotalElements();
+
+        return PageProfessorResponseDTO
+                .builder()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(professorDTOS)
+                .total(total)
+                .build();
+
+    }
+
+    public PageProfessorResponseDTO searchAllProfessor(PageRequestDTO pageRequestDTO) {
+
+        // 페이징 처리를 위한 pageable 객체 생성
+        Pageable pageable = pageRequestDTO.getPageable("no");
+
+        Page<Tuple> pageObject = professorRepository.selectProfessorForSearch(pageRequestDTO, pageable);
+
+        List<ProfessorDTO> professorDTOS = pageObject.getContent().stream().map(tuple -> {
+
+            Professor professor = tuple.get(0, Professor.class);
+            ProfessorDTO professorDTO = modelMapper.map(professor, ProfessorDTO.class);
+
+            return professorDTO;
+
+        }).toList();
+
+        int total = (int) pageObject.getTotalElements();
+
+        return PageProfessorResponseDTO
+                .builder()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(professorDTOS)
+                .total(total)
+                .build();
+
+
+    }
 }
