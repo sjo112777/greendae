@@ -53,7 +53,7 @@
                                 <th>EMAIL</th><td th:text="${student.email}"></td>
                             </tr>
                             <tr>
-                                <th>학년/학기</th><td th:text="${student.stdYear} + '학년/' + ${student.stdSemester} + '학기'"></td>
+                                <th>학년/학기</th><td th:text="${student.stdYear} + '학년/' + ${student.stdSemester}"></td>
                                 <th>상태</th><td style="color: #198515;" th:text="${student.stdStatus}"></td>
                             </tr>
                         </table>

@@ -66,7 +66,7 @@
                         <span style="color: #666666;">학기</span>
                     </div>
                     <div class="total">
-                        <p>신청과목수 #과목, 총 신청 학점 ##학점</p>
+                        <p>신청과목수 [[${pageResponseDTO.total}]]과목, 총 신청 학점 [[${pageResponseDTO.total*3}]]학점</p>
                     </div>
                     <div class="register_list">
                         <table class="list">
@@ -84,10 +84,10 @@
                                 </tr>
                             </thead>
                             <tbody id="course_list">
-                                <tr th:if="${#lists.isEmpty(registerList)}" style="text-align: center;">
+                                <tr th:if="${#lists.isEmpty(registeredDTOList)}" style="text-align: center;">
                                     <td colspan="9">수강신청내역이 없습니다</td>
                                 </tr>
-                                <tr th:each="lecture: ${registerList}">
+                                <tr th:each="lecture: ${registeredDTOList}">
                                     <td th:text="${lecture.regLecNo}"></td>
                                     <td th:text="${lecture.lecName}"></td>
                                     <td th:text="${lecture.lecGrade}"></td>
@@ -103,6 +103,22 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <div class="page">
+                        <th:block th:if="${pageResponseDTO.prev}">
+                            <a th:href="@{/support/register_list(pg=${pageResponseDTO.start-1})}" class="prev">이전</a>
+                        </th:block>
+
+                        <th:block th:each="num:${#numbers.sequence(pageResponseDTO.start, pageResponseDTO.end)}">
+                            <a th:href="@{/support/register_list(pg=${num})}" th:class="${num == pageResponseDTO.pg} ? 'current' : 'num'">[[${num}]]</a>
+                        </th:block>
+
+                        <th:block th:if="${pageResponseDTO.next}">
+                            <a th:href="@{/support/register_list(pg=${pageResponseDTO.end+1})}" class="next">다음</a>
+                        </th:block>
+                    </div>
+
+
                     <div id="confirmationModal" class="modal">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -143,35 +159,10 @@
                                 document.getElementById('confirmationModal').style.display = "none"; // 모달 닫기
                             }
                         });
-                        function cancelRegistration(button) {
-                            const lecNo = button.getAttribute("data-lecNo"); // 강의 코드 가져오기
-                            console.log("취소할 강의 코드:", lecNo);
 
-                            if (!confirm("정말 수강을 취소하시겠습니까?")) {
-                                return;
-                            }
-
-                            fetch("/support/cancel", {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                },
-                                body: JSON.stringify({ lecNo: lecNo }),
-                            })
-                                .then(response => {
-                                    if (!response.ok) {
-                                        throw new Error("수강 신청 취소 실패");
-                                    }
-                                    return response.json();
-                                })
-                                .then(data => {
-                                    alert("수강 취소 완료: " + data.message);
-                                    location.reload(); // 새로고침하여 목록 업데이트
-                                })
-                                .catch(error => {
-                                    console.error("Error:", error);
-                                    alert("수강 취소 중 오류 발생");
-                                });
+                        //기능 구현
+                        function cancelLecture(button){
+                            let lecNo = button.
                         }
                     </script>
                 </article>
