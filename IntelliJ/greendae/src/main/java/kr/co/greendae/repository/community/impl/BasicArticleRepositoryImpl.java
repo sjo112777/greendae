@@ -55,6 +55,8 @@ public class BasicArticleRepositoryImpl implements BasicArticleRepositoryCustom 
         // 검색 조건에 따라 where 조건 표현식 생성
         BooleanExpression expression = null;
 
+        /*
+        전체 기능 검색이 안됨
         if(searchType.equals("title")){
             expression = qArticle.title.contains(keyword);
         }else if(searchType.equals("content")){
@@ -62,6 +64,26 @@ public class BasicArticleRepositoryImpl implements BasicArticleRepositoryCustom 
         }else if(searchType.equals("writer")){
             expression = qUser.name.contains(keyword);
         }
+         */
+
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            BooleanExpression titleCondition = qArticle.title.contains(keyword);
+            BooleanExpression contentCondition = qArticle.content.contains(keyword);
+            BooleanExpression writerCondition = qUser.name.contains(keyword);
+
+            if ("title".equals(searchType)) {
+                expression = titleCondition;
+            } else if ("content".equals(searchType)) {
+                expression = contentCondition;
+            } else if ("writer".equals(searchType)) {
+                expression = writerCondition;
+            } else {
+                // 전체 검색 조건 (title, content, writer 중 하나라도 포함되면 검색)
+                expression = titleCondition.or(contentCondition).or(writerCondition);
+            }
+        }
+
+
 
         List<Tuple> tupleList = queryFactory
                 .select(qArticle, qUser.name)

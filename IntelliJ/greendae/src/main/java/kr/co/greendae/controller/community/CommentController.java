@@ -55,5 +55,10 @@ public class CommentController {
         return savedCommentDTO;
     }
 
+    public String delete(@RequestBody int cno){
+        log.info("cno:{}", cno);
+    return null;
+    }
+
 
 }

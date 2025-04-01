@@ -40,7 +40,9 @@
                         <th:block th:if="${isListing}">
                             <th:block th:include="/inc/community/list.html"/>
                         </th:block>
-
+                        <th:block th:if="${isSearching}">
+                            <th:block th:include="/inc/community/searchList.html"/>
+                        </th:block>
                         <th:block th:if="${isViewing}">
                             <th:block th:include="/inc/community/view.html"/>
                         </th:block>

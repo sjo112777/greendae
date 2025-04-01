@@ -23,6 +23,9 @@ public class PageResponseDTO {
     private int start, end;
     private boolean prev, next;
 
+    private boolean first, last; // 첫 페이지와 마지막 페이지 여부
+    private int lastPage; // 마지막 페이지 번호 추가
+
     private String searchType;
     private String keyword;
 
@@ -41,10 +44,14 @@ public class PageResponseDTO {
         this.end = (int) (Math.ceil(this.pg / 10.0)) * 10;
         this.start = this.end - 9;
 
-        int last = (int) (Math.ceil(total / (double) size));
-        this.end = end > last ? last : end;
+        this.lastPage = (int) Math.ceil(total / (double) size); // 마지막 페이지 번호 계산
+        this.end = Math.min(this.end, lastPage);
         this.prev = this.start > 1;
-        this.next = total > this.end * this.size;
+        this.next = this.pg < this.lastPage;
+
+        // 추가: 첫 페이지와 마지막 페이지 여부
+        this.first = (pg > 1);
+        this.last = (pg < lastPage);
     }
 
 }
