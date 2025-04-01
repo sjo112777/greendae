@@ -245,4 +245,29 @@ public class AdminService {
         lecture.setProfessor(professor);
         lectureRepository.save(lecture);
     }
+
+    /*
+    * 등록 시 카운트 올려주는 메서드
+    * */
+    
+    public void CountUpProfessor(DepartmentDTO departmentDTO) {
+
+        departmentDTO.setTotalProfessors(departmentDTO.getTotalProfessors() + 1);
+        Department department = modelMapper.map(departmentDTO, Department.class);
+        departmentRepository.save(department);
+    }
+
+    public void CountUpLecture(DepartmentDTO departmentDTO) {
+
+        departmentDTO.setTotalProfessors(departmentDTO.getTotalLecturers() + 1);
+        Department department = modelMapper.map(departmentDTO, Department.class);
+        departmentRepository.save(department);
+    }
+
+    public void CountUpStudent(DepartmentDTO departmentDTO) {
+
+        departmentDTO.setTotalProfessors(departmentDTO.getTotalStudents() + 1);
+        Department department = modelMapper.map(departmentDTO, Department.class);
+        departmentRepository.save(department);
+    }
 }
