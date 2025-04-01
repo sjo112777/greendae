@@ -35,5 +35,8 @@ public class Department {
     private String deptHp;         // 학과 연락처
     private String deptOffice;     // 학과 사무실
 
+    private int totalStudents;     // 소속 학생 수
+    private int totalLecturers;   // 소속 강의 수
+    private int totalProfessors;    // 소속 교수 수
 
 }

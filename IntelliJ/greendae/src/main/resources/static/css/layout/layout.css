@@ -132,6 +132,7 @@ footer{
     height: auto;
     box-sizing: border-box;
     margin-top: 100px;
+    position: relative;
 }
 
 footer > div:nth-child(1){
@@ -319,5 +320,11 @@ main{
     height: auto;
 }
 
-
+.version_div{
+    color: #A8A9AC;
+    width: 300px;
+    position: absolute;
+    bottom: 64px;
+    left: 1350px;
+}
 

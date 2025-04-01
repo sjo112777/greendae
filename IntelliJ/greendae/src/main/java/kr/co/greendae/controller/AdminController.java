@@ -70,6 +70,10 @@ public class AdminController {
         int deptNo = adminService.getMaxDepNo();
         departmentDTO.setDeptNo(deptNo);
 
+        System.out.println(departmentDTO);
+        System.out.println(departmentDTO);
+        System.out.println(departmentDTO);
+
         adminService.register(departmentDTO);
 
         return "redirect:/admin/college/register";
@@ -118,7 +122,8 @@ public class AdminController {
 
         adminService.registerProfessor(professorDTO, userDTO, departmentDTO);
 
-
+        // 학과에 교수 수 + 1 하기
+        adminService.CountUpProfessor(departmentDTO);
 
 
         System.out.println(departmentDTO);
@@ -164,6 +169,8 @@ public class AdminController {
         studentDTO.setStdNo(code);
         adminService.registerStudent(studentDTO, userDTO, departmentDTO);
 
+        adminService.CountUpStudent(departmentDTO);
+
         return "redirect:/admin/professor/register";
     }
 
@@ -193,19 +200,10 @@ public class AdminController {
         DepartmentDTO departmentDTO = adminService.findDepartmentByName(lectureDTO.getLecClass());
 
         lecNo += departmentDTO.getDeptNo();
-
-        System.out.println(lectureDTO);
-        System.out.println(lectureDTO);
-        System.out.println(lectureDTO);
-        System.out.println(lectureDTO);
-        System.out.println(lectureDTO);
         adminService.registerLecture(lectureDTO, lecNo);
 
-        System.out.println(lecNo);
-        System.out.println(lecNo);
-        System.out.println(lecNo);
-        System.out.println(lecNo);
-        System.out.println(lectureDTO);
+        adminService.CountUpLecture(departmentDTO);
+
         return "redirect:/admin/lecture/register";
     }
 
@@ -226,4 +224,7 @@ public class AdminController {
 
         return professorDTOS;
     }
+
+
+
 }

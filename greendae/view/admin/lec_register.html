@@ -134,12 +134,13 @@
                                     <td>학과코드 + 연도 + 학기 + 순번 조합 자동생성</td>
                                     <td>개설학과</td>
                                     <td>
-                                        <select name="departmentC">
-                                            <option th:each="collegeDTO : ${collegeDTOS}" th:value="${collegeDTO.name}">[[${collegeDTO.name}]]</option>
+                                        <select name="1">
+                                            <option value="1">인문사회대학</option>
                                         </select>
-                                        <select name="departmentD">
-                                            <option th:each="departmentDTO : ${departmentDTOS}" th:value="${departmentDTO.deptName}">[[${departmentDTO.deptName}]]</option>
+                                        <select name="2">
+                                            <option value="1">국어국문학과</option>
                                         </select>
+
                                     </td>
                                 </tr>
                                 <tr>
