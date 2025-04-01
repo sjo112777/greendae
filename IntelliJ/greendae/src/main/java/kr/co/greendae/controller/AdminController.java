@@ -4,11 +4,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import kr.co.greendae.dto.college.CollegeDTO;
 import kr.co.greendae.dto.department.ChairPersonDTO;
 import kr.co.greendae.dto.department.DepartmentDTO;
+import kr.co.greendae.dto.department.PageDepartmentRequestDTO;
+import kr.co.greendae.dto.department.PageDepartmentResponseDTO;
 import kr.co.greendae.dto.support.LectureDTO;
 import kr.co.greendae.dto.support.StudentDTO;
 import kr.co.greendae.dto.user.ProfessorDTO;
 import kr.co.greendae.dto.user.UserDTO;
-import kr.co.greendae.entity.user.Student;
 import kr.co.greendae.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -231,10 +232,29 @@ public class AdminController {
 
     // 학과
     @GetMapping("/departments/list")
-    public String departmentList(){
+    public String departmentList(Model model, PageDepartmentRequestDTO pageDepartmentRequestDTO){
+
+        // 전체 글 조회 서비스 호출(JPA)
+        PageDepartmentResponseDTO pageDepartmentResponseDTO = adminService.findAllDepartment(pageDepartmentRequestDTO);
+        model.addAttribute("pageResponseDTO",pageDepartmentResponseDTO);
+        return "/admin/list/department";
+    }
+
+    // 학과 검색
+    @GetMapping("/departments/search")
+    public String search(PageDepartmentRequestDTO pageRequestDTO, Model model){
+        log.info("pageRequestDTO : {}", pageRequestDTO);
+
+        // 서비스 호출
+        PageDepartmentResponseDTO pageResponseDTO = adminService.searchAllDepartment(pageRequestDTO);
+        System.out.println(pageResponseDTO);
+
+        model.addAttribute("pageResponseDTO",pageResponseDTO);
 
         return "/admin/list/department";
     }
+
+
 
 }
 
