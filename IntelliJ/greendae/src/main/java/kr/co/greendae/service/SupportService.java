@@ -24,6 +24,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -151,28 +152,6 @@ public class SupportService {
                  .dtoList(registerDTOList)
                  .total(total)
                  .build();
-
-        //List<Object[]> optRegisterStd = registerRepository.findRegisterByStdNo(stdNo);
-        //log.info("optRegisterStd : {}", optRegisterStd);
-
-        // ModelMapper의 커스텀 매핑을 사용하여 RegisterDTO로 변환
-        /*List<RegisterDTO> registerDTOList = optRegisterStd.stream().map(obj -> {
-            RegisterDTO registerDTO = modelMapper.map(obj, RegisterDTO.class);
-
-            registerDTO.setRegStdNo((String) obj[0]);  // 학생 번호
-            registerDTO.setRegLecNo((String) obj[1]);  // 강의 번호
-            registerDTO.setLecCredit((Integer) obj[2]); // 학점
-            registerDTO.setLecName((String) obj[3]);  // 강의명
-            registerDTO.setLecCate((String) obj[4]);  // 강의 카테고리
-            registerDTO.setLecGrade((Integer) obj[5]);  // 강의 학년
-            registerDTO.setLecProName((String) obj[6]);  // 교수명
-            registerDTO.setLecRoom((String) obj[7]);  // 강의실
-            registerDTO.setLecWeekday((String) obj[8]);
-
-            return registerDTO;
-        }).collect(Collectors.toList());
-
-         */
     }
 
     public List<RegisterDTO> findGradeByStdNo(String stdNo) {
@@ -279,7 +258,6 @@ public class SupportService {
                 continue; // 만약 해당하는 Lecture가 없다면, 해당 항목을 무시하고 넘어갑니다.
             }
 
-            log.info("here3");
 
             // Object 배열에서 필요한 데이터를 추출
             String lecCate = (String) register[4]; // '전공', '교양' 등 카테고리 정보
@@ -436,9 +414,53 @@ public class SupportService {
         int count = lecture.getLecStdCount();
         lecture.setLecStdCount(count + 1);
         lectureRepository.save(lecture);
-
+        
+        // 학생 총점 더하기
+        int score = lecture.getLecCredit();
+        student.setRegisterCredits(student.getRegisterCredits() + score);
+        studentRepository.save(student);
 
         return true;
+    }
+
+    public int totalCredit(RegisteredPageResponseDTO registeredPageResponseDTO) {
+
+        List<RegisterDTO> list = registeredPageResponseDTO.getDtoList();
+        int total = 0;
+        for(RegisterDTO registerDTO : list){
+            total += registerDTO.getLecCredit();
+        }
+
+        return total;
+    }
+
+    // 수강 취소 메서드
+    public boolean cancelLecture(String lecNo) {
+        // lecNo로 Lecture 객체 조회
+        Optional<Lecture> optionalLecture = lectureRepository.findById(lecNo);
+
+        // Lecture가 존재하는지 확인
+        if (optionalLecture.isPresent()) {
+            Lecture lecture = optionalLecture.get();
+
+            // 해당 Lecture에 대한 수강 신청 삭제
+            Register register = registerRepository.findByLecture(lecture);
+            registerRepository.deleteById(register.getRegNo());
+
+            // 강의 인원 수 빼기
+            int count = lecture.getLecStdCount();
+            lecture.setLecStdCount(count - 1);
+
+            lectureRepository.save(lecture);
+
+            // 학생 총점 -
+
+            // 삭제가 완료되었으면 true 반환
+            return true;
+        }
+
+        // Lecture가 존재하지 않으면 실패
+        return false;
     }
 
 

@@ -1,5 +1,6 @@
 package kr.co.greendae.repository.support;
 
+import kr.co.greendae.entity.Lecture.Lecture;
 import kr.co.greendae.entity.Lecture.Register;
 import kr.co.greendae.repository.support.impl.RegisterRepositoryCustom;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,13 +11,9 @@ import java.util.List;
 
 
 
-public interface RegisterRepository extends JpaRepository<Register, String> , RegisterRepositoryCustom {
+public interface RegisterRepository extends JpaRepository<Register, Integer> , RegisterRepositoryCustom {
     //Register_list 페이지에 출력할 정보 JOIN
 
-    /*
-    * l.lecTime 수정했어요.   맨 마지막 l.lecCate 붙인거!!
-    *
-    * */
     @Query("select (r.student.stdNo, r.lecture.lecNo, l.lecCredit, l.lecName, l.lecCate, l.lecGrade, l.professor, l.lecRoom, l.lecWeekday) from Register as r " +
             "join Lecture as l on r.lecture.lecNo = l.lecNo " +
             "where r.student.stdNo = :stdNo")
@@ -30,4 +27,7 @@ public interface RegisterRepository extends JpaRepository<Register, String> , Re
     public List<Object[]> findGradeByStdNo(@Param("stdNo") String stdNo);
 
 
+    void deleteByLecture(Lecture lecture);
+
+    Register findByLecture(Lecture lecture);
 }

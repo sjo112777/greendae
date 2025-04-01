@@ -1,6 +1,7 @@
 package kr.co.greendae.repository.support.custom;
 
 import com.querydsl.core.Tuple;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.co.greendae.entity.Lecture.QLecture;
 import kr.co.greendae.entity.Lecture.QRegister;
@@ -30,6 +31,10 @@ public class RegisterRepositoryImpl implements RegisterRepositoryCustom {
 
     @Override
     public Page<Tuple> findRegisterByStdNo(Pageable pageable, String stdNo) {
+
+        //검색조건
+        BooleanExpression expression = qRegister.student.stdNo.eq(stdNo);
+
         List<Tuple> tupleList = queryFactory
                 .select(qRegister, qLecture ,qUser.name)
                 .from(qRegister)
@@ -39,6 +44,7 @@ public class RegisterRepositoryImpl implements RegisterRepositoryCustom {
                 .on(qLecture.professor.proNo.eq(qProfessor.proNo))
                 .join(qUser)
                 .on(qUser.uid.eq(qProfessor.user.uid))
+                .where(expression)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .orderBy(qRegister.regNo.desc())
@@ -46,7 +52,7 @@ public class RegisterRepositoryImpl implements RegisterRepositoryCustom {
 
         Long total = Optional.ofNullable(queryFactory
                 .select(qRegister.count())
-                .from(qRegister)
+                .from(qRegister).where(expression)
                 .fetchOne())
                 .orElse(0L);
 

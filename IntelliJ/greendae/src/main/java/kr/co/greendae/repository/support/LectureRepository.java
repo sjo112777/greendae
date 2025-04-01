@@ -24,7 +24,7 @@ public interface LectureRepository extends JpaRepository<Lecture, String> ,Lectu
 
     public List<Lecture> findByLecClassAndLecCate(String lecClass, String cate);
 
-    public Lecture findByLecNo(String lecNo);
+    public Optional<Lecture> findById(String lecNo); // lecNo로 Lecture 객체 조회
 
 
 

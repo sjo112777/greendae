@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>샘플</title>
+    <title>학적</title>
     <link rel="stylesheet" href="/css/layout/layout.css">
     <link rel="stylesheet" href="/css/support/record.css">
 
@@ -77,7 +77,7 @@
                                 <td th:text="${creditSummary.elective}">21</td>
                                 <td th:text="${creditSummary.volunteer}">21</td>
                                 <td th:text="${creditSummary.other}">21</td>
-                                <td th:text="${creditSummary.total}">21</td>
+                                <td th:text="${student.registerCredits}">21</td>
                                 <td>130</td>
                             </tr>
                         </table>
@@ -106,7 +106,7 @@
                                 <td th:text="${creditSummary.major}">전공학점</td>
                                 <td th:text="${creditSummary.elective}">선택학점</td>
                                 <td th:text="${creditSummary.other}">기타학점</td>
-                                <td th:text="${creditSummary.total}">총취득학점</td>
+                                <td th:text="${student.registerCredits}">총취득학점</td>
                                 <td th:text="${averageCredits}">평점평균</td>
                                 <td></td>
                             </tr>
