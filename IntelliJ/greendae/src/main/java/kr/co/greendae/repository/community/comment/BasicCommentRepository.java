@@ -13,4 +13,6 @@ public interface BasicCommentRepository extends JpaRepository<BasicComment, Inte
 
 
     void deleteByParent(int no);
+
+    void deleteById(int cno);
 }

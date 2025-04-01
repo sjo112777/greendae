@@ -27,19 +27,22 @@ public class BasicArticleRepositoryImpl implements BasicArticleRepositoryCustom 
 
 
     @Override
-    public Page<Tuple> selectAllForList(Pageable pageable) {
+    public Page<Tuple> selectAllForList(Pageable pageable, String cate) {
+
+        BooleanExpression expression = qArticle.cate.eq(cate);
 
         List<Tuple> tupleList = queryFactory
                 .select(qArticle, qUser.name)
                 .from(qArticle)
                 .join(qUser)
                 .on(qArticle.user.uid.eq(qUser.uid))
+                .where(expression)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .orderBy(qArticle.no.desc())
                 .fetch();
 
-        long total = queryFactory.select(qArticle.count()).from(qArticle).fetchOne();
+        long total = queryFactory.select(qArticle.count()).from(qArticle).where(expression).fetchOne();
 
 
         // 페이징 처리를 위한 페이지 객체 반환

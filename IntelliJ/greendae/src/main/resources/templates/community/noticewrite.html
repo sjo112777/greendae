@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>그린대학교 학사관리시스템 게시판 관리</title>
+    <link rel="stylesheet" href="/css/admin/admin.css">
+</head>
+<body>
+<div id="wrapper">
+    <!-- 헤더 시작작-->
+    <th:block th:include="/inc/admin/_header"/>
+
+    <!-- 헤더 끝-->
+    <!-- 메인 시작작-->
+    <main>
+        <section class="content">
+            <!-- 왼쪽 사이드바 -->
+            <th:block th:include="/inc/admin/sidebar"/>
+            <!-- 오른쪽 글 -->
+            <article class="main_content">
+                <div class="main_title">
+                    <p>입학안내 공지사항<span class="title_span">입학안내 공지사항 등록</span> <span>게시판 관리> &nbsp; </span></p>
+                </div>
+                <div class="main_content_detail">
+                    <section class="right_section">
+                        <article>
+                            <form th:action="@{/community/notice/write}" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="writer" th:value="${#authentication.principal.user.uid}"/>
+                                <table border="0" class="write_table">
+                                    <tbody>
+                                    <tr>
+                                        <th>제목</th>
+                                        <td>
+                                            <input type="text" name="title" placeholder="제목을 입력하세요.">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>내용</th>
+                                        <td>
+                                            <textarea name="content"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>파일</th>
+                                        <td>
+                                            <p style="margin-bottom: 6px;">
+                                                최대 2개 파일 첨부 가능, 각 파일당 최대 10MB까지 가능
+                                            </p>
+                                            <input type="file" name="file1">
+                                            <input type="file" name="file2">
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div style="float: right; margin-top: 10px;">
+                                    <input type="submit" value="작성완료" class="btn btnComplete" style=" border: 1px solid #3b3c3f; background-color:#4b545e ; color: #ffffff;">
+                                    <a th:href="@{/community/freeboard}" class="btn btnCancel" >취소</a>
+                                </div>
+                            </form>
+                        </article>
+                    </section>
+                </div>
+            </article>
+        </section>
+    </main>
+    <!-- 메인 끝-->
+    <!-- 푸터 시작작-->
+    <footer>
+        <div>
+            <div>
+                <ul>
+                    <li><a href="#">개인정보처리방침</a></li>
+                    <li><a href="#">통합정보시스템</a></li>
+                    <li><a href="#">학사일정</a></li>
+                    <li><a href="#">주요인원 연락처</a></li>
+                    <li><a href="#">교내공지사항</a></li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <div>
+                <img src="/images/footer_logo.png" alt="그린대학교">
+                <p>
+                    그린대학교 <br>
+                    [12345] 부산광역시 부산진구 부전대로 123 그린대학교 / 대표전화 : 051-123-1000 / <br>
+                    입학안내 : 051-123-1302 팩스 : 051-123-3333
+
+                    <br><br>
+                    copyright ©Green University All rights reserved.
+                </p>
+                <div>
+                    <p>주요사이트
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ▾</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- 푸터 끝-->
+</div>
+</body>
+</html>

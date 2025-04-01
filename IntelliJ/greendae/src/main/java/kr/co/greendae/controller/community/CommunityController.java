@@ -31,13 +31,67 @@ public class CommunityController {
     private final FileService fileService;
     private final CommentService commentService;
 
-    // 공지사항
+    // 공지사항 리스트
     @GetMapping("/notice")
-    public String notice(){
+    public String notice(Model model, PageRequestDTO pageRequestDTO) {
         HttpSession session = request.getSession();
         session.setAttribute("cate", "notice");
+
+        // 카테고리
+        String cate = (String) session.getAttribute("cate");
+
+        PageResponseDTO pageResponseDTO = articleService.findAll(pageRequestDTO, cate);
+
+        model.addAttribute(pageResponseDTO);
+        model.addAttribute("isListing", true);  // isWriting=false로 설정하여 리스트 화면 표시
+
         return "/community/notice";
     }
+/*
+    // 공지사항 글쓰기 페이지
+    @GetMapping("/notice/write")
+    public String write(Model model) {
+        HttpSession session = request.getSession();
+        session.setAttribute("cate", "notice");
+
+        model.addAttribute("isWriting", true);  // isWriting=true로 설정하여 글쓰기 화면 표시
+        return "/community/notice";
+    }
+
+    // 공지사항 글 등록
+    @PostMapping("/notice/write")
+    public String write(ArticleDTO articleDTO) {
+        HttpSession session = request.getSession();
+        String cate = (String) session.getAttribute("cate");
+
+        String regip = request.getRemoteAddr();
+        articleDTO.setCate(cate);
+        articleDTO.setRegip(regip);
+        log.info("articleDTO: {}", articleDTO);
+
+        //파일 업로드 서비스 호출
+        List<FileDTO> files = fileService.uploadFile(articleDTO);
+
+        // 글 저장 서비스 호출
+        articleDTO.setFile(files.size());
+        int no = articleService.basicRegister(articleDTO);
+
+        log.info("no: {}", no);
+        log.info("files: {}", files);
+
+        // 파일 저장 서비스 호출
+        for(FileDTO fileDTO : files) {
+            fileDTO.setAno(no);
+            fileService.save(fileDTO);
+        }
+
+
+        return "redirect:/community/notice";  // 글쓰기 후 리스트 페이지로 리디렉션
+    }
+
+ */
+
+
 
     //칼럼
     @GetMapping("/news")
@@ -72,8 +126,10 @@ public class CommunityController {
         HttpSession session = request.getSession();
         session.setAttribute("cate", "freeboard");
 
+        String cate = (String) session.getAttribute("cate");
+
         //List<ArticleDTO> articleDTOList = articleService.findAllByCate("freeboard");
-        PageResponseDTO pageResponseDTO = articleService.findAll(pageRequestDTO);
+        PageResponseDTO pageResponseDTO = articleService.findAll(pageRequestDTO, cate);
 
 
         //model.addAttribute("articleDTOList", articleDTOList);
@@ -149,7 +205,7 @@ public class CommunityController {
     public String delete(int no){
 
         fileService.deletebasicFile(no);
-        commentService.deletebasicComment(no);
+        commentService.deletebasicAllComment(no);
         articleService.deletebasicArticle(no);
         return "redirect:/community/freeboard";
     }
