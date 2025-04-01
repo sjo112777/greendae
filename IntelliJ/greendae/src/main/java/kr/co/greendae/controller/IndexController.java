@@ -17,8 +17,8 @@ public class IndexController {
 
     @GetMapping(value = {"/", "/index"})
     public String index(Model model) {
-        model.addAttribute("appName", appName);
-        model.addAttribute("version", version);
+        // model.addAttribute("appName", appName);
+        // model.addAttribute("version", version);
         return "/index";
     }
 
