@@ -60,21 +60,25 @@ public class CommunityController {
         PageResponseDTO pageResponseDTO = articleService.searchAll(pageRequestDTO);
 
         model.addAttribute(pageResponseDTO);
+        model.addAttribute("isSearching", true);
 
-        return "/freeboard/searchList";
+        return "/community/freeboard";
     }
 
 
     // 자유게시판 리스트 list
     @GetMapping("/freeboard")
-    public String freeboard(Model model) {
+    public String freeboard(Model model, PageRequestDTO pageRequestDTO) {
         HttpSession session = request.getSession();
         session.setAttribute("cate", "freeboard");
 
-        List<ArticleDTO> articleDTOList = articleService.findAllByCate("freeboard");
+        //List<ArticleDTO> articleDTOList = articleService.findAllByCate("freeboard");
+        PageResponseDTO pageResponseDTO = articleService.findAll(pageRequestDTO);
 
-        model.addAttribute("articleDTOList", articleDTOList);
-        System.out.println(articleDTOList);
+
+        //model.addAttribute("articleDTOList", articleDTOList);
+        //System.out.println(articleDTOList);
+        model.addAttribute(pageResponseDTO);
         model.addAttribute("isListing", true);  // isWriting=false로 설정하여 리스트 화면 표시
         return "/community/freeboard";  // freeboard.html을 렌더링
     }
