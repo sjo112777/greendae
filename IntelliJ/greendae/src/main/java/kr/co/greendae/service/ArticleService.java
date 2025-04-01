@@ -155,12 +155,12 @@ public class ArticleService {
 
     }
 
-    public PageResponseDTO findAll(PageRequestDTO pageRequestDTO) {
+    public PageResponseDTO findAll(PageRequestDTO pageRequestDTO, String cate) {
 
         // 페이징 처리를 위한 pageable 객체 생성
         Pageable pageable = pageRequestDTO.getPageable("no");
 
-        Page<Tuple> pageArticle = basicArticleRepository.selectAllForList(pageable);
+        Page<Tuple> pageArticle = basicArticleRepository.selectAllForList(pageable, cate);
         log.info("pageArticle : {}", pageArticle);
 
         // Article Entity 리스트를 ArticleDTO 리스트로 변환

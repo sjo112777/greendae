@@ -20,7 +20,7 @@
 
                 data.forEach(comment => {
                     // 동적 태그 생성
-                    const article = `<article>
+                    const article = `<article data-cno="${comment.cno}">
                                     <span class="nick">${comment.user.name}</span>
                                     <span class="date">${comment.wdate}</span>
                                     <p class="content">${comment.content}</p>
@@ -56,7 +56,7 @@
             console.log(data);
 
             // 동적 태그 생성
-            const article = `<article>
+            const article = `<article data-cno="${data.cno}">
                                     <span class="name">${data.user.name}</span>
                                     <span class="date">${data.wdate}</span>
                                     <p class="content">${data.content}</p>
@@ -70,6 +70,32 @@
             empty.remove();
             commentList.insertAdjacentHTML('beforeend', article);
         }
+
+        // 댓글 삭제
+        commentList.addEventListener('click', async function(e){
+            if (e.target.classList.contains('remove')) {
+                e.preventDefault();
+
+                const article = e.target.closest('article');
+                const cno = article.dataset.cno;
+
+                if (!confirm("정말 삭제하시겠습니까?")) return;
+
+                const response = await fetch(`/comment/delete?cno=${cno}`, {
+                    method: 'POST',
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ cno: cno }) // { "cno": 123 } 형식으로 보냄
+                });
+
+                const result = await response.text();
+                if (result === "success") {
+                    article.remove();
+                } else {
+                    alert("삭제 실패");
+                }
+            }
+        });
+
     });
 </script>
 <table border="0">

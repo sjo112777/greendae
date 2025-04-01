@@ -2,8 +2,10 @@ package kr.co.greendae.service;
 
 
 import kr.co.greendae.dto.community.CommentDTO;
+import kr.co.greendae.entity.community.article.BasicArticle;
 import kr.co.greendae.entity.community.comment.BasicComment;
 import kr.co.greendae.entity.user.User;
+import kr.co.greendae.repository.community.article.BasicArticleRepository;
 import kr.co.greendae.repository.community.comment.BasicCommentRepository;
 import kr.co.greendae.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ public class CommentService {
     private final BasicCommentRepository basicCommentRepository;
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+    private final BasicArticleRepository basicArticleRepository;
 
     public List<CommentDTO> findByParent(int parent){
 
@@ -49,9 +52,16 @@ public class CommentService {
     }
 
     @Transactional
-    public void deletebasicComment(int no){
+    public void deletebasicAllComment(int no){
         basicCommentRepository.deleteByParent(no);
     }
 
-
+    @Transactional
+    public void deletebasicComment(int cno) {
+        BasicComment comment = basicCommentRepository.findById(cno).get();
+        BasicArticle basicArticle = basicArticleRepository.findById(comment.getParent()).get();
+        basicArticle.setComment(basicArticle.getComment() - 1);
+        basicArticleRepository.save(basicArticle);
+        basicCommentRepository.deleteById(cno);
+    }
 }

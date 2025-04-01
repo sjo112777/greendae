@@ -9,10 +9,7 @@ import kr.co.greendae.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -55,9 +52,14 @@ public class CommentController {
         return savedCommentDTO;
     }
 
-    public String delete(@RequestBody int cno){
+    @ResponseBody
+    @PostMapping("/comment/delete")
+    public String delete(@RequestParam("cno") int cno){
         log.info("cno:{}", cno);
-    return null;
+
+        commentService.deletebasicComment(cno);
+
+        return "success";
     }
 
 
