@@ -1,8 +1,11 @@
 package kr.co.greendae.service;
 
+import com.querydsl.core.Tuple;
 import kr.co.greendae.dto.college.CollegeDTO;
 import kr.co.greendae.dto.department.ChairPersonDTO;
 import kr.co.greendae.dto.department.DepartmentDTO;
+import kr.co.greendae.dto.department.PageDepartmentRequestDTO;
+import kr.co.greendae.dto.department.PageDepartmentResponseDTO;
 import kr.co.greendae.dto.support.LectureDTO;
 import kr.co.greendae.dto.support.StudentDTO;
 import kr.co.greendae.dto.user.ProfessorDTO;
@@ -25,6 +28,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -270,4 +275,69 @@ public class AdminService {
         Department department = modelMapper.map(departmentDTO, Department.class);
         departmentRepository.save(department);
     }
+
+    public PageDepartmentResponseDTO findAllDepartment(PageDepartmentRequestDTO pageDepartmentRequestDTO) {
+
+        // 페이징 처리를 위한 pageable 객체 생성
+        Pageable pageable = pageDepartmentRequestDTO.getPageable("no");
+        log.info("pageArticle : {}", pageable);
+        log.info("pageArticle : {}", pageable);
+        log.info("pageArticle : {}", pageable);
+
+
+        Page<Tuple> pageDepartment = departmentRepository.selectAllForList(pageable);
+
+        // Article Entity 리스트를 ArticleDTO 리스트로 변환
+        List<DepartmentDTO> departmentDTOS = pageDepartment.getContent().stream().map(tuple -> {
+
+            Department department = tuple.get(0, Department.class);
+
+            DepartmentDTO departmentDTO = modelMapper.map(department, DepartmentDTO.class);
+
+            return departmentDTO;
+
+        }).toList();
+
+        int total = (int) pageDepartment.getTotalElements();
+
+        return PageDepartmentResponseDTO
+                .builder()
+                .pageRequestDTO(pageDepartmentRequestDTO)
+                .dtoList(departmentDTOS)
+                .total(total)
+                .build();
+    }
+
+    public PageDepartmentResponseDTO searchAllDepartment(PageDepartmentRequestDTO pageRequestDTO) {
+
+        // 페이징 처리를 위한 pageable 객체 생성
+        Pageable pageable = pageRequestDTO.getPageable("no");
+
+        Page<Tuple> pageArticle = departmentRepository.selectDepartmentForSearch(pageRequestDTO, pageable);
+        log.info("pageArticle : {}", pageArticle);
+
+        // Article Entity 리스트를 ArticleDTO 리스트로 변환
+        List<DepartmentDTO> articleDTOList = pageArticle.getContent().stream().map(tuple -> {
+
+            Department department = tuple.get(0, Department.class);
+
+            DepartmentDTO departmentDTO = modelMapper.map(department, DepartmentDTO.class);
+
+            return departmentDTO;
+
+        }).toList();
+
+        int total = (int) pageArticle.getTotalElements();
+
+        return PageDepartmentResponseDTO
+                .builder()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(articleDTOList)
+                .total(total)
+                .build();
+
+    }
+
+    // 학과 출력용 임시 메서드
+
 }

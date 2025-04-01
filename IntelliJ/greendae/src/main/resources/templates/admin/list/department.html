@@ -5,6 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>그린대학교 학사관리시스템 교육윤영현황</title>
     <link rel="stylesheet" href="/css/admin/admin.css">
+    <style>
+        .page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .page a {
+            display: inline-block;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        .page a:hover {
+            background-color: #eee;
+        }
+
+        .page a.current {
+            background-color: #1A528E;
+            color: white;
+            border-color: #1A528E;
+            font-weight: bold;
+        }
+
+        .page a.prev, .page a.next {
+            font-weight: bold;
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+
+        .page a.prev:hover, .page a.next:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+    </style>
 </head>
 <body>
 <div id="wrapper">
@@ -33,11 +77,11 @@
                         <!--검색-->
                         <div style="width: 100%; height: 50px;">
                             <div style="float: right;">
-                                <form action="">
+                                <form th:action="@{/admin/departments/search}">
                                     <select class="search_select" name="searchType">
-                                        <option value="title">제목</option>
-                                        <option value="content">내용</option>
-                                        <option value="writer">글쓴이</option>
+                                        <option value="college">대학</option>
+                                        <option value="department">학과</option>
+                                        <option value="chair">학과장</option>
                                     </select>
                                     <input type="text" name="keyword" class="search_text" placeholder="검색 키워드 입력">
                                     <input type="submit" class="search_btn" value="검색">
@@ -59,21 +103,34 @@
                                 <th style="width: 109px;">개설 강의 수 </th>
                                 </thead>
                             <tbody>
-                                <tr>
-                                    <td>10</td>
-                                    <td>인문</td>
-                                    <td>국문</td>
-                                    <td>김국어</td>
-                                    <td>051-512-1010</td>
-                                    <td>23</td>
-                                    <td>322</td>
-                                    <td>42</td>
+
+                                <tr th:each="department :${pageResponseDTO.dtoList}">
+                                    <td>[[${department.deptNo}]]</td>
+                                    <td>[[${department.college}]]</td>
+                                    <td>[[${department.deptName}]]</td>
+                                    <td>[[${department.deptChair}]]</td>
+                                    <td>[[${department.deptHp}]]</td>
+                                    <td>[[${department.totalProfessors}]]</td>
+                                    <td>[[${department.totalStudents}]]</td>
+                                    <td>[[${department.totalLecturers}]]</td>
                                 </tr>
-                            </tbody>
+
+
                         </table>
-
                         <!-- 학과 목록 끝-->
+                        <div class="page">
+                            <th:block th:if="${pageResponseDTO.prev}">
+                                <a th:href="@{/admin/departments/list(pg=${pageResponseDTO.start-1})}" class="prev">이전</a>
+                            </th:block>
 
+                            <th:block th:each="num:${#numbers.sequence(pageResponseDTO.start, pageResponseDTO.end)}">
+                                <a th:href="@{/admin/departments/list(pg=${num})}" th:class="${num == pageResponseDTO.pg} ? 'current' : 'num'">[[${num}]]</a>
+                            </th:block>
+
+                            <th:block th:if="${pageResponseDTO.next}">
+                                <a th:href="@{/admin/departments/list(pg=${pageResponseDTO.end+1})}" class="next">다음</a>
+                            </th:block>
+                        </div>
 
                     </div>
                 </div>
