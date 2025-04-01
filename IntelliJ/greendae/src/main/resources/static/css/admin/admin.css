@@ -918,6 +918,31 @@ main{
     width: 400px;
 }
 
+.search_select{
+    width: 100px;
+    height: 35px;
+    box-sizing: border-box;
+    padding: 4px;
+    border: 1px solid #959595;
+}
 
+.search_text{
+    width: 200px;
+    height: 35px;
+    box-sizing: border-box;
+    border: 1px solid #959595;
+}
+
+.search_btn{
+    width: 60px;
+    height: 35px;
+    background-color: #1A528E;
+    color: #FFFFFF;
+    border: 1px solid #1A528E;
+}
+
+.search_div {
+    float: right;
+}
 
 

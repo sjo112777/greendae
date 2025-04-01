@@ -225,6 +225,16 @@ public class AdminController {
         return professorDTOS;
     }
 
+    /*
+    * 목록
+    * */
 
+    // 학과
+    @GetMapping("/departments/list")
+    public String departmentList(){
+
+        return "/admin/list/department";
+    }
 
 }
+
