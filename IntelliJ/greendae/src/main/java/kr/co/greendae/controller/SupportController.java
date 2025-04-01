@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -75,7 +76,6 @@ public class SupportController {
         return "/support/classes";
     }
 
-
     //성적
     @GetMapping("/grade")
     public String gradeByStdNo(@AuthenticationPrincipal UserDetails userDetails,  Model model){
@@ -108,7 +108,6 @@ public class SupportController {
         return "/support/register";
     }
 
-
     //수강신청 버튼 활성화
     @ResponseBody
     @PostMapping("/register")
@@ -132,7 +131,6 @@ public class SupportController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("success", false));
         }
     }
-
 
     //수강신청 검색하기
     @GetMapping("/search_register")
@@ -163,14 +161,36 @@ public class SupportController {
         //글 조회 서비스
         RegisteredPageResponseDTO registeredPageResponseDTO = supportService.findRegisterByStdNo(registeredPageRequestDTO, stdNo);
 
+        int total = supportService.totalCredit(registeredPageResponseDTO);
+
         model.addAttribute("registeredDTOList", registeredPageResponseDTO.getDtoList());
         model.addAttribute("pageResponseDTO", registeredPageResponseDTO);
-
-
-        //List<RegisterDTO> registerList = supportService.findRegisterByStdNo(stdNo);
-        //model.addAttribute("registerList", registerList);
+        model.addAttribute("total", total);
 
         return "/support/register_list";
+    }
+
+
+    //내역 취소 활성화
+    @ResponseBody
+    @PostMapping("/cancel_lecture")
+    public ResponseEntity<Map<String, Object>> cancelLecture(@RequestParam("lecNo") String lecNo) {
+
+        System.out.println(lecNo);
+        Map<String, Object> response = new HashMap<>();
+        try {
+            boolean isCancelled = supportService.cancelLecture(lecNo);
+            response.put("success", isCancelled);
+            if (isCancelled) {
+                return ResponseEntity.ok(response);
+            } else {
+                response.put("message", "수강취소에 실패했습니다.");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            }
+        } catch (Exception e) {
+            response.put("message", "예상치 못한 오류가 발생했습니다.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
     }
 
 

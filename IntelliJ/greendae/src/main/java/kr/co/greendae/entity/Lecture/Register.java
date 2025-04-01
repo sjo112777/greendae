@@ -34,7 +34,7 @@ public class Register {
     *   l
     * */
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "regLecNo", referencedColumnName = "lecNo")
     private Lecture lecture;
 
