@@ -2,6 +2,7 @@ package kr.co.greendae.repository.support;
 
 import kr.co.greendae.entity.Lecture.Lecture;
 import kr.co.greendae.entity.Lecture.Register;
+import kr.co.greendae.entity.user.Student;
 import kr.co.greendae.repository.support.impl.RegisterRepositoryCustom;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -30,4 +31,10 @@ public interface RegisterRepository extends JpaRepository<Register, Integer> , R
     void deleteByLecture(Lecture lecture);
 
     Register findByLecture(Lecture lecture);
+
+    List<Register> findByStudent(Student student);
+
+    List<Register> findByStudentAndRegSemesterAndRegYear(Student student, String year, String semester);
+
+    Boolean existsByStudentAndLecture(Student student, Lecture lecture);
 }
