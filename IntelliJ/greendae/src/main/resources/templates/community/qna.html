@@ -81,13 +81,32 @@
                         </table>
 
                         <div class="page">
-                            <a href="" class="first"><img src="/images/btn-first-page.png" alt=""></a>
-                            <a href="" class="prev"><img src="/images/btn-prev-page.png" alt=""></a>
-                            <a href="" class="num">1</a>
-                            <a href="" class="next"><img src="/images/btn-next-page.png" alt=""></a>
-                            <a href="" class="last"><img src="/images/btn-last-page.png" alt=""></a>
+                            <th:block th:if="${pageResponseDTO.first}">
+                                <a th:href="@{/community/notice/search(pg=1, searchType=${pageResponseDTO.searchType}, keyword=${pageResponseDTO.keyword})}" class="first">
+                                    <img src="/images/btn-first-page.png" alt="첫 페이지">
+                                </a>
+                            </th:block>
+
+                            <th:block th:if="${pageResponseDTO.prev}">
+                                <a th:href="@{/community/notice/search(pg=${pageResponseDTO.start-1}, searchType=${pageResponseDTO.searchType}, keyword=${pageResponseDTO.keyword})}" class="prev"><img src="/images/btn-prev-page.png"></a>
+                            </th:block>
+
+                            <th:block th:each="num:${#numbers.sequence(pageResponseDTO.start, pageResponseDTO.end)}">
+                                <a th:href="@{/community/notice/search(pg=${num}, searchType=${pageResponseDTO.searchType}, keyword=${pageResponseDTO.keyword})}" th:class="${num == pageResponseDTO.pg} ? 'current' : 'num'">[[${num}]]</a>
+                            </th:block>
+
+                            <th:block th:if="${pageResponseDTO.next}">
+                                <a th:href="@{/community/notice/search(pg=${pageResponseDTO.end+1}, searchType=${pageResponseDTO.searchType}, keyword=${pageResponseDTO.keyword})}" class="next"><img src="/images/btn-next-page.png" alt="다음 페이지"></a>
+                            </th:block>
+
+                            <!-- 마지막 페이지 이동 버튼 -->
+                            <th:block th:if="${pageResponseDTO.last}">
+                                <a th:href="@{/community/notice/search(pg=${pageResponseDTO.lastPage}, searchType=${pageResponseDTO.searchType}, keyword=${pageResponseDTO.keyword})}" class="last">
+                                    <img src="/images/btn-last-page.png" alt="마지막 페이지">
+                                </a>
+                            </th:block>
                         </div>
-                            <a href="" class="btn btnWrite">글쓰기</a>
+                            <a th:href="@{/community/qna/write}" class="btn btnWrite">글쓰기</a>
                     
                     </div>  
                 </article>

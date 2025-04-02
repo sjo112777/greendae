@@ -9,6 +9,7 @@ import kr.co.greendae.dto.page.PageResponseDTO;
 import kr.co.greendae.service.ArticleService;
 import kr.co.greendae.service.CommentService;
 import kr.co.greendae.service.FileService;
+import kr.co.greendae.service.QnaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,7 @@ public class CommunityController {
     private final ArticleService articleService;
     private final FileService fileService;
     private final CommentService commentService;
+    private final QnaService qnaService;
 
 
     // 공지사항 검색
@@ -257,12 +259,46 @@ public class CommunityController {
     }
 
 
-
+    /* 여기서 부터 작업 */
     //질답    
     @GetMapping("/qna")
-    public String qna(){
+    public String qna(Model model, PageRequestDTO pageRequestDTO){
+        HttpSession session = request.getSession();
+        session.setAttribute("cate", "qna");
+
+        String cate = "qna";
+        PageResponseDTO pageResponseDTO = qnaService.findAll(pageRequestDTO, cate);
+
+
+
         return "/community/qna";
     }
+
+    @GetMapping("/qna/write")
+    public String qnaList(){
+        HttpSession session = request.getSession();
+        session.setAttribute("cate", "qna");
+
+        return "/community/qna_write";
+    }
+
+    @PostMapping("/qna/write")
+    public String qnaWrite(ArticleDTO articleDTO){
+
+        HttpSession session = request.getSession();
+        String cate = (String) session.getAttribute("cate");
+
+        String regip = request.getRemoteAddr();
+        articleDTO.setCate(cate);
+        articleDTO.setRegip(regip);
+
+        qnaService.register(articleDTO);
+
+        return "/community/qna_write";
+    }
+
+
+    /*        */
 
     //자료실
     @GetMapping("/data")
