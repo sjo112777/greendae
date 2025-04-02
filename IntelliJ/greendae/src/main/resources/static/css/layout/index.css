@@ -58,6 +58,55 @@ input, textarea{
     box-sizing: border-box;
 }
 
+.swiper {
+    position: static !important;
+}
+.custom-pagination {
+    position: absolute;
+    top: 25% !important; /* 위쪽 배치 */
+    height: auto !important;
+}
+.swiper-horizontal>.swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal,
+.swiper-pagination-custom,
+.swiper-pagination-fraction {
+    bottom: unset; /* 또는 initial */
+}
+/* bullet 크기 변경 */
+.swiper-pagination-bullet {
+    width: 15px; /* 가로 크기 */
+    height: 15px; /* 세로 크기 */
+    background-color: transparent; /* 기본 색상 */
+    opacity: 0.5; /* 투명도 */
+    transition: all 0.3s ease-in-out;
+    border: 1px solid white;
+}
+
+/* 현재 활성화된 bullet 스타일 */
+.swiper-pagination-bullet-active {
+    background-color: white; /* 활성화된 bullet 색상 */
+    width: 16px; /* 크기 조정 가능 */
+    height: 16px;
+    opacity: 1;
+}
+.main_intro_title_left {
+    position: relative;
+    z-index: 10;
+}
+.main_intro_title_right {
+    position: relative;
+    z-index: 10;
+}
+
+.main_intro_title_left a {
+    position: relative;
+    z-index: 20;  /* Swiper보다 위로 배치 */
+}
+.main_intro_title_right a {
+    position: relative;
+    z-index: 20;  /* Swiper보다 위로 배치 */
+}
+
 header > div:nth-child(2) > div > nav .dropdown-content li {
     height: 30px;
     padding-top: 10px;
@@ -90,7 +139,7 @@ header > div:nth-child(2) > div > nav .dropdown-content{
     display: none;
     flex-direction: column;
     position : absolute;
-    z-index : 1; /*다른 요소들보다 앞에 배치*/
+    z-index : 1000; /*다른 요소들보다 앞에 배치*/
     width: 150px;
     background-color: #3F97F6;
     margin-top: -25px;
@@ -298,11 +347,11 @@ main{
     line-height: 22px;
 }
 
-.main_slider> div:nth-child(1) > a > div:nth-child(1){
+.swiper-slide > a > div:nth-child(1){
     width: 210px;
     height: 48px;
     border: 1px solid white;
-    font: 16px;
+    font-size: 16px;
     line-height: 48px;
     margin: 48px auto;
 }

@@ -23,6 +23,24 @@ public class CampusController {
         this.galleryService = galleryService;
     }
 
+    //학생회 소개
+    @GetMapping("/introduce")
+    public String introduce(){
+        return "/campus/introduce";
+    }
+
+    //동아리, 스터디
+    @GetMapping("/club_study")
+    public String club_study(){
+        return "/campus/club_study";
+    }
+
+    //식단안내
+    @GetMapping("/menu")
+    public String menu(){
+        return "/campus/menu";
+    }
+
     // 갤러리 페이지
     @GetMapping("/gallery")
     public String gallery(Model model) {
