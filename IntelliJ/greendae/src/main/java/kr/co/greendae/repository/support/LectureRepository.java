@@ -26,19 +26,8 @@ public interface LectureRepository extends JpaRepository<Lecture, String> ,Lectu
 
     public Optional<Lecture> findById(String lecNo); // lecNo로 Lecture 객체 조회
 
-
-
-
-
-
-
-    /*
-    @Query("SELECT l.lecClass, l.lecCate, l.lecGrade, l.lecNo, l.lecName, l.lecCredit, l.lecStdCount, l.lecStdTotal, u.name " +
-            "FROM Lecture l " +
-            "join Professor p on l.professor = p.proNo " +
-            "join User u on u.uid = p.user.uid " +
-            "WHERE l.lecGrade = :stdYear")
-    public List<Object[]> findLecturesByYear(@Param("stdYear") int stdYear);
-    public List<Lecture> findLectureByLecCate(String lecCate);
-    */
+    @Query("SELECT l.lecScheduleStart FROM Register r " +
+            "JOIN Lecture l ON r.lecture.lecNo = l.lecNo " +
+            "WHERE r.lecture.lecNo = :stdNo")
+    List<String> findLectureYearsByStudent(String stdNo);
 }

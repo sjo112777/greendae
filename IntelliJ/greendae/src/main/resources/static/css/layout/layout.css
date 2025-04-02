@@ -57,7 +57,49 @@ input, textarea{
     height: 100%;
     box-sizing: border-box;
 }
+header > div:nth-child(2) > div > nav .dropdown-content li {
+    height: 30px;
+    padding-top: 10px;
+    padding-left: 5px;
+    border-bottom: 1px solid white;
+}
+header > div:nth-child(2) > div > nav .dropdown-content li:last-child{
+    border-bottom: none;
+}
 
+header > div:nth-child(2) > div > nav .dropdown{
+    position : relative;
+    display: inline-block;
+}
+header > div:nth-child(2) > div > nav .dropdown > ul{
+    border: 1px solid #3F97F6;
+    height: auto;
+}
+header > div:nth-child(2) > div > nav .dropdown-content a {
+    color: white;
+    margin: 0 auto;
+    text-align: left;
+    font-weight: 400;
+}
+
+header > div:nth-child(2) > div > nav .dropbtn{
+    cursor : pointer;
+}
+header > div:nth-child(2) > div > nav .dropdown-content{
+    display: none;
+    flex-direction: column;
+    position : absolute;
+    z-index : 1; /*다른 요소들보다 앞에 배치*/
+    width: 150px;
+    background-color: #3F97F6;
+    margin-top: -25px;
+}
+header > div:nth-child(2) > div > nav .dropdown-content a:hover{
+    color: #39A6F4;
+}
+header > div:nth-child(2) > div > nav .dropdown:hover .dropdown-content {
+    display: block;
+}
 header{
     width: 100%;
     height: auto;
@@ -82,7 +124,7 @@ header > div > div{
 header > div > div > p{
     float: right;
     margin-top: 2px;
-} 
+}
 
 header > div > div > p > a {
     color: white;
@@ -204,7 +246,7 @@ footer > div:nth-child(2) > div > div{
 }
 
 footer > div:nth-child(2) > div > div > p{
- 
+
     font-weight: 350;
     font-size: 16px;
     line-height: 16px;
@@ -268,11 +310,11 @@ main{
 .side_title p{
     font-weight: 700;
     font-size: 32px;
-    line-height: 34px; 
+    line-height: 34px;
 }
 
 .side_title{
-    border-bottom: 1px solid black; 
+    border-bottom: 1px solid black;
     height: 54px;
 }
 
@@ -302,7 +344,7 @@ main{
 }
 
 .main_title{
-    border-bottom: 1px solid black; 
+    border-bottom: 1px solid black;
     height: 56px;
 }
 
