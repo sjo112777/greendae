@@ -2,12 +2,12 @@ package kr.co.greendae.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import kr.co.greendae.dto.college.CollegeDTO;
-import kr.co.greendae.dto.department.ChairPersonDTO;
-import kr.co.greendae.dto.department.DepartmentDTO;
-import kr.co.greendae.dto.department.PageDepartmentRequestDTO;
-import kr.co.greendae.dto.department.PageDepartmentResponseDTO;
+import kr.co.greendae.dto.department.*;
+import kr.co.greendae.dto.page.PageRequestDTO;
 import kr.co.greendae.dto.support.LectureDTO;
 import kr.co.greendae.dto.support.StudentDTO;
+import kr.co.greendae.dto.user.PageProfessorResponseDTO;
+import kr.co.greendae.dto.user.PageStudentResponseDTO;
 import kr.co.greendae.dto.user.ProfessorDTO;
 import kr.co.greendae.dto.user.UserDTO;
 import kr.co.greendae.service.AdminService;
@@ -85,8 +85,8 @@ public class AdminController {
     // 교수 등록 페이지
     @GetMapping("/professor/register")
     public String professor(Model model){
-        
-        
+
+
         // Select 박스를 위한 대학 정보
         List<CollegeDTO>  collegeDTOS = adminService.findAllCollege();
         List<DepartmentDTO> departmentDTOS = adminService.findAllDepartmentByName(collegeDTOS.get(0).getName());
@@ -100,9 +100,9 @@ public class AdminController {
     // 교수 등록
     @PostMapping("/professor/register")
     public String  professor(ProfessorDTO professorDTO, UserDTO userDTO
-                            , @RequestParam("graduationDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate graduationDate,
+            , @RequestParam("graduationDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate graduationDate,
                              @RequestParam("appointmentDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate appointmentDate
-                            , HttpServletRequest req){
+            , HttpServletRequest req){
 
         // 교수번호 : 연도 + 학과번호 + 순번 자동 조합
         String prodNo = String.valueOf(appointmentDate.getYear());
@@ -111,8 +111,8 @@ public class AdminController {
 
         // 비밀번호 추출 (주민번호 뒷자리)
         String[] passStr = userDTO.getSsn().split("-");
-        String pass = passStr[1];
-        userDTO.setPass(passwordEncoder.encode(pass));
+        String pass = passwordEncoder.encode(passStr[1]); ;
+        userDTO.setPass(pass);
         userDTO.setRole("Professor");
         userDTO.setRegip(req.getRemoteAddr());
 
@@ -159,11 +159,9 @@ public class AdminController {
         studNo += departmentDTO.getDeptNo();
 
         // 비밀번호 추출 (주민번호 뒷자리)
-
         String[] passStr = userDTO.getSsn().split("-");
-        String pass = passStr[1];
-
-        userDTO.setPass(passwordEncoder.encode(pass));
+        String pass = passwordEncoder.encode(passStr[1]); ;
+        userDTO.setPass(pass);
         userDTO.setRole("Student");
         userDTO.setRegip(req.getRemoteAddr());
 
@@ -231,14 +229,14 @@ public class AdminController {
     }
 
     /*
-    * 목록
-    * */
+     * 목록
+     * */
 
     // 학과
     @GetMapping("/departments/list")
     public String departmentList(Model model, PageDepartmentRequestDTO pageDepartmentRequestDTO){
 
-        // 전체 글 조회 서비스 호출(JPA)
+        // 전체 학과 조회 서비스 호출(JPA)
         PageDepartmentResponseDTO pageDepartmentResponseDTO = adminService.findAllDepartment(pageDepartmentRequestDTO);
         model.addAttribute("pageResponseDTO",pageDepartmentResponseDTO);
         return "/admin/list/department";
@@ -257,6 +255,61 @@ public class AdminController {
 
         return "/admin/list/department";
     }
+
+    // 학생 리스트 출력
+    @GetMapping("/student/list")
+    public String  studentList(Model model, PageRequestDTO pageRequestDTO){
+
+        PageStudentResponseDTO pageStudentResponseDTO = adminService.findAllStudent(pageRequestDTO);
+        model.addAttribute("pageResponseDTO",pageStudentResponseDTO);
+        System.out.println(pageStudentResponseDTO);
+
+        return "/admin/list/student";
+    }
+
+    // 학생 검색
+    @GetMapping("/student/search")
+    public String search(PageRequestDTO pageRequestDTO, Model model){
+        log.info("pageRequestDTO : {}", pageRequestDTO);
+
+        // 서비스 호출
+        PageStudentResponseDTO pageResponseDTO = adminService.searchAllStudent(pageRequestDTO);
+        System.out.println(pageResponseDTO);
+
+        model.addAttribute("pageResponseDTO",pageResponseDTO);
+
+        return "/admin/list/student";
+    }
+
+    // 교수 리스트 출력
+    @GetMapping("/professors/list")
+    public String professorList(Model model, PageRequestDTO pageRequestDTO){
+
+        PageProfessorResponseDTO pageProfessorResponseDTO = adminService.findAllProfessor(pageRequestDTO);
+        model.addAttribute("pageResponseDTO",pageProfessorResponseDTO);
+
+        System.out.println(pageProfessorResponseDTO);
+        System.out.println(pageProfessorResponseDTO);
+        System.out.println(pageProfessorResponseDTO);
+        System.out.println(pageProfessorResponseDTO);
+
+        return "/admin/list/professor";
+    }
+
+    // 교수 검색
+    @GetMapping("/professor/search")
+    public String professorSearch(PageRequestDTO pageRequestDTO, Model model){
+        log.info("pageRequestDTO : {}", pageRequestDTO);
+
+        // 서비스 호출
+        PageProfessorResponseDTO pageResponseDTO = adminService.searchAllProfessor(pageRequestDTO);
+        System.out.println(pageResponseDTO);
+
+        model.addAttribute("pageResponseDTO",pageResponseDTO);
+
+        return "/admin/list/professor";
+    }
+
 
 
 

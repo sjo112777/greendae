@@ -15,6 +15,6 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int no;
-    private String terms;
-    private String privacy;
+    private String title;
+    private String date;
 }

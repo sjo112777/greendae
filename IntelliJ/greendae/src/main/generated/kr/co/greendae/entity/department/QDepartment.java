@@ -35,6 +35,12 @@ public class QDepartment extends EntityPathBase<Department> {
 
     public final StringPath establishedYear = createString("establishedYear");
 
+    public final NumberPath<Integer> totalLecturers = createNumber("totalLecturers", Integer.class);
+
+    public final NumberPath<Integer> totalProfessors = createNumber("totalProfessors", Integer.class);
+
+    public final NumberPath<Integer> totalStudents = createNumber("totalStudents", Integer.class);
+
     public QDepartment(String variable) {
         super(Department.class, forVariable(variable));
     }

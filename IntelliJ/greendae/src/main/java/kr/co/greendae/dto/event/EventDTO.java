@@ -11,6 +11,6 @@ import lombok.*;
 public class EventDTO {
 
     private String title;
-    private String rdate;
+    private String date;
 
 }

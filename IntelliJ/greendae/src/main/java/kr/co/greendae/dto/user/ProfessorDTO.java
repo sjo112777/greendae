@@ -1,5 +1,7 @@
 package kr.co.greendae.dto.user;
 
+import kr.co.greendae.dto.department.DepartmentDTO;
+import kr.co.greendae.entity.department.Department;
 import lombok.*;
 
 @Data
@@ -19,7 +21,9 @@ public class ProfessorDTO {
     private String departmentC;        //담당학과(대학)
     private String departmentD;        //담당학과(학과)
     private String appointmentDate;   // 임용일
-    
+
+    private DepartmentDTO department;
+
     // 재직정보
     private String status;
 
