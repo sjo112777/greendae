@@ -1,6 +1,7 @@
 package kr.co.greendae.controller;
 
 import kr.co.greendae.dto.support.LectureDTO;
+import kr.co.greendae.dto.support.RecordDTO;
 import kr.co.greendae.dto.support.RegisterDTO;
 
 import kr.co.greendae.dto.support.StudentDTO;
@@ -83,9 +84,11 @@ public class SupportController {
         String stdNo = userDetails.getUsername();
 
         RegisteredPageResponseDTO registeredPageResponseDTO = supportService.findGradeByStdNo(registeredPageRequestDTO, stdNo);
+        int total = supportService.totalCredit(registeredPageResponseDTO);
 
         model.addAttribute("gradeDTOList", registeredPageResponseDTO.getDtoList());
-        model.addAttribute("registeredPageResponseDTO", registeredPageResponseDTO);
+        model.addAttribute("pageResponseDTO", registeredPageResponseDTO);
+        model.addAttribute("total", total);
 
         //List<RegisterDTO> gradeList = supportService.findGradeByStdNo(stdNo);
         //model.addAttribute("gradeList", gradeList);
@@ -121,10 +124,21 @@ public class SupportController {
 
         //학번조회
         String stdNo = userDetails.getUsername();
-        String lecNo =registerDTO.getRegLecNo();
+        String lecNo = registerDTO.getRegLecNo();
 
         StudentDTO student = supportService.findStudentByStdNo(stdNo);
         Lecture lecture = supportService.findLectureByLecNo(lecNo);
+
+        // 총원 초과 체크
+        if(lecture.getLecStdTotal() == lecture.getLecStdCount()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("error", "capacity_exceeded"));
+        }
+
+        // 동일한 강의를 신챙했는가
+        Boolean isDuplicate = supportService.CheckRegister(student, lecture);
+        if(isDuplicate){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("error", "duplicate_registration"));
+        }
 
         log.info("stdNo: " + stdNo);
 
@@ -134,7 +148,7 @@ public class SupportController {
         if(success){
             return ResponseEntity.ok().body(Collections.singletonMap("success", true));
         }else{
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("success", false));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("error", "unknown_error"));
         }
     }
 
@@ -207,6 +221,8 @@ public class SupportController {
         log.info("stdNo: " + stdNo);
 
         List<StudentDTO> studentList = supportService.findRecordByStdNo(stdNo);
+        List<String> lectureYears = supportService.getLectureYearsByStudent(stdNo);
+        System.out.println("YEAR@@@@" + lectureYears);
 
         if (!studentList.isEmpty()) {
             StudentDTO studentDTO = studentList.get(0);  // 첫 번째 학생의 정보 가져오기
@@ -222,10 +238,18 @@ public class SupportController {
                 averageCredits = (double) totalCredits / 3;
             }
 
+            // 년도/ 학기별 취득학점현환
+            // 학번 202510010
+            // 2025년 1학기 2학기
+
+
+            List<RecordDTO> recordDTOS = supportService.calculateRecode(studentDTO);
+
             // 모델에 학생 정보와 학점 요약 추가
             model.addAttribute("student", studentDTO);
             model.addAttribute("creditSummary", creditSummary);
             model.addAttribute("averageCredits", averageCredits);
+            model.addAttribute("recordDTOS", recordDTOS);
         } else {
             log.warn("No student found for stdNo: " + stdNo);  // 학생 정보가 없을 경우 경고 로그
         }

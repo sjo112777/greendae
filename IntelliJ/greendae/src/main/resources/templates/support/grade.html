@@ -65,7 +65,7 @@
                         <span style="color: #666666;">학기</span>
                     </div>
                     <div class="total">
-                        <p>신청과목수 #과목, 총 신청 학점 ##학점</p>
+                        <p>신청과목수 [[${pageResponseDTO.total}]]과목, 총 신청 학점 [[${total}]]학점</p>
                     </div>
                     <div class="register_list">
                         <table class="list">
@@ -103,6 +103,21 @@
                         </table>
                         <p style="margin-top: 5px; color: #666666; font-weight: 350; font-size: 16px;">※ 점수 이의신청은 학생지원실에 문의하시기 바랍니다.</p>
                     </div>
+
+                    <div class="page">
+                        <th:block th:if="${pageResponseDTO.prev}">
+                            <a th:href="@{/support/grade(pg=${pageResponseDTO.start-1})}" class="prev">이전</a>
+                        </th:block>
+
+                        <th:block th:each="num:${#numbers.sequence(pageResponseDTO.start, pageResponseDTO.end)}">
+                            <a th:href="@{/support/grade(pg=${num})}" th:class="${num == pageResponseDTO.pg} ? 'current' : 'num'">[[${num}]]</a>
+                        </th:block>
+
+                        <th:block th:if="${pageResponseDTO.next}">
+                            <a th:href="@{/support/grade(pg=${pageResponseDTO.end+1})}" class="next">다음</a>
+                        </th:block>
+                    </div>
+
                     <div id="details" class="modal">
                         <div class="modal-content">
                             <span class="close">&times;</span>
@@ -141,21 +156,6 @@
                                 </tr>
                             </table>
                         </div>
-
-                        <div class="page">
-                            <th:block th:if="${pageResponseDTO.prev}">
-                                <a th:href="@{/support/grade(pg=${pageResponseDTO.start-1})}" class="prev">이전</a>
-                            </th:block>
-
-                            <th:block th:each="num:${#numbers.sequence(pageResponseDTO.start, pageResponseDTO.end)}">
-                                <a th:href="@{/support/grade(pg=${num})}" th:class="${num == pageResponseDTO.pg} ? 'current' : 'num'">[[${num}]]</a>
-                            </th:block>
-
-                            <th:block th:if="${pageResponseDTO.next}">
-                                <a th:href="@{/support/grade(pg=${pageResponseDTO.end+1})}" class="next">다음</a>
-                            </th:block>
-                        </div>
-
                     </div>
                 </article>
             </section>

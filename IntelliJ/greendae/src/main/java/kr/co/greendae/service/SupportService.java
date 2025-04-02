@@ -1,9 +1,11 @@
 package kr.co.greendae.service;
 
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.querydsl.core.Tuple;
 
 import kr.co.greendae.dto.support.LectureDTO;
+import kr.co.greendae.dto.support.RecordDTO;
 import kr.co.greendae.dto.support.RegisterDTO;
 
 import kr.co.greendae.dto.support.StudentDTO;
@@ -20,6 +22,7 @@ import kr.co.greendae.repository.support.RegisterRepository;
 
 import kr.co.greendae.repository.user.ProfessorRepository;
 import kr.co.greendae.repository.user.StudentRepository;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -54,6 +57,10 @@ public class SupportService {
                 .collect(Collectors.toList());
     }
 
+    public List<String> getLectureYearsByStudent(String stdNo) {
+
+        return lectureRepository.findLectureYearsByStudent(stdNo);
+    }
 
     public int findStudentYearByStdNo(String stdNo) {
         log.info("service##stdNo: {}", stdNo);
@@ -117,7 +124,6 @@ public class SupportService {
                 .total(total)
                 .build();
     }
-
 
     public RegisteredPageResponseDTO findRegisterByStdNo(RegisteredPageRequestDTO registeredPageRequestDTO, String stdNo) {
         //페이징
@@ -195,31 +201,6 @@ public class SupportService {
                 .dtoList(gradeDTOList)
                 .total(total)
                 .build();
-
-        /*
-        List<RegisterDTO> gradeDTOList = pageRegisteredGrade.stream().map(obj -> {
-
-            RegisterDTO registerDTO = modelMapper.map(obj, RegisterDTO.class);
-            String proNo = (String) obj[8];
-            Professor professor = professorRepository.findById(proNo).get();
-
-            registerDTO.setRegStdNo((String) obj[0]);
-            registerDTO.setRegLecNo((String) obj[1]);
-            registerDTO.setRegTotalScore((Integer) obj[2]);
-            registerDTO.setRegGradeScore((String) obj[3]);
-            registerDTO.setLecCredit((Integer) obj[4]);
-            registerDTO.setLecName((String) obj[5]);
-            registerDTO.setLecCate((String) obj[6]);
-            registerDTO.setLecGrade((Integer) obj[7]);
-            registerDTO.setLecProName(professor.getUser().getName());
-
-            return registerDTO;
-        }).collect(Collectors.toList());
-
-         */
-
-
-        //return gradeDTOList;
     }
 
     public List<StudentDTO> findRecordByStdNo(String stdNo) {
@@ -257,7 +238,6 @@ public class SupportService {
 
     public CreditSummary calculateCredits(String stdNo) {
         List<Object[]> registerList = registerRepository.findRegisterByStdNo(stdNo);
-        log.info("service##registerList : {}", registerList);
 
         // 학점을 합산할 변수들
         int major = 0;
@@ -266,67 +246,79 @@ public class SupportService {
         int volunteer = 0;
         int other = 0;
 
-        log.info("here1");
+        // 갯수를 합산할 변수들
+        int majorC = 0;
+        int liberalArtsC = 0;
+        int electiveC = 0;
+
+        //각 카테고리별 학점 계산 (갯수 * 3)
+        int majorCredit = 0;
+        int liberalArtsCredit = 0;
+        int electiveCredit = 0;
+        int volunteerCredit = 0;
+        int otherCredit = 0;
+
+        if (!registerList.isEmpty()) {
+            Object[] firstRegister = registerList.get(0); // 첫 번째 객체 가져오기
+            for (int i = 0; i < firstRegister.length; i++) {
+                log.info("Element[{}]: Value = {}, Type = {}", i, firstRegister[i], firstRegister[i] != null ? firstRegister[i].getClass().getName() : "null");
+            }
+        }
 
         // 'registerList'에서 각 Object[]를 순회하면서 학점 계산
+        Lecture lecture = null;
         for (Object[] register : registerList) {
             registerList.stream().forEach(obj -> {
                 for (int i = 0; i < obj.length; i++) {
                     log.info("obj[{}] type: {}", i, obj[i].getClass().getName());
                 }
             });
-            log.info("service##register : {}", register);
-            // regLecNo를 통해 해당 lecture 엔티티 정보 가져오기
-            String regstdNo = (String) register[0]; // regLecNo를 추출
-            String regLecNo = (String) register[1];
 
-            log.info("service##regLecNo : {}", regLecNo);
+            // regLecNo를 통해 해당 lecture 엔티티 정보 가져오기
+            String regLecNo = (String) register[1];
 
             // regLecNo를 이용해 Lecture 엔티티를 조회
             Optional<Lecture> optlec = lectureRepository.findById(regLecNo); // regLecNo를 통해 Lecture 엔티티 조회
-            Lecture lecture = optlec.get();
-
-            log.info("service##lecture : {}", lecture);
-            log.info("service##lecturecate : {}", lecture.getLecCate());
-
+            lecture = optlec.get();
 
             if (lecture == null) {
-                log.info("here2");
                 continue; // 만약 해당하는 Lecture가 없다면, 해당 항목을 무시하고 넘어갑니다.
             }
 
-
             // Object 배열에서 필요한 데이터를 추출
             String lecCate = (String) register[4]; // '전공', '교양' 등 카테고리 정보
-
-            log.info("service##lecCate : {}", lecCate);
+            int lecCredits = (Integer) register[2];
+            log.info("@#@##@#@#"+lecCredits);
 
             // 카테고리에 따라 학점 계산
             if ("전공".equals(lecCate) || "전공필수".equals(lecCate)) {
                 major++; // 전공 또는 전공필수는 전공으로 처리
+                majorC++;
+                majorCredit += (Integer) register[2];
             } else if ("교양".equals(lecCate)) {
                 liberalArts++;
+                liberalArtsC++;
+                liberalArtsCredit += (Integer) register[2];
             } else if ("선택".equals(lecCate)) {
                 elective++;
+                electiveC++;
+                electiveCredit  += (Integer) register[2];
             } else if ("사회봉사".equals(lecCate)) {
                 volunteer++;
+                volunteerCredit += (Integer) register[2];
             } else {
                 other++;
+                otherCredit += (Integer) register[2];
             }
-        }
-        //각 카테고리별 학점 계산 (갯수 * 3)
-        int majorCredit = major * 3;
-        int liberalArtsCredit = liberalArts * 3;
-        int electiveCredit = elective * 3;
-        int volunteerCredit = volunteer * 3;
-        int otherCredit = other * 3;
 
+
+        }
 
         // 총 취득 학점 계산
         int total = majorCredit + liberalArtsCredit + electiveCredit + volunteerCredit + otherCredit;
 
         // CreditSummary 객체로 결과 반환
-        return new CreditSummary(majorCredit, liberalArtsCredit, electiveCredit, volunteerCredit, otherCredit, total);
+        return new CreditSummary(majorCredit, liberalArtsCredit, electiveCredit, volunteerCredit, otherCredit, total, majorC, liberalArtsC, electiveC);
 
     }
 
@@ -376,41 +368,6 @@ public class SupportService {
         return lectureDTOList;
     }
 
-    public Map<Integer, List<LectureDTO>> getGroupedLectureList(StudentDTO studentDTO, String year) {
-        int lecGrade = Integer.parseInt(year);
-        String lecClass = studentDTO.getStdClass();
-
-        // 📌 해당 학년 & 학과의 강의 리스트 조회
-        List<Lecture> lectureList = lectureRepository.findByLecClassAndLecGrade(lecClass, lecGrade);
-
-        // 📌 Lecture -> LectureDTO 변환 후 lecGrade 기준으로 그룹화
-        return lectureList.stream()
-                .map(lecture -> modelMapper.map(lecture, LectureDTO.class))
-                .collect(Collectors.groupingBy(LectureDTO::getLecGrade));
-    }
-
-/*
-    public boolean registerLecture(RegisterDTO registerDTO) {
-        try{
-            Lecture lecture = lectureRepository.findByLecNo(registerDTO.getRegLecNo());
-            Student student = studentRepository.findByStdNo(registerDTO.getRegLecNo());
-
-            //Register 엔티티 생성
-            Register register = Register.builder()
-                    .student(student)
-                    .lecture(lecture)
-                    .regYear(registerDTO.getRegYear())
-                    .regSemester(registerDTO.getRegSemester())
-                    .build();
-
-            registerRepository.save(register);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-
-    }
-*/
     public Lecture findLectureByLecNo(String lecNo) {
         Optional<Lecture> optLecture = lectureRepository.findById(lecNo);
         return optLecture.get();
@@ -491,6 +448,7 @@ public class SupportService {
             lectureRepository.save(lecture);
 
             // 학생 총점 -
+            //
 
             // 삭제가 완료되었으면 true 반환
             return true;
@@ -500,7 +458,106 @@ public class SupportService {
         return false;
     }
 
+    public List<RecordDTO> calculateRecode(StudentDTO studentDTO) {
 
+        List<RecordDTO> recordDTOS = new ArrayList<>();
+        Student student = studentRepository.findByStdNo(studentDTO.getStdNo());
+        int startYear = Integer.parseInt(student.getAdmission_year());
+        List<Register> re = registerRepository.findByStudent(student);
+
+        int grade = 1;
+
+        System.out.println(startYear);
+
+        // 학생 학번에도 연도 구분
+        String semester = "시작";
+        Boolean stop = true;
+        while(stop){
+
+            RecordDTO recordDTO1 = new RecordDTO();
+
+            // 1학기 시작
+            String year = String.valueOf(startYear);
+
+            semester = "1학기";
+            List<Register> list = registerRepository.findByStudentAndRegSemesterAndRegYear(student, semester, year );
+
+            if(list.isEmpty()){
+                break;
+            }
+
+            // 데이터 수작업으로 넣기
+            recordDTO1.setYear(year);
+            recordDTO1.setGrade(grade);
+            recordDTO1.setSemester(semester);
+
+            int score = 0;
+            int major = 0;
+            for(Register register : list){
+                score += register.getLecture().getLecCredit();
+                if(register.getLecture().getLecCate().contains("전공")){
+                    major += register.getLecture().getLecCredit();
+                }
+            }
+
+            recordDTO1.setRegister(score);
+            recordDTO1.setTotal(score);
+            recordDTO1.setEtc(0);
+            recordDTO1.setElective(0);
+            recordDTO1.setAverage("4.5");
+            recordDTO1.setMajor(major);
+            recordDTOS.add(recordDTO1);
+
+            // 2학기 데이터 뿌리기
+            semester = "2학기";
+            List<Register> list2 = registerRepository.findByStudentAndRegSemesterAndRegYear(student, semester, year );
+
+            if(list2.isEmpty()){
+                break;
+            }
+
+            //데이터 삽입
+            RecordDTO recordDTO2 = new RecordDTO();
+            recordDTO2.setYear(year);
+            recordDTO2.setGrade(grade);
+            recordDTO2.setSemester(semester);
+
+            int score2 = 0;
+            int major2 = 0;
+
+            for(Register register : list2){
+                score2 += register.getLecture().getLecCredit();
+                if(register.getLecture().getLecCate().contains("전공")){
+                    major2 += register.getLecture().getLecCredit();
+                }
+            }
+
+            recordDTO2.setRegister(score2);
+            recordDTO2.setTotal(score2);
+            recordDTO2.setEtc(0);
+            recordDTO2.setElective(0);
+            recordDTO2.setAverage("4.5");
+            recordDTO2.setMajor(major2);
+
+            recordDTOS.add(recordDTO2);
+
+            startYear += 1;
+
+       }
+
+        return recordDTOS;
+        
+    }
+
+    public Boolean CheckRegister(StudentDTO std, Lecture lecture) {
+
+        Student student = modelMapper.map(std, Student.class);
+
+        //Student, Lecture findByStudent
+        return registerRepository.existsByStudentAndLecture(student, lecture);
+    }
+
+    @Getter
     public static class CreditSummary {
         private int major;
         private int liberalArts;
@@ -509,39 +566,40 @@ public class SupportService {
         private int other;
         private int total;
 
+        private int majorC;
+        private int liberalArtsC;
+        private int electiveC;
+
         // 생성자
-        public CreditSummary(int major, int liberalArts, int elective, int volunteer, int other, int total) {
+        public CreditSummary(int major, int liberalArts, int elective, int volunteer, int other, int total, int majorC, int liberalArtsC, int electiveC) {
             this.major = major;
             this.liberalArts = liberalArts;
             this.elective = elective;
             this.volunteer = volunteer;
             this.other = other;
             this.total = total;
+            this.majorC = majorC;
+            this.liberalArtsC = liberalArtsC;
+            this.electiveC = electiveC;
         }
 
-        public int getMajor() {
-            return major;
-        }
+        public int getMajor() { return major; }
 
-        public int getLiberalArts() {
-            return liberalArts;
-        }
+        public int getLiberalArts() { return liberalArts; }
 
-        public int getElective() {
-            return elective;
-        }
+        public int getElective() { return elective; }
 
-        public int getVolunteer() {
-            return volunteer;
-        }
+        public int getVolunteer() { return volunteer; }
 
-        public int getOther() {
-            return other;
-        }
+        public int getOther() { return other; }
 
-        public int getTotal() {
-            return total;
-        }
+        public int getTotal() { return total; }
+
+        public int getMajorC() { return majorC; }
+
+        public int getElectiveC() { return electiveC; }
+
+        public int getLiberalArtsC() { return liberalArtsC; }
     }
 
 
