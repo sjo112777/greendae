@@ -102,7 +102,7 @@ public class AcademicController {
     }
 
     // aca공지사항 글 등록
-    @PostMapping("/academic/write")
+    @PostMapping("/acanotice/write")
     public String acanoticewrite(ArticleDTO articleDTO) {
         HttpSession session = request.getSession();
         String cate = (String) session.getAttribute("cate");
@@ -154,7 +154,7 @@ public class AcademicController {
     }
 
     // 노티스 게시글 삭제
-    @GetMapping("/academic/delete")
+    @GetMapping("/acanotice/delete")
     public String acanoticedelete(int no){
 
         fileService.deletebasicFile(no);

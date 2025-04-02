@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>커뮤니티 > 공지사항</title>
+    <title>커뮤니티 > 자료실</title>
     <link rel="stylesheet" href="/css/layout/layout.css">
     <link rel="stylesheet" href="/css/community/data.css">
 </head>
@@ -35,50 +35,21 @@
                     </div>
                     <div class="main_content_detail">
                         <!-- 작성할 내용 시작-->
-                        <nav>
-                            <form action="">
-                                <select name="searchType" style="padding: 6px;">
-                                    <option value="title">전체</option>
-                                    <option value="title">제목</option>
-                                    <option value="content">내용</option>
-                                    <option value="writer">글쓴이</option>
-                                </select>
-                                <input type="text" name="keyword" placeholder="검색 키워드 입력">
-                                <input type="submit" value="검색">
-                            </form>
-                        </nav> 
-                        
-
-                        <table>                    
-                            <tr>
-                                <th>번호</th>
-                                <th>제목</th>
-                                <th>작성자</th>
-                                <th>작성일</th>
-                                <th>조회</th>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td><img style="margin-right: 10px;" src="/images/ico-file01.png" alt="">교원자격증 재교부 및 기재사항 정정신청 안내(서식)</td>
-                                <td>학사관리과</td>
-                                <td>24.04.09</td>
-                                <td>120</td>
-                            </tr>
-                        </table>
-
-                        <div class="page">
-                            <a href="" class="first"><img src="/images/btn-first-page.png" alt=""></a>
-                            <a href="" class="prev"><img src="/images/btn-prev-page.png" alt=""></a>
-                            <a href="" class="num">1</a>
-                            <a href="" class="next"><img src="/images/btn-next-page.png" alt=""></a>
-                            <a href="" class="last"><img src="/images/btn-last-page.png" alt=""></a>
-                        </div>
-                            <a href="" class="btn btnWrite">글쓰기</a>
-                    
-                    </div>  
-                </article>
-            </section>
-        </main>
+                        <th:block th:if="${isWriting}">
+                            <th:block th:include="/inc/community/data/dwrite.html"/>
+                        </th:block>
+                        <th:block th:if="${isListing}">
+                            <th:block th:include="/inc/community/data/dlist.html"/>
+                        </th:block>
+                        <th:block th:if="${isSearching}">
+                            <th:block th:include="/inc/community/data/dsearchList.html"/>
+                        </th:block>
+                        <th:block th:if="${isViewing}">
+                            <th:block th:include="/inc/community/data/dview.html"/>
+                        </th:block>
+                        <th:block th:if="${isModifying}">
+                            <th:block th:include="/inc/community/data/dmodify.html"/>
+                        </th:block>
         <!-- 메인 끝-->
         <!-- 푸터 시작작-->
         <th:block th:include="/inc/_footer.html"/>
