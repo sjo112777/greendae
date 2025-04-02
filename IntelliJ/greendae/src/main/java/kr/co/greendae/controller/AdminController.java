@@ -5,7 +5,9 @@ import kr.co.greendae.dto.college.CollegeDTO;
 import kr.co.greendae.dto.department.*;
 import kr.co.greendae.dto.page.PageRequestDTO;
 import kr.co.greendae.dto.support.LectureDTO;
+import kr.co.greendae.dto.support.RegisterDTO;
 import kr.co.greendae.dto.support.StudentDTO;
+import kr.co.greendae.dto.support.pageRegister.PageResponseDTO;
 import kr.co.greendae.dto.user.PageProfessorResponseDTO;
 import kr.co.greendae.dto.user.PageStudentResponseDTO;
 import kr.co.greendae.dto.user.ProfessorDTO;
@@ -288,11 +290,6 @@ public class AdminController {
         PageProfessorResponseDTO pageProfessorResponseDTO = adminService.findAllProfessor(pageRequestDTO);
         model.addAttribute("pageResponseDTO",pageProfessorResponseDTO);
 
-        System.out.println(pageProfessorResponseDTO);
-        System.out.println(pageProfessorResponseDTO);
-        System.out.println(pageProfessorResponseDTO);
-        System.out.println(pageProfessorResponseDTO);
-
         return "/admin/list/professor";
     }
 
@@ -309,6 +306,18 @@ public class AdminController {
 
         return "/admin/list/professor";
     }
+
+    // 교육 운영 현황 리스트
+    @GetMapping("/operation/list")
+    public String  operation(Model model, PageRequestDTO pageRequestDTO){
+
+        PageLectureResponseDTO pageResponseDTO = adminService.searchAllLecture(pageRequestDTO);
+        System.out.println(pageResponseDTO);
+        model.addAttribute("pageResponseDTO",pageResponseDTO);
+
+        return "/admin/list/operation";
+    }
+
 
 
 

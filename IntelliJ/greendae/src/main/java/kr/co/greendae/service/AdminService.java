@@ -6,12 +6,15 @@ import kr.co.greendae.dto.college.CollegeDTO;
 import kr.co.greendae.dto.department.*;
 import kr.co.greendae.dto.page.PageRequestDTO;
 import kr.co.greendae.dto.support.LectureDTO;
+import kr.co.greendae.dto.support.RegisterDTO;
 import kr.co.greendae.dto.support.StudentDTO;
+import kr.co.greendae.dto.support.pageRegister.PageResponseDTO;
 import kr.co.greendae.dto.user.PageProfessorResponseDTO;
 import kr.co.greendae.dto.user.PageStudentResponseDTO;
 import kr.co.greendae.dto.user.ProfessorDTO;
 import kr.co.greendae.dto.user.UserDTO;
 import kr.co.greendae.entity.Lecture.Lecture;
+import kr.co.greendae.entity.Lecture.Register;
 import kr.co.greendae.entity.college.College;
 import kr.co.greendae.entity.department.Chairperson;
 import kr.co.greendae.entity.department.Department;
@@ -23,6 +26,7 @@ import kr.co.greendae.repository.department.ChairPersonRepository;
 import kr.co.greendae.repository.department.CollegeRepository;
 import kr.co.greendae.repository.department.DepartmentRepository;
 import kr.co.greendae.repository.support.LectureRepository;
+import kr.co.greendae.repository.support.RegisterRepository;
 import kr.co.greendae.repository.user.ProfessorRepository;
 import kr.co.greendae.repository.user.StudentRepository;
 import kr.co.greendae.repository.user.UserRepository;
@@ -448,6 +452,36 @@ public class AdminService {
                 .total(total)
                 .build();
 
+
+    }
+
+
+    public PageLectureResponseDTO searchAllLecture(PageRequestDTO pageRequestDTO) {
+
+        // 페이징 처리를 위한 pageable 객체 생성
+        Pageable pageable = pageRequestDTO.getPageable("no");
+
+        Page<Tuple> pageObject = lectureRepository.selectAll(pageable);
+
+        // Article Entity 리스트를 ArticleDTO 리스트로 변환
+        List<LectureDTO> lectureDTOS = pageObject.getContent().stream().map(tuple -> {
+
+            Lecture lecture = tuple.get(0, Lecture.class);
+
+            LectureDTO lectureDTO = modelMapper.map(lecture, LectureDTO.class);
+
+            return lectureDTO;
+
+        }).toList();
+
+        int total = (int) pageObject.getTotalElements();
+
+        return PageLectureResponseDTO
+                .builder()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(lectureDTOS)
+                .total(total)
+                .build();
 
     }
 }

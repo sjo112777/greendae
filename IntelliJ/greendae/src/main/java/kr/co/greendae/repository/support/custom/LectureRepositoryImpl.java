@@ -106,4 +106,28 @@ public class LectureRepositoryImpl implements LectureRepositoryCustom {
 
         return new PageImpl<>(tupleList, pageable, total);
     }
+
+    @Override
+    public Page<Tuple> selectAll(Pageable pageable) {
+        List<Tuple> tupleList = queryFactory
+                .select(qLecture, qUser.name)
+                .from(qLecture)
+                .join(qProfessor)
+                .on(qLecture.professor.proNo.eq(qProfessor.proNo))
+                .join(qUser)
+                .on(qUser.uid.eq(qProfessor.user.uid))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .orderBy(qLecture.lecNo.desc())
+                .fetch();
+
+        Long total = Optional.ofNullable(queryFactory
+                        .select(qLecture.count())
+                        .from(qLecture)
+                        .fetchOne())
+                .orElse(0L); // null이면 0L 반환
+
+        //페이징 처리를 위한 페이지 객체 기반
+        return new PageImpl<>(tupleList, pageable, total);
+    }
 }
