@@ -50,13 +50,15 @@ public class BasicArticleRepositoryImpl implements BasicArticleRepositoryCustom 
     }
 
     @Override
-    public Page<Tuple> selectAllForSearch(PageRequestDTO pageRequestDTO, Pageable pageable) {
+    public Page<Tuple> selectAllForSearch(PageRequestDTO pageRequestDTO, Pageable pageable, String cate) {
 
         String searchType = pageRequestDTO.getSearchType();
         String keyword = pageRequestDTO.getKeyword();
 
+        BooleanExpression expression = qArticle.cate.eq(cate);
+
         // 검색 조건에 따라 where 조건 표현식 생성
-        BooleanExpression expression = null;
+        BooleanExpression cateExpression = qArticle.cate.eq(cate);
 
         /*
         전체 기능 검색이 안됨
@@ -86,7 +88,7 @@ public class BasicArticleRepositoryImpl implements BasicArticleRepositoryCustom 
             }
         }
 
-
+        expression = expression.and(cateExpression);
 
         List<Tuple> tupleList = queryFactory
                 .select(qArticle, qUser.name)
