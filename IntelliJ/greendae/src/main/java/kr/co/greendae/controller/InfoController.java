@@ -37,25 +37,57 @@ public class InfoController {
 
     // 자연과학대학
     @GetMapping("/natural")
-    public String natural(){
+    public String natural(Model model){
+
+        String college = "자연과학대학";
+        CollegeDTO collegeDTO = collegeService.findByName(college);
+        List<DepartmentDTO> departmentDTOS = departmentService.findDepartmentByCollege(college);
+
+        model.addAttribute("college",collegeDTO);
+        model.addAttribute("departmentDTOS", departmentDTOS);
         return "/info/natural";
     }
 
     // 공과대학
     @GetMapping("/engineering")
-    public String engineering(){
+    public String engineering(Model model){
+        
+        String collage = "공과대학";
+        CollegeDTO collegeDTO = collegeService.findByName(collage);
+        List<DepartmentDTO> departmentDTOS = departmentService.findDepartmentByCollege(collage);
+
+        model.addAttribute("college",collegeDTO);
+        model.addAttribute("departmentDTOS", departmentDTOS);
+
         return "/info/engineering";
     }
 
     // 사범대학
     @GetMapping("/education")
-    public String education(){
+    public String education(Model model){
+
+        String collage = "사범대학";
+        CollegeDTO collegeDTO = collegeService.findByName(collage);
+        List<DepartmentDTO> departmentDTOS = departmentService.findDepartmentByCollege(collage);
+
+        model.addAttribute("college",collegeDTO);
+        model.addAttribute("departmentDTOS", departmentDTOS);
+
+
+
         return "/info/education";
     }
 
     // 대학원
     @GetMapping("/graduate")
-    public String graduate(){
+    public String graduate(Model model){
+
+        String collage = "대학원";
+        CollegeDTO collegeDTO = collegeService.findByName(collage);
+        List<DepartmentDTO> departmentDTOS = departmentService.findDepartmentByCollege(collage);
+
+        model.addAttribute("college",collegeDTO);
+        model.addAttribute("departmentDTOS", departmentDTOS);
         return "/info/graduate";
     }
 }
