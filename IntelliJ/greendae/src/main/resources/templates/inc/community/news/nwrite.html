@@ -3,7 +3,7 @@
 <section class="right_section">
     <article>
 
-        <form th:action="@{/academic/acanotice/write}" method="post" enctype="multipart/form-data" id="acanoticeWriteForm">
+        <form th:action="@{/community/news/write}" method="post" enctype="multipart/form-data" id="dataWriteForm">
             <input type="hidden" name="writer" th:value="${#authentication.principal.user.uid}"/>
             <table border="0" class="write_table">
                 <tbody>
@@ -33,7 +33,7 @@
             </table>
             <div style="float: right; margin-top: 10px;">
                 <input type="submit" value="작성완료" class="btn btnComplete" style=" border: 1px solid #3b3c3f; background-color:#4b545e ; color: #ffffff;">
-                <a th:href="@{/academic/acanotice}" class="btn btnCancel" >취소</a>
+                <a th:href="@{/community/news}" class="btn btnCancel" >취소</a>
             </div>
         </form>
 
