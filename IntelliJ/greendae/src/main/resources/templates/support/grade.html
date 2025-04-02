@@ -83,10 +83,10 @@
                                 </tr>
                             </thead>
                             <tbody id="course_list">
-                                <tr th:if="${#lists.isEmpty(gradeList)}" style="text-align: center;">
+                                <tr th:if="${#lists.isEmpty(gradeDTOList)}" style="text-align: center;">
                                     <td colspan="9">수강신청내역이 없습니다</td>
                                 </tr>
-                                <tr th:each="grade: ${gradeList}">
+                                <tr th:each="grade: ${gradeDTOList}">
                                     <td th:text="${grade.regLecNo}"></td>
                                     <td th:text="${grade.lecName}"></td>
                                     <td th:text="${grade.lecGrade}"></td>
@@ -141,6 +141,21 @@
                                 </tr>
                             </table>
                         </div>
+
+                        <div class="page">
+                            <th:block th:if="${pageResponseDTO.prev}">
+                                <a th:href="@{/support/grade(pg=${pageResponseDTO.start-1})}" class="prev">이전</a>
+                            </th:block>
+
+                            <th:block th:each="num:${#numbers.sequence(pageResponseDTO.start, pageResponseDTO.end)}">
+                                <a th:href="@{/support/grade(pg=${num})}" th:class="${num == pageResponseDTO.pg} ? 'current' : 'num'">[[${num}]]</a>
+                            </th:block>
+
+                            <th:block th:if="${pageResponseDTO.next}">
+                                <a th:href="@{/support/grade(pg=${pageResponseDTO.end+1})}" class="next">다음</a>
+                            </th:block>
+                        </div>
+
                     </div>
                 </article>
             </section>

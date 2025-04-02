@@ -1,6 +1,7 @@
 package kr.co.greendae.dto.support;
 
 import kr.co.greendae.entity.Lecture.Lecture;
+import kr.co.greendae.entity.user.Professor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -37,5 +38,6 @@ public class RegisterDTO {
     private String lecRoom; //강의실
     private String lecWeekday; //강의 날짜
     private int lecCredit;
+    private Professor professor;
 
 }

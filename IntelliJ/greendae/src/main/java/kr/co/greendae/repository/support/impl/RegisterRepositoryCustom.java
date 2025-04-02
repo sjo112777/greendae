@@ -8,5 +8,6 @@ import org.springframework.data.domain.Pageable;
 public interface RegisterRepositoryCustom {
 
     public Page<Tuple> findRegisterByStdNo(Pageable pageable, String stdNo);
+    public Page<Tuple> findGradeByStdNo(Pageable pageable, String stdNo);
 
 }

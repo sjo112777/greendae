@@ -13,10 +13,12 @@ import kr.co.greendae.dto.support.pageRegisterList.RegisteredPageRequestDTO;
 import kr.co.greendae.dto.support.pageRegisterList.RegisteredPageResponseDTO;
 import kr.co.greendae.entity.Lecture.Lecture;
 import kr.co.greendae.entity.Lecture.Register;
+import kr.co.greendae.entity.user.Professor;
 import kr.co.greendae.entity.user.Student;
 import kr.co.greendae.repository.support.LectureRepository;
 import kr.co.greendae.repository.support.RegisterRepository;
 
+import kr.co.greendae.repository.user.ProfessorRepository;
 import kr.co.greendae.repository.user.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +43,7 @@ public class SupportService {
     private final RegisterRepository registerRepository;
     private final StudentRepository studentRepository;
     private final ModelMapper modelMapper;
+    private final ProfessorRepository professorRepository;
 
     public List<LectureDTO> findAll() {
         List<Lecture> lecturesEntities = lectureRepository.findAll();
@@ -154,19 +157,52 @@ public class SupportService {
                  .build();
     }
 
-    public List<RegisterDTO> findGradeByStdNo(String stdNo) {
-        List<Object[]> optGradeStd = registerRepository.findGradeByStdNo(stdNo);
-        log.info("optGradeStd : {}", optGradeStd);
+    public RegisteredPageResponseDTO findGradeByStdNo(RegisteredPageRequestDTO registeredPageRequestDTO, String stdNo) {
+        //페이징
+        Pageable pageable = registeredPageRequestDTO.getPageable("no");
 
-        // 각 obj의 타입을 로그로 찍어보기
-        optGradeStd.stream().forEach(obj -> {
-            for (int i = 0; i < obj.length; i++) {
-                log.info("obj[{}] type: {}", i, obj[i].getClass().getName());
-            }
-        });
+        //페이징 포함 목록 조회
+        Page<Tuple> pageRegisteredGrade = registerRepository.findGradeByStdNo(pageable, stdNo);
+        //List<Object[]> optGradeStd = registerRepository.findGradeByStdNo(stdNo);
 
-        List<RegisterDTO> gradeDTOList = optGradeStd.stream().map(obj -> {
+        List<RegisterDTO> gradeDTOList = pageRegisteredGrade.getContent().stream()
+                .map(tuple -> {
+                    Register register = tuple.get(0, Register.class);
+                    RegisterDTO registerDTO = modelMapper.map(register, RegisterDTO.class);
+                    String proNo = register.getLecture().getProfessor().getProNo();
+                    Professor professor = professorRepository.findById(proNo).get();
+
+                    registerDTO.setRegStdNo(register.getStudent().getStdNo());
+                    registerDTO.setRegLecNo(register.getLecture().getLecNo());
+                    registerDTO.setRegTotalScore(register.getRegTotalScore());
+                    registerDTO.setRegGradeScore(register.getRegGradeScore());
+                    registerDTO.setLecCredit(register.getLecture().getLecCredit());
+                    registerDTO.setLecName(register.getLecture().getLecName());
+                    registerDTO.setLecCate(register.getLecture().getLecCate());
+                    registerDTO.setLecGrade(register.getLecture().getLecGrade());
+                    registerDTO.setLecProName(professor.getUser().getName());
+
+                    return registerDTO;
+                })
+                .toList();
+
+        //전체 강의 수
+        int total = (int) pageRegisteredGrade.getTotalElements();
+
+        //페이지 DTO 반환
+        return RegisteredPageResponseDTO.builder()
+                .pageRequestDTO(registeredPageRequestDTO)
+                .dtoList(gradeDTOList)
+                .total(total)
+                .build();
+
+        /*
+        List<RegisterDTO> gradeDTOList = pageRegisteredGrade.stream().map(obj -> {
+
             RegisterDTO registerDTO = modelMapper.map(obj, RegisterDTO.class);
+            String proNo = (String) obj[8];
+            Professor professor = professorRepository.findById(proNo).get();
+
             registerDTO.setRegStdNo((String) obj[0]);
             registerDTO.setRegLecNo((String) obj[1]);
             registerDTO.setRegTotalScore((Integer) obj[2]);
@@ -175,14 +211,15 @@ public class SupportService {
             registerDTO.setLecName((String) obj[5]);
             registerDTO.setLecCate((String) obj[6]);
             registerDTO.setLecGrade((Integer) obj[7]);
-            registerDTO.setLecProName((String) obj[8]);
+            registerDTO.setLecProName(professor.getUser().getName());
 
             return registerDTO;
         }).collect(Collectors.toList());
 
-        log.info("gradeDTOList : {}", gradeDTOList);
+         */
 
-        return gradeDTOList;
+
+        //return gradeDTOList;
     }
 
     public List<StudentDTO> findRecordByStdNo(String stdNo) {
