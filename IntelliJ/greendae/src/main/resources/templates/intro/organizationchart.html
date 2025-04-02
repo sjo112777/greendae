@@ -3,48 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/layout/organizationchart.css">
+    <link rel="stylesheet" href="/css/intro/organizationchart.css">
     <link rel="stylesheet" href="/css/layout/layout.css">
     <title>조직도</title>
+
+    <style>
+
+
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const orgBoxes = document.querySelectorAll(".org_box[data-toggle='toggle']");
+
+            orgBoxes.forEach(function(box) {
+                box.addEventListener("click", function() {
+                    const nextRow = box.parentElement.nextElementSibling;
+
+                    if (nextRow) {
+                        if (nextRow.classList.contains("show")) {
+                            nextRow.classList.remove("show");
+                            nextRow.classList.add("slide-up");
+                        } else {
+                            nextRow.classList.add("show");
+                            nextRow.classList.remove("slide-up");
+                            nextRow.classList.add("slide-down");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
 </head>
 <body>
-    <div id="wrapper">
-        <!-- 헤더 시작작-->
-        <th:block th:include="/inc/_header.html"/>
-        <!-- 헤더 끝-->
-        <!-- 메인 시작작-->
-        <main>
-            <div class="background">
-                <div>
+<div id="wrapper">
+    <!-- 헤더 시작작-->
+    <th:block th:include="/inc/_header.html"/>
+
+    <!-- 헤더 끝-->
+    <!-- 메인 시작작-->
+    <main>
+        <div class="background">
+            <div>
                     <span style="margin-top: 10px;">
                         <img src="/images/ico-home.png" alt="HOME">
                         <img src="/images/bg-path-arrow.png" alt=">">
-                        대학소개   
+                        대학소개
                         <img src="/images/bg-path-arrow.png" alt=">">
                         <span style="color: #071F4B;">조직도</span>
                     </span>
-                </div>
             </div>
-            <section class="content">
-                <!-- 왼쪽 사이드바 -->
-                <th:block th:include="/inc/intro/sidebar.html"/>
-                <!-- 오른쪽 글 -->
+        </div>
+        <section class="content">
+            <!-- 왼쪽 사이드바 -->
+            <th:block th:include="/inc/intro/sidebar.html"/>
+            <!-- 오른쪽 글 -->
+            <div class="mains">
                 <article class="main_content">
                     <div class="main_title">
-                        <p>조직도</p>
+                        <p>그린대학교 조직도</p>
                     </div>
                     <div class="main_content_detail">
-                        <div>
-                            <img src="/images/organization.PNG" alt="조직도">
+                        <div class="organization">
+                        </div>
+                        <!-- 총장 -->
+                        <div class="org_box top">
+                            <p class="title">총장</p>
+                            <p class="name">홍길동</p>
+                        </div>
+                        <div class="connector"></div>
+
+                        <!-- 부총장 -->
+                        <div class="middle_row">
+                            <div class="org_box">
+                                <p class="title">부총장</p>
+                                <p class="name">이순신</p>
+                            </div>
+                        </div>
+                        <div class="connector"></div>
+
+                        <!-- 추가된 부서들 -->
+                        <div class="bottom_row">
+                            <div class="org_box">
+                                <p class="title">학장</p>
+                                <p class="name">강감찬</p>
+                            </div>
+                            <div class="org_box">
+                                <p class="title">행정팀</p>
+                                <p class="name">김유신</p>
+                            </div>
+                            <div class="org_box">
+                                <p class="title">인사팀</p>
+                                <p class="name">장보고</p>
+                            </div>
+                            <div class="org_box">
+                                <p class="title">IT팀</p>
+                                <p class="name">정약용</p>
+                            </div>
+                            <div class="org_box">
+                                <p class="title">재무팀</p>
+                                <p class="name">신사임당</p>
+                            </div>
+                            <div class="org_box">
+                                <p class="title">마케팅팀</p>
+                                <p class="name">윤봉길</p>
+                            </div>
+                        </div>
+
+                        <!-- 테이블 추가 (부서 및 담당자) -->
+                        <div class="org_table">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>부서</th>
+                                    <th>담당자</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>학장</td>
+                                    <td>안중근</td>
+                                </tr>
+                                <tr>
+                                    <td>행정팀</td>
+                                    <td>이성계</td>
+                                </tr>
+                                <tr>
+                                    <td>인사팀</td>
+                                    <td>유관순</td>
+                                </tr>
+                                <tr>
+                                    <td>IT팀</td>
+                                    <td>박정희</td>
+                                </tr>
+                                <tr>
+                                    <td>재무팀</td>
+                                    <td>김홍도</td>
+                                </tr>
+                                <tr>
+                                    <td>마케팅팀</td>
+                                    <td>장영실</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- 더 많은 부서 추가 가능 -->
+                        <div class="org_table">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>부서</th>
+                                    <th>담당자</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>디자인팀</td>
+                                    <td>안창호</td>
+                                </tr>
+                                <tr>
+                                    <td>영업팀</td>
+                                    <td>허균</td>
+                                </tr>
+                                <tr>
+                                    <td>HR팀</td>
+                                    <td>김성수</td>
+                                </tr>
+                                <tr>
+                                    <td>교육팀</td>
+                                    <td>정주영</td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                </article>
-            </section>
-        </main>
-        <!-- 메인 끝-->
-        <!-- 푸터 시작작-->
-        <th:block th:include="/inc/_footer.html"/>
-        <!-- 푸터 끝-->
-    </div>
+            </div>
+            </article>
+</div>
+
+</div>
+</main>
+<!-- 메인 끝-->
+<!-- 푸터 시작작-->
+<th:block th:include="/inc/_footer.html"/>
+
+<!-- 푸터 끝-->
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const orgBoxes = document.querySelectorAll(".org_box[data-toggle='toggle']");
+
+        orgBoxes.forEach(function(box) {
+            box.addEventListener("click", function() {
+                const nextRow = box.parentElement.nextElementSibling;
+
+                if (nextRow) {
+                    if (nextRow.classList.contains("show")) {
+                        nextRow.classList.remove("show");
+                        nextRow.classList.add("slide-up");
+                    } else {
+                        nextRow.classList.add("show");
+                        nextRow.classList.remove("slide-up");
+                        nextRow.classList.add("slide-down");
+                    }
+                }
+            });
+        });
+    });ㄴ
+</script>
 </body>
 </html>
