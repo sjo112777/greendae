@@ -109,6 +109,61 @@ public class CommunityController {
         return "redirect:/community/notice";  // 글쓰기 후 리스트 페이지로 리디렉션
     }
 
+    // 노티스 글 보기 view
+    @GetMapping("/notice/view")
+    public String noticeview(Model model, int no){
+
+        System.out.println(no);
+        // 글 조회 서비스 호출
+        ArticleDTO articleDTO = articleService.findById(no);
+
+        // 파일 조회 서비스 호출
+        // List로 파일 정보를 들고와서
+        // no 기반으로 file 테이블 검색해서 List 가져오기
+        List<FileDTO> fileDTOList = fileService.findById(no);
+        articleDTO.setFiles(fileDTOList);
+
+        model.addAttribute(articleDTO);
+        model.addAttribute("isViewing", true);
+
+        // return "redirect:/community/freeboard";
+        return "/community/notice";
+    }
+
+    // 노티스 게시글 삭제
+    @GetMapping("/notice/delete")
+    public String noticedelete(int no){
+
+        fileService.deletebasicFile(no);
+        commentService.deletebasicAllComment(no);
+        articleService.deletebasicArticle(no);
+        return "redirect:/community/notice";
+    }
+
+
+    // 노티스 게시글 수정
+    @GetMapping("/notice/modify")
+    public String noticemodify(int no, Model model) {
+
+        // 수정 데이터 조회 서비스
+        ArticleDTO articleDTO = articleService.findById(no);
+        //모델 참조
+        model.addAttribute("isModifying", true);
+        model.addAttribute(articleDTO);
+
+        return "/community/notice";
+    }
+
+    @PostMapping("/notice/modify")
+    public String noticemodify(ArticleDTO articleDTO) {
+        //서비스 호출
+
+        articleService.modifybasicArticle(articleDTO);
+
+        // 리다이렉트
+        return "redirect:/community/notice";
+    }
+
 
 
 

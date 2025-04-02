@@ -3,22 +3,19 @@
     document.addEventListener("DOMContentLoaded", function () {
         const path = location.pathname;
 
-        // 여러 폼 요소들에 대해 처리
-        const freeboardWriteForm = document.getElementById("freeboardWriteForm");
-        const noticeWriteForm = document.getElementById("noticeWriteForm");
-        const adnoticeWriteForm = document.getElementById("adnoticeWriteForm");
 
-        // 기본적으로 모든 폼을 숨기고, 조건에 맞는 폼만 보이게 설정
-        freeboardWriteForm.style.display = "none";
-        noticeWriteForm.style.display = "none";
-        adnoticeWriteForm.style.display = "none";
+        // 모든 폼 숨기기
+        document.getElementById("freeboardWriteForm").style.display = "none";
+        document.getElementById("noticeWriteForm").style.display = "none";
+        document.getElementById("adnoticeWriteForm").style.display = "none";
 
-        if (path.includes("freeboard")) {
-            freeboardWriteForm.style.display = "block"; // 자유게시판 검색 폼을 보이게
-        } else if (path.includes("adnotice")) {
-            adnoticeWriteForm.style.display = "block"; // 공지사항 검색 폼을 보이게
-        } else if (path.includes("notice")) {
-            noticeWriteForm.style.display = "block"; // 공지사항 검색 폼을 보이게
+        // 정확한 경로 매칭
+        if (path.includes("/admission/adnotice/modify")) {
+            document.getElementById("adnoticeWriteForm").style.display = "block";
+        } else if (path.includes("/community/notice/modify")) {
+            document.getElementById("noticeWriteForm").style.display = "block";
+        } else if (path.includes("/community/freeboard/modify")) {
+            document.getElementById("freeboardWriteForm").style.display = "block";
         }
     });
 </script>

@@ -3,8 +3,8 @@
     <div class="side_title">
       <p>학사안내</p>
     </div>
-    <a th:href="@{/academic/schedule}">        <!-- 각자 주소 넣기 -->
-      <div id="notice">공지사항</div>
+    <a th:href="@{/academic/acanotice}">        <!-- 각자 주소 넣기 -->
+      <div id="acanotice">공지사항</div>
     </a>
     <a th:href="@{/academic/schedule}">
       <div id="schedule">학사일정</div>
@@ -39,8 +39,8 @@
   document.addEventListener("DOMContentLoaded", function () {
     const path = location.pathname;
 
-    if (path.includes("notice")) {
-      document.getElementById("notice").classList.add("active");
+    if (path.includes("acanotice")) {
+      document.getElementById("acanotice").classList.add("active");
     }else if (path.includes("schedule")) {
       document.getElementById("schedule").classList.add("active");
     }else if (path.includes("registration")) {
