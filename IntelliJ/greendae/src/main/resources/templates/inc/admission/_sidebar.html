@@ -3,8 +3,8 @@
         <div class="side_title">
             <p>입학안내</p>
         </div>
-        <a th:href="@{/admission/early}">
-            <div id="notice">공지사항</div>
+        <a th:href="@{/admission/adnotice}">
+            <div id="adnotice">공지사항</div>
         </a>
         <a th:href="@{/admission/early}">
             <div id="early">수시모집</div>
@@ -25,8 +25,8 @@
     document.addEventListener("DOMContentLoaded", function () {
         const path = location.pathname;
 
-        if (path.includes("notice")) {
-            document.getElementById("notice").classList.add("active");
+        if (path.includes("adnotice")) {
+            document.getElementById("adnotice").classList.add("active");
         }else if (path.includes("early")) {
             document.getElementById("early").classList.add("active");
         }else if (path.includes("regular")) {
