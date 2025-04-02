@@ -58,4 +58,34 @@ public class RegisterRepositoryImpl implements RegisterRepositoryCustom {
 
         return new PageImpl<>(tupleList, pageable, total);
     }
+
+    @Override
+    public Page<Tuple> findGradeByStdNo(Pageable pageable, String stdNo) {
+
+        //검색조건
+        BooleanExpression expression = qRegister.student.stdNo.eq(stdNo);
+
+        List<Tuple> tupleList = queryFactory
+                .select(qRegister, qLecture ,qUser.name)
+                .from(qRegister)
+                .join(qLecture)
+                .on(qLecture.lecNo.eq(qRegister.lecture.lecNo))
+                .join(qProfessor)
+                .on(qLecture.professor.proNo.eq(qProfessor.proNo))
+                .join(qUser)
+                .on(qUser.uid.eq(qProfessor.user.uid))
+                .where(expression)
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .orderBy(qRegister.regNo.desc())
+                .fetch();
+
+        Long total = Optional.ofNullable(queryFactory
+                        .select(qRegister.count())
+                        .from(qRegister).where(expression)
+                        .fetchOne())
+                .orElse(0L);
+
+        return new PageImpl<>(tupleList, pageable, total);
+    }
 }

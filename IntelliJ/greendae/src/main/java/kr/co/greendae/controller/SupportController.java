@@ -78,11 +78,17 @@ public class SupportController {
 
     //성적
     @GetMapping("/grade")
-    public String gradeByStdNo(@AuthenticationPrincipal UserDetails userDetails,  Model model){
+    public String gradeByStdNo(@AuthenticationPrincipal UserDetails userDetails, RegisteredPageRequestDTO registeredPageRequestDTO, Model model){
+        //학번
         String stdNo = userDetails.getUsername();
-        List<RegisterDTO> gradeList = supportService.findGradeByStdNo(stdNo);
 
-        model.addAttribute("gradeList", gradeList);
+        RegisteredPageResponseDTO registeredPageResponseDTO = supportService.findGradeByStdNo(registeredPageRequestDTO, stdNo);
+
+        model.addAttribute("gradeDTOList", registeredPageResponseDTO.getDtoList());
+        model.addAttribute("registeredPageResponseDTO", registeredPageResponseDTO);
+
+        //List<RegisterDTO> gradeList = supportService.findGradeByStdNo(stdNo);
+        //model.addAttribute("gradeList", gradeList);
 
         return "/support/grade";
     }
