@@ -31,6 +31,26 @@ public class CommunityController {
     private final FileService fileService;
     private final CommentService commentService;
 
+
+    // 공지사항 검색
+    @GetMapping("/notice/search")
+    public String noticesearch(PageRequestDTO pageRequestDTO, Model model){
+        HttpSession session = request.getSession();
+        session.setAttribute("cate", "notice");
+
+        // 카테고리
+        String cate = (String) session.getAttribute("cate");
+        log.info("pageRequestDTO:{}", pageRequestDTO);
+
+        //서비스 호출
+        PageResponseDTO pageResponseDTO = articleService.searchAll(pageRequestDTO, cate);
+
+        model.addAttribute(pageResponseDTO);
+        model.addAttribute("isSearching", true);
+
+        return "/community/notice";
+    }
+
     // 공지사항 리스트
     @GetMapping("/notice")
     public String notice(Model model, PageRequestDTO pageRequestDTO) {
@@ -47,10 +67,10 @@ public class CommunityController {
 
         return "/community/notice";
     }
-/*
+
     // 공지사항 글쓰기 페이지
     @GetMapping("/notice/write")
-    public String write(Model model) {
+    public String noticewrite(Model model) {
         HttpSession session = request.getSession();
         session.setAttribute("cate", "notice");
 
@@ -60,7 +80,7 @@ public class CommunityController {
 
     // 공지사항 글 등록
     @PostMapping("/notice/write")
-    public String write(ArticleDTO articleDTO) {
+    public String noticewrite(ArticleDTO articleDTO) {
         HttpSession session = request.getSession();
         String cate = (String) session.getAttribute("cate");
 
@@ -89,7 +109,7 @@ public class CommunityController {
         return "redirect:/community/notice";  // 글쓰기 후 리스트 페이지로 리디렉션
     }
 
- */
+
 
 
 
@@ -108,10 +128,14 @@ public class CommunityController {
     // 자유게시판 검색
     @GetMapping("/freeboard/search")
     public String search(PageRequestDTO pageRequestDTO, Model model){
+        HttpSession session = request.getSession();
+        session.setAttribute("cate", "freeboard");
+
+        String cate = (String) session.getAttribute("cate");
         log.info("pageRequestDTO:{}", pageRequestDTO);
 
         //서비스 호출
-        PageResponseDTO pageResponseDTO = articleService.searchAll(pageRequestDTO);
+        PageResponseDTO pageResponseDTO = articleService.searchAll(pageRequestDTO, cate);
 
         model.addAttribute(pageResponseDTO);
         model.addAttribute("isSearching", true);
