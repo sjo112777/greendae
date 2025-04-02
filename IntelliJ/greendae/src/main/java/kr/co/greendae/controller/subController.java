@@ -14,7 +14,6 @@ import kr.co.greendae.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +29,6 @@ import java.util.List;
 public class AdminController {
 
     private final AdminService adminService;
-    private final PasswordEncoder passwordEncoder;
 
     // 메인 페이지
     @GetMapping("/main")
@@ -111,7 +109,7 @@ public class AdminController {
 
         // 비밀번호 추출 (주민번호 뒷자리)
         String[] passStr = userDTO.getSsn().split("-");
-        String pass = passwordEncoder.encode(passStr[1]); ;
+        String pass = passStr[1];
         userDTO.setPass(pass);
         userDTO.setRole("Professor");
         userDTO.setRegip(req.getRemoteAddr());
@@ -160,7 +158,7 @@ public class AdminController {
 
         // 비밀번호 추출 (주민번호 뒷자리)
         String[] passStr = userDTO.getSsn().split("-");
-        String pass = passwordEncoder.encode(passStr[1]); ;
+        String pass = passStr[1];
         userDTO.setPass(pass);
         userDTO.setRole("Student");
         userDTO.setRegip(req.getRemoteAddr());
@@ -314,3 +312,4 @@ public class AdminController {
 
 
 }
+
