@@ -24,6 +24,7 @@ public class ArticleDTO {
     private String writer;
     private String regip;
     private String wdate;
+    private String pass;
 
     // Employ_Article 내용 추가
     private String ddate;
