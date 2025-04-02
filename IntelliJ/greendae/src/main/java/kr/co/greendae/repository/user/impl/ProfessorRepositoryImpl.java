@@ -6,7 +6,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.co.greendae.dto.page.PageRequestDTO;
 import kr.co.greendae.entity.department.QDepartment;
 import kr.co.greendae.entity.user.QProfessor;
-import kr.co.greendae.entity.user.QStudent;
 import kr.co.greendae.entity.user.QUser;
 import kr.co.greendae.repository.user.custom.ProfessorRepositoryCustom;
 import lombok.RequiredArgsConstructor;

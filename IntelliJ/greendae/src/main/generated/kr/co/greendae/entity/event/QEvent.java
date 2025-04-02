@@ -19,11 +19,11 @@ public class QEvent extends EntityPathBase<Event> {
 
     public static final QEvent event = new QEvent("event");
 
+    public final StringPath date = createString("date");
+
     public final NumberPath<Integer> no = createNumber("no", Integer.class);
 
-    public final StringPath privacy = createString("privacy");
-
-    public final StringPath terms = createString("terms");
+    public final StringPath title = createString("title");
 
     public QEvent(String variable) {
         super(Event.class, forVariable(variable));

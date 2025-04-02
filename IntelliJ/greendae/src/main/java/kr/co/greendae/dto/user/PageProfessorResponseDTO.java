@@ -1,6 +1,5 @@
 package kr.co.greendae.dto.user;
 
-import kr.co.greendae.dto.department.PageDepartmentRequestDTO;
 import kr.co.greendae.dto.page.PageRequestDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
