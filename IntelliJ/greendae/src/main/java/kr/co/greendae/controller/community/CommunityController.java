@@ -323,7 +323,7 @@ public class CommunityController {
 
         String cate = "qna";
         PageResponseDTO pageResponseDTO = qnaService.findAll(pageRequestDTO, cate);
-
+        model.addAttribute(pageResponseDTO);
 
 
         return "/community/qna";
@@ -350,6 +350,29 @@ public class CommunityController {
         qnaService.register(articleDTO);
 
         return "/community/qna_write";
+    }
+
+    @GetMapping("/qna/view")
+    public String qnaView(Model model, int no){
+
+        ArticleDTO articleDTO = qnaService.findById(no);
+        System.out.println(articleDTO);
+
+        model.addAttribute("articleDTO", articleDTO);
+
+        return "/community/qna_view";
+
+    }
+
+    @PostMapping("/qna/resWrite")
+    public String  qnaResWrite(ArticleDTO articleDTO){
+        System.out.println(articleDTO);
+        String regip = request.getRemoteAddr();
+        articleDTO.setRegip(regip);
+        System.out.println(articleDTO);
+        qnaService.registerRes(articleDTO);
+
+        return "/community/qna_view";
     }
 
 

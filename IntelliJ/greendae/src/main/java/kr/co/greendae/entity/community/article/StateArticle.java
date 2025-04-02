@@ -50,6 +50,10 @@ public class StateArticle {
         if(this.state == null) {
             this.state = "답변대기";
         }
+
+        if(this.pass == null) {
+            this.pass = "공개";
+        }
     }
 
 }

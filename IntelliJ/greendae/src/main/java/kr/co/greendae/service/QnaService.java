@@ -5,9 +5,11 @@ import kr.co.greendae.dto.community.ArticleDTO;
 import kr.co.greendae.dto.page.PageRequestDTO;
 import kr.co.greendae.dto.page.PageResponseDTO;
 import kr.co.greendae.entity.community.article.BasicArticle;
+import kr.co.greendae.entity.community.article.ResStateArticle;
 import kr.co.greendae.entity.community.article.StateArticle;
 import kr.co.greendae.entity.user.User;
 import kr.co.greendae.repository.community.article.BasicArticleRepository;
+import kr.co.greendae.repository.community.article.ResStateArticleRepository;
 import kr.co.greendae.repository.community.article.StateArticleRepository;
 import kr.co.greendae.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,6 +28,7 @@ import java.util.List;
 public class QnaService {
 
     private final StateArticleRepository  stateArticleRepository;
+    private final ResStateArticleRepository resStateArticleRepository;
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
 
@@ -40,6 +44,59 @@ public class QnaService {
 
     public PageResponseDTO findAll(PageRequestDTO pageRequestDTO, String cate) {
 
-        return null;
+
+        // 페이징 처리를 위한 pageable 객체 생성
+        Pageable pageable = pageRequestDTO.getPageable("no");
+
+        Page<Tuple> pageArticle = stateArticleRepository.selectAllForList(pageable, cate);
+        log.info("pageArticle : {}", pageArticle);
+
+        // Article Entity 리스트를 ArticleDTO 리스트로 변환
+        List<ArticleDTO> articleDTOList = pageArticle.getContent().stream().map(tuple -> {
+
+            StateArticle article = tuple.get(0, StateArticle.class);
+            String nick = tuple.get(1, String.class);
+
+            ArticleDTO articleDTO = modelMapper.map(article, ArticleDTO.class);
+            articleDTO.setNick(nick);
+
+            return articleDTO;
+
+        }).toList();
+
+        int total = (int) pageArticle.getTotalElements();
+
+        return PageResponseDTO
+                .builder()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(articleDTOList)
+                .total(total)
+                .build();
+    }
+
+    public ArticleDTO findById(int no) {
+        return modelMapper.map(stateArticleRepository.findById(no), ArticleDTO.class);
+    }
+
+    @Transactional
+    public void registerRes(ArticleDTO articleDTO) {
+
+        /*
+        int no = articleDTO.getNo();
+        StateArticle stateArticle = stateArticleRepository.findById(no).get();
+        System.out.println(stateArticle);
+        User user = userRepository.findById(articleDTO.getWriter()).get();
+
+        System.out.println(user);
+
+        stateArticle.setState("답변완료");
+        stateArticleRepository.save(stateArticle);
+
+        ResStateArticle resStateArticle = modelMapper.map(articleDTO, ResStateArticle.class);
+        resStateArticle.setUser(user);
+        resStateArticle.setStateArticle(stateArticle);
+
+        resStateArticleRepository.save(resStateArticle);
+        */
     }
 }
