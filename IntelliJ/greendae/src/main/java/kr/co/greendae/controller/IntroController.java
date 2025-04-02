@@ -34,9 +34,9 @@ public class IntroController {
     }
 
     // 교육이념
-    @GetMapping("/philosophy")
+    @GetMapping("/Philosophy")
     public String philosophy(){
-        return "/intro/philosophy";
+        return "/intro/Philosophy";
     }
 
 }
