@@ -6,6 +6,8 @@ import kr.co.greendae.dto.community.ArticleDTO;
 import kr.co.greendae.dto.community.FileDTO;
 import kr.co.greendae.dto.page.PageRequestDTO;
 import kr.co.greendae.dto.page.PageResponseDTO;
+import kr.co.greendae.entity.community.article.ResStateArticle;
+import kr.co.greendae.entity.community.article.StateArticle;
 import kr.co.greendae.service.ArticleService;
 import kr.co.greendae.service.CommentService;
 import kr.co.greendae.service.FileService;
@@ -13,6 +15,7 @@ import kr.co.greendae.service.QnaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -352,6 +355,14 @@ public class CommunityController {
         return "/community/qna_write";
     }
 
+    @Transactional
+    @GetMapping("/qna/delete")
+    public String qnaDelete(int no){
+        System.out.println("삭제시작");
+        qnaService.delete(no);
+        return "redirect:/community/qna";
+    }
+
     @GetMapping("/qna/view")
     public String qnaView(Model model, int no){
 
@@ -370,11 +381,12 @@ public class CommunityController {
         String regip = request.getRemoteAddr();
         articleDTO.setRegip(regip);
         System.out.println(articleDTO);
-        qnaService.registerRes(articleDTO);
+        StateArticle stateArticle = qnaService.registerRes(articleDTO);
 
-        return "/community/qna_view";
+        // qnaService.saveRes(stateArticle, articleDTO);
+
+        return "redirect:/community/qna";
     }
-
 
     /*        */
 

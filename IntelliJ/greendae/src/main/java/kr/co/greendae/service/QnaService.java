@@ -78,25 +78,33 @@ public class QnaService {
         return modelMapper.map(stateArticleRepository.findById(no), ArticleDTO.class);
     }
 
-    @Transactional
-    public void registerRes(ArticleDTO articleDTO) {
 
-        /*
+    @Transactional
+    public StateArticle registerRes(ArticleDTO articleDTO) {
+
         int no = articleDTO.getNo();
         StateArticle stateArticle = stateArticleRepository.findById(no).get();
-        System.out.println(stateArticle);
-        User user = userRepository.findById(articleDTO.getWriter()).get();
-
-        System.out.println(user);
-
         stateArticle.setState("답변완료");
+
         stateArticleRepository.save(stateArticle);
 
-        ResStateArticle resStateArticle = modelMapper.map(articleDTO, ResStateArticle.class);
-        resStateArticle.setUser(user);
-        resStateArticle.setStateArticle(stateArticle);
+        return stateArticle;
 
+    }
+
+    @Transactional
+    public void saveRes(ResStateArticle stateArticle) {
+        resStateArticleRepository.save(stateArticle);
+    }
+
+    public void saveRes(StateArticle stateArticle, ArticleDTO articleDTO) {
+        ResStateArticle resStateArticle = modelMapper.map(articleDTO, ResStateArticle.class);
+        resStateArticle.setStateArticle(stateArticle);
         resStateArticleRepository.save(resStateArticle);
-        */
+    }
+
+    @Transactional
+    public void delete(int no) {
+        stateArticleRepository.deleteById(no);
     }
 }

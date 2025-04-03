@@ -51,7 +51,7 @@ public class StateArticle {
             this.state = "답변대기";
         }
 
-        if(this.pass == null) {
+        if(this.pass == null || this.pass.equals("")) {
             this.pass = "공개";
         }
     }

@@ -37,4 +37,5 @@ public class ResStateArticle {
     @CreationTimestamp
     private LocalDateTime wdate;
 
+
 }
