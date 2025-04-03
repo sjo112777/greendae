@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>커뮤니티 > 자유게시판 글쓰기</title>
+    <title>입학안내 > 입학상담 글쓰기(수정)</title>
     <link rel="stylesheet" href="/css/layout/layout.css">
     <link rel="stylesheet" href="/css/community/freeboard_write.css">
 </head>
@@ -19,19 +19,19 @@
                     <span style="margin-top: 10px;">
                         <img src="/images/ico-home.png" alt="HOME">
                         <img src="/images/bg-path-arrow.png" alt=">">
-                        커뮤니티
+                        입학안내
                         <img src="/images/bg-path-arrow.png" alt=">">
-                        <span style="color: #071F4B;">질문과 답변</span>
+                        <span style="color: #071F4B;">입학상담</span>
                     </span>
             </div>
         </div>
         <section class="content">
             <!-- 왼쪽 사이드바 -->
-            <th:block th:include="/inc/community/sidebar.html"/>
+            <th:block th:include="/inc/admission/_sidebar.html"/>
             <!-- 오른쪽 글 -->
             <article class="main_content">
                 <div class="main_title">
-                    <p>질문과 답변</p>
+                    <p>입학상담</p>
                 </div>
                 <div class="main_content_detail">
                     <!-- 작성할 내용 시작-->
@@ -39,35 +39,28 @@
                     <section class="right_section">
                         <article>
 
-
-
-                            <form th:action="@{/community/qna/write}" method="post">
+                            <form th:action="@{/admission/qna/modify}" method="post">
                                 <input type="hidden" name="writer" th:value="${#authentication.principal.user.uid}"/>
+                                <input type="hidden" name="no" th:value="${articleDTO.getNo}"/>
                                 <table border="0" class="write_table">
                                     <tbody>
                                     <tr>
                                         <th>제목</th>
                                         <td>
-                                            <input type="text" name="title" placeholder="제목을 입력하세요.">
+                                            <input type="text" name="title" th:value="${articleDTO.getTitle}">
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>내용</th>
                                         <td>
-                                            <textarea name="content"></textarea>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>비밀번호</th>
-                                        <td>
-                                            <input type="text" name="pass" placeholder="암호화를 위한 비밀번호를 적어주세요.(미작성 시 공개 질문.)">
+                                            <textarea name="content">[[${articleDTO.content}]]</textarea>
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
                                 <div style="float: right; margin-top: 10px;">
-                                    <input type="submit" value="작성완료" class="btn btnComplete" style=" border: 1px solid #3b3c3f; background-color:#4b545e ; color: #ffffff;">
-                                    <a th:href="@{/community/qna}" class="btn btnCancel" >취소</a>
+                                    <input type="submit" value="수정완료" class="btn btnComplete" style=" border: 1px solid #3b3c3f; background-color:#4b545e ; color: #ffffff;">
+                                    <a th:href="@{/admission/qna/view(no=${articleDTO.getNo})}" class="btn btnCancel" >취소</a>
                                 </div>
                             </form>
 

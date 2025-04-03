@@ -6,12 +6,15 @@ import kr.co.greendae.dto.community.ArticleDTO;
 import kr.co.greendae.dto.community.FileDTO;
 import kr.co.greendae.dto.page.PageRequestDTO;
 import kr.co.greendae.dto.page.PageResponseDTO;
+import kr.co.greendae.entity.community.article.StateArticle;
 import kr.co.greendae.service.ArticleService;
 import kr.co.greendae.service.CommentService;
 import kr.co.greendae.service.FileService;
+import kr.co.greendae.service.QnaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +33,7 @@ public class AdmissionController {
     private final ArticleService articleService;
     private final FileService fileService;
     private final CommentService commentService;
+    private final QnaService qnaService;
 
     //수시
     @GetMapping("/early")
@@ -185,5 +189,96 @@ public class AdmissionController {
     public String consult(){
         return "/admission/consult";
     }
+
+    //
+    @GetMapping("/qna")
+    public String qna(Model model, PageRequestDTO pageRequestDTO){
+        HttpSession session = request.getSession();
+        session.setAttribute("cate", "admission");
+
+        String cate = "admission";
+        PageResponseDTO pageResponseDTO = qnaService.findAll(pageRequestDTO, cate);
+        model.addAttribute(pageResponseDTO);
+
+        return "/admission/qna";
+    }
+
+    @GetMapping("/qna/write")
+    public String qnaList(){
+        HttpSession session = request.getSession();
+        session.setAttribute("cate", "admission");
+
+        return "/admission/qna_write";
+    }
+
+    @PostMapping("/qna/write")
+    public String qnaWrite(ArticleDTO articleDTO){
+
+        HttpSession session = request.getSession();
+        String cate = (String) session.getAttribute("cate");
+
+        String regip = request.getRemoteAddr();
+        articleDTO.setCate(cate);
+        articleDTO.setRegip(regip);
+
+        qnaService.register(articleDTO);
+
+        return "redirect:/admission/qna";
+    }
+
+    @Transactional
+    @GetMapping("/qna/delete")
+    public String qnaDelete(int no){
+        qnaService.delete(no);
+        return "redirect:/admission/qna";
+    }
+
+    @GetMapping("/qna/view")
+    public String qnaView(Model model, int no){
+
+        ArticleDTO articleDTO = qnaService.findById(no);
+        System.out.println(articleDTO);
+
+        model.addAttribute("articleDTO", articleDTO);
+
+        return "/admission/qna_view";
+
+    }
+
+    @PostMapping("/qna/resWrite")
+    public String  qnaResWrite(ArticleDTO articleDTO){
+        System.out.println(articleDTO);
+        String regip = request.getRemoteAddr();
+        articleDTO.setRegip(regip);
+        System.out.println(articleDTO);
+        StateArticle stateArticle = qnaService.registerRes(articleDTO);
+
+        // qnaService.saveRes(stateArticle, articleDTO);
+
+        return "redirect:/admission/qna_view";
+    }
+
+    @GetMapping("/qna/modify")
+    public String qnaModify(int no, Model model){
+
+        HttpSession session = request.getSession();
+        String cate = (String) session.getAttribute("cate");
+
+        ArticleDTO articleDTO = qnaService.findById(no);
+        model.addAttribute("articleDTO", articleDTO);
+        return "/admission/qna_modify";
+    }
+
+    @PostMapping("/qna/modify")
+    public String  qnaModify(ArticleDTO articleDTO){
+
+        System.out.println(articleDTO);
+        qnaService.modifyQna(articleDTO);
+
+        //return "redirect:/admission/qna_view" + articleDTO.getNo();
+        return "redirect:/admission/qna";
+    }
+
+    //
 
 }
