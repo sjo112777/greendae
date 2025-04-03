@@ -41,10 +41,12 @@ public class User {
 
     @PrePersist
     public void prePersist() {
-        // 엔티티 기본 속성 값 초기화
         if (this.role == null) {
-            this.role = "Normal";
+            this.role = "ROLE_NORMAL";
+        } else if (!this.role.startsWith("ROLE_")) {
+            this.role = "ROLE_" + this.role.toUpperCase();
         }
     }
+
 
 }

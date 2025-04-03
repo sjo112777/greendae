@@ -5,6 +5,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import kr.co.greendae.dto.user.TermsDTO;
 import kr.co.greendae.dto.user.UserDTO;
+import kr.co.greendae.entity.user.User;
+import kr.co.greendae.repository.user.UserRepository;
 import kr.co.greendae.service.TermsService;
 import kr.co.greendae.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -27,6 +30,7 @@ public class UserController {
 
     private final TermsService termsService;
     private final UserService userService;
+    private final UserRepository userRepository;
 
     @GetMapping("/accession")
     public String accession(){
@@ -80,6 +84,36 @@ public class UserController {
     public String login(){
         return "/user/login";
     }
+
+    @PostMapping("/login")
+    public String login(@RequestParam String uid,
+                        @RequestParam String pass,
+                        @RequestParam String role,
+                        Model model) {
+        Optional<User> userOptional = userRepository.findByUid(uid);
+
+        if (userOptional.isEmpty()) {
+            model.addAttribute("error", "존재하지 않는 아이디입니다.");
+            return "/user/login";
+        }
+
+        User user = userOptional.get();
+
+        if (!user.getPass().equals(pass)) {
+            model.addAttribute("error", "비밀번호가 틀렸습니다.");
+            return "/user/login";
+        }
+
+        if (!user.getRole().equals(role)) {
+            model.addAttribute("error", "선택한 사용자 유형과 맞지 않습니다.");
+            return "/user/login";
+        }
+
+        return "redirect:/index";
+    }
+
+
+
 
     @GetMapping("/findid")
     public String findid(){

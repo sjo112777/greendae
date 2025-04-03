@@ -38,14 +38,15 @@ public class SecurityConfig {
         */
 
 
-        /*
+
+        // Student, Professor, Normal,Admin
+
         http.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/").permitAll()
-                .requestMatchers("/admin/**").hasRole("ADMIN")
-                .requestMatchers("/manager/**").hasAnyRole("ADMIN", "MANAGER")
-                .requestMatchers("/staff/**").hasAnyRole("ADMIN", "MANAGER", "STAFF")
+                .requestMatchers("/admin/**").hasRole("Admin")
+                .requestMatchers("/support/**").hasAnyRole("Student", "Professor" ,"Admin")
                 .anyRequest().permitAll());
-        */
+
 
         // 기타 보안 설정
         http.csrf(AbstractHttpConfigurer::disable);
