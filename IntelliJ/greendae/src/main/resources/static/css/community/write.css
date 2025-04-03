@@ -30,6 +30,7 @@
     width: 400px;
     height: 24px;
     border: none;
+    padding: 5px;
 }
 
 .right_section > article > form > .write_table td > textarea{
