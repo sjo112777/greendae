@@ -11,8 +11,6 @@
                 <a th:href="@{/support/register}" sec:authorize="hasRole('Student')" style="white-space: pre;">학생지원     |</a>
                 <a th:href="@{/admin/main}" sec:authorize="hasRole('Admin')" style="white-space: pre;">관리자     |</a>
                 <a th:href="@{/user/logout}" sec:authorize="isAuthenticated()" style="white-space: pre;">로그아웃     |</a>
-
-
             </p>
         </div>
     </div>
