@@ -62,8 +62,11 @@ public class BasicArticleRepositoryImpl implements BasicArticleRepositoryCustom 
 
         BooleanExpression expression = qArticle.cate.eq(cate);
 
+
         // 검색 조건에 따라 where 조건 표현식 생성
         BooleanExpression cateExpression = qArticle.cate.eq(cate);
+
+
 
         /*
         전체 기능 검색이 안됨
@@ -93,7 +96,12 @@ public class BasicArticleRepositoryImpl implements BasicArticleRepositoryCustom 
             }
         }
 
-        expression = expression.and(cateExpression);
+        if(cate.equals("news")) {
+            BooleanExpression Column = qArticle.cate.eq("column");
+            expression = expression.and(cateExpression).or(Column);
+        }else{
+            expression = expression.and(cateExpression);
+        }
 
         List<Tuple> tupleList = queryFactory
                 .select(qArticle, qUser.name)
@@ -117,5 +125,7 @@ public class BasicArticleRepositoryImpl implements BasicArticleRepositoryCustom 
 
         // 페이징 처리를 위한 페이지 객체 반환
         return new PageImpl<Tuple>(tupleList, pageable, total);
+
+
     }
 }

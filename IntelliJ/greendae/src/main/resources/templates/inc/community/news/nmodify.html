@@ -16,8 +16,8 @@
                     <th>구분</th>
                     <td>
                         <select name="cate">
-                            <option value="news">뉴스</option>
-                            <option value="column">칼럼</option>
+                            <option value="news" th:selected="${articleDTO.cate == 'news'}">뉴스</option>
+                            <option value="column" th:selected="${articleDTO.cate == 'column'}">칼럼</option>
                         </select>
                     </td>
                 </tr>
