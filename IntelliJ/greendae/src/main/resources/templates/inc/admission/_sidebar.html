@@ -15,7 +15,7 @@
         <a th:href="@{/admission/transfer}">
             <div id="transfer">편입학</div>
         </a>
-        <a th:href="@{/admission/transfer}">
+        <a th:href="@{/admission/qna}">
             <div id="consult">입학상담</div>
         </a>
     </article>
@@ -33,7 +33,7 @@
             document.getElementById("regular").classList.add("active");
         }else if (path.includes("transfer")) {
             document.getElementById("transfer").classList.add("active");
-        }else if (path.includes("consult")) {
+        }else if (path.includes("qna")) {
             document.getElementById("consult").classList.add("active");
         }
     });

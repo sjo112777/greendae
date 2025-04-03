@@ -107,4 +107,12 @@ public class QnaService {
     public void delete(int no) {
         stateArticleRepository.deleteById(no);
     }
+
+    public void modifyQna(ArticleDTO articleDTO) {
+
+        StateArticle stateArticle = stateArticleRepository.findById(articleDTO.getNo()).get();
+        stateArticle.setContent(articleDTO.getContent());
+        stateArticle.setTitle(articleDTO.getTitle());
+        stateArticleRepository.save(stateArticle);
+    }
 }

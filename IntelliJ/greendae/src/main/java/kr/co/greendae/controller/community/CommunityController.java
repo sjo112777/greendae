@@ -543,6 +543,27 @@ public class CommunityController {
         return "redirect:/community/qna";
     }
 
+    @GetMapping("/qna/modify")
+    public String qnaModify(int no, Model model){
+
+        HttpSession session = request.getSession();
+        String cate = (String) session.getAttribute("cate");
+
+        ArticleDTO articleDTO = qnaService.findById(no);
+        model.addAttribute("articleDTO", articleDTO);
+        return "/community/qna_modify";
+    }
+
+    @PostMapping("/qna/modify")
+    public String  qnaModify(ArticleDTO articleDTO){
+
+        System.out.println(articleDTO);
+        qnaService.modifyQna(articleDTO);
+
+        //return "redirect:/admission/qna_view" + articleDTO.getNo();
+        return "redirect:/community/qna";
+    }
+
     /*        */
 
     // 자료실 검색
