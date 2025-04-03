@@ -44,13 +44,12 @@
 }
 
 .main_content_detail > table tr:nth-of-type(4) {
-    background: #efefef;
+
 }
 .main_content_detail > table tr > th {
     width: auto;
     height: 61px;
     background: #FAFAFA;
-    border-bottom: 1px solid #a3a3a3;
     font-weight: 700;
 }
 
@@ -68,17 +67,6 @@
     border-bottom: 1px solid #d8d8d8;
     text-align: center;
 }
-
-.main_content_detail > table tr > td:nth-of-type(5) {
-    color: #FF0000; /* 답변완료 : color: #008000 */
-}
-.main_content_detail > table tr:nth-of-type(3) > td:nth-of-type(5) {
-    color: #008000; /* 답변완료 : color: #008000 */
-}
-.main_content_detail > table tr:nth-of-type(4) > td:nth-of-type(5) {
-    color: #008000; /* 답변완료 : color: #008000 */
-}
-
 
 .main_content_detail > table tr > td:nth-child(2) {text-align: left}
 

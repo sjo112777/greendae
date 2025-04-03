@@ -6,6 +6,17 @@
     <title>커뮤니티 > 질문과 답변</title>
     <link rel="stylesheet" href="/css/layout/layout.css">
     <link rel="stylesheet" href="/css/community/qna.css">
+    <style>
+
+        .greendtxt {
+            color: green;
+
+        }
+        .redtxt {
+            color: red;
+        }
+
+    </style>
 </head>
 <body>
     <div id="wrapper">
@@ -62,9 +73,10 @@
                                 <td><img th:if="${basicArticle.pass != '공개'}"  style="margin-right: 10px;" src="/images/ico-lock.png" alt=""><a th:href="@{/community/qna/view(no=${basicArticle.no})}">[[${basicArticle.title}]]</a></td>
                                 <td>[[${basicArticle.user.name}]]</td>
                                 <td>[[${basicArticle.wdate}]]</td>
-                                <td>[[${basicArticle.state}]]</td>
+                                <td th:class="${basicArticle.state != '답변완료'} ? 'redtxt' : 'greendtxt'" >[[${basicArticle.state}]]</td>
                             </tr>
                         </table>
+
                         <div class="page">
                             <th:block th:if="${pageResponseDTO.first}">
                                 <a th:href="@{/community/qna(pg=1, searchType=${pageResponseDTO.searchType}, keyword=${pageResponseDTO.keyword})}" class="first">
@@ -93,7 +105,7 @@
 
 
                         </div>
-                            <a th:href="@{/community/qna/write}" class="btn btnWrite">글쓰기</a>
+                            <a th:href="@{/community/qna/write}" class="btn btnWrite">질문하기</a>
                     
                     </div>  
                 </article>
