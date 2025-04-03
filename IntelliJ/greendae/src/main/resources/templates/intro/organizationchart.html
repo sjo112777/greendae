@@ -25,6 +25,7 @@
             const connectors = document.querySelectorAll(".connector"); // 연결선
 
             // 초기에 숨기기
+            /*
             subordinateSection.classList.add("hidden");
             bottomRow.classList.add("hidden");
             orgTables.forEach(table => table.classList.add("hidden"));
@@ -36,6 +37,8 @@
                 orgTables.forEach(table => table.classList.toggle("hidden"));
                 connectors.forEach(connector => connector.classList.toggle("hidden"));
             });
+
+             */
         });
     </script>
 
@@ -71,22 +74,24 @@
                         <div class="organization">
                         </div>
                         <!-- 총장 -->
-                        <div class="org_box top" style="font-size: 30px; cursor: pointer;">
-                            <p class="title">총장</p>
-                            <p class="name">홍길동</p>
+                        <div class="middle_row">
+                            <div class="org_box top" style="font-size: 30px; cursor: pointer;">
+                                <p class="title">총장</p>
+                                <p class="name">홍길동</p>
+                            </div>
                         </div>
-                        <div class="connector hidden"></div>
+                        <div class="connector "></div>
 
                         <!-- 하위 조직 (초기에는 숨김) -->
-                        <div class="middle_row hidden">
+                        <div class="middle_row ">
                             <div class="org_box">
                                 <p class="title">부총장</p>
                                 <p class="name">이순신</p>
                             </div>
                         </div>
-                        <div class="connector hidden"></div>
+                        <div class="connector "></div>
 
-                        <div class="bottom_row hidden">
+                        <div class="bottom_row ">
                             <div class="org_box">
                                 <p class="title">학장</p>
                                 <p class="name">강감찬</p>
@@ -114,7 +119,7 @@
                         </div>
 
                         <!-- 부서 및 담당자 테이블 (초기에는 숨김) -->
-                        <div class="org_table hidden">
+                        <div class="org_table ">
                             <table>
                                 <thead>
                                 <tr>
@@ -151,7 +156,7 @@
                             </table>
                         </div>
 
-                        <div class="org_table hidden">
+                        <div class="org_table ">
                             <table>
                                 <thead>
                                 <tr>
