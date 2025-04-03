@@ -451,7 +451,7 @@ main{
 
 
 .intro_left_table tr td:nth-child(2){
-    width: 80px;
+    width: 100px;
     height: 31px;
     color: #888888;
 }
@@ -477,7 +477,7 @@ main{
     color: #3F97F6;
 }
 
-.photo_gallery > div {
+.photo_gallery > a > div {
     margin-top: 30px;
     float: left;
     width: 285px;
@@ -485,35 +485,35 @@ main{
 
 }
 
-.photo_gallery > div:nth-of-type(1){
+.photo_gallery > a:nth-of-type(1) > div{
     background-image: url('/images/gallary_sample1.jpg');
     background-size: cover;
     position: relative;
     margin-right: 20px;
 }
 
-.photo_gallery > div:nth-of-type(2){
+.photo_gallery > a:nth-of-type(2) > div{
     background-image: url('/images/gallary_sample2.jpg');
     background-size: cover;
     position: relative;
     margin-right: 20px;
 }
 
-.photo_gallery > div:nth-of-type(3){
+.photo_gallery > a:nth-of-type(3) > div{
     background-image: url('/images/gallary_sample3.jpg');
     background-size: cover;
     position: relative;
     margin-right: 20px;
 }
 
-.photo_gallery > div:nth-of-type(4){
+.photo_gallery > a:nth-of-type(4)  > div{
     background-image: url('/images/gallary_sample4.png');
     background-size: cover;
     position: relative;
 }
 
 
-.photo_gallery > div > div{
+.photo_gallery div > div{
     position: absolute;
     bottom: 0;
     background: rgba(2, 130, 213, 0.75);
@@ -522,7 +522,7 @@ main{
     box-sizing: border-box;
 }
 
-.photo_gallery > div > div > p{
+.photo_gallery div > div > p{
     margin-top: 14px;
     text-align: center;
     font-weight: 350;

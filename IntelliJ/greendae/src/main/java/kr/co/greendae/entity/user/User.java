@@ -39,6 +39,8 @@ public class User {
     @OneToOne(mappedBy = "user")
     private Student student;
 
+    /*
+
     @PrePersist
     public void prePersist() {
         if (this.role == null) {
@@ -47,6 +49,6 @@ public class User {
             this.role = "ROLE_" + this.role.toUpperCase();
         }
     }
-
+    */
 
 }

@@ -191,4 +191,16 @@ public class ArticleService {
     }
 
 
+    public List<ArticleDTO> findAllByCateLimit5(String cate) {
+
+        List<BasicArticle> basicArticle = basicArticleRepository.findTop5ByCateOrderByNoDesc(cate);
+        System.out.println(basicArticle);
+        List<ArticleDTO> list =  new ArrayList<>();
+        for (BasicArticle basicArticle1 : basicArticle) {
+            ArticleDTO articleDTO = modelMapper.map(basicArticle1, ArticleDTO.class);
+            list.add(articleDTO);
+        }
+
+        return list;
+    }
 }
