@@ -7,14 +7,6 @@
     <link rel="stylesheet" href="/css/layout/layout.css">
     <link rel="website icon" type="png" th:href="@{/images/favicon.png}">
     <title>대학소개 > 조직도</title>
-
-    <style>
-        /* 기본적으로 숨김 */
-        .hidden {
-            display: none;
-        }
-    </style>
-
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             // 총장 박스를 클릭하면 하위 조직이 보이게
@@ -25,8 +17,7 @@
             const connectors = document.querySelectorAll(".connector"); // 연결선
 
             // 초기에 숨기기
-            /*
-            subordinateSection.classList.add("hidden");
+
             bottomRow.classList.add("hidden");
             orgTables.forEach(table => table.classList.add("hidden"));
             connectors.forEach(connector => connector.classList.add("hidden"));
@@ -36,6 +27,8 @@
                 bottomRow.classList.toggle("hidden");
                 orgTables.forEach(table => table.classList.toggle("hidden"));
                 connectors.forEach(connector => connector.classList.toggle("hidden"));
+
+             */
             });
 
              */
@@ -86,7 +79,7 @@
                         <div class="middle_row ">
                             <div class="org_box">
                                 <p class="title">부총장</p>
-                                <p class="name">이순신</p>
+                                <p class="name">이<br>순<br>신</p>
                             </div>
                         </div>
                         <div class="connector "></div>
@@ -94,27 +87,27 @@
                         <div class="bottom_row ">
                             <div class="org_box">
                                 <p class="title">학장</p>
-                                <p class="name">강감찬</p>
+                                <p class="name"><br>강<br>감<br>찬</p>
                             </div>
                             <div class="org_box">
                                 <p class="title">행정팀</p>
-                                <p class="name">김유신</p>
+                                <p class="name">김<br>유<br>신</p>
                             </div>
                             <div class="org_box">
                                 <p class="title">인사팀</p>
-                                <p class="name">장보고</p>
+                                <p class="name">장<br>보<br>고</p>
                             </div>
                             <div class="org_box">
-                                <p class="title">IT팀</p>
-                                <p class="name">정약용</p>
+                                <p class="title">전산팀</p>
+                                <p class="name">정<br>약<br>용</p>
                             </div>
                             <div class="org_box">
                                 <p class="title">재무팀</p>
-                                <p class="name">신사임당</p>
+                                <p class="name">신<br>사<br>임<br>당</p>
                             </div>
                             <div class="org_box">
                                 <p class="title">마케팅팀</p>
-                                <p class="name">윤봉길</p>
+                                <p class="name">윤<br>봉<br>길</p>
                             </div>
                         </div>
 
