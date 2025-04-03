@@ -26,7 +26,11 @@
     </tr>
     <tr th:each="basicArticle, i:${pageResponseDTO.dtoList}" >
       <td>[[${pageResponseDTO.startNo - i.index}]]</td>
-      <td><a th:href="@{/community/data/view(no=${basicArticle.no})}">[[${basicArticle.title}]]&#91;[[${basicArticle.comment}]]&#93;</a></td>
+      <td><a th:href="@{/community/data/view(no=${basicArticle.no})}">
+        <th:block th:if="${basicArticle.file > 0}">
+          <img src="/images/ico-file01.png" style="margin-right: 5px">
+        </th:block>
+        [[${basicArticle.title}]]&#91;[[${basicArticle.comment}]]&#93;</a></td>
       <td>[[${basicArticle.user.name}]]</td>
       <td>[[${basicArticle.wdate}]]</td>
       <td>[[${basicArticle.hit}]]</td>

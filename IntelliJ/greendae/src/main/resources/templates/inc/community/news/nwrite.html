@@ -1,9 +1,9 @@
-<link rel="stylesheet" href="/css/community/write.css">
+ <link rel="stylesheet" href="/css/community/news/newswrite.css">
 
 <section class="right_section">
     <article>
 
-        <form th:action="@{/community/news/write}" method="post" enctype="multipart/form-data" id="dataWriteForm">
+        <form th:action="@{/community/news/write}" method="post" enctype="multipart/form-data" id="newsWriteForm">
             <input type="hidden" name="writer" th:value="${#authentication.principal.user.uid}"/>
             <table border="0" class="write_table">
                 <tbody>
@@ -11,6 +11,15 @@
                     <th>제목</th>
                     <td>
                         <input type="text" name="title" placeholder="제목을 입력하세요.">
+                    </td>
+                </tr>
+                <tr>
+                    <th>구분</th>
+                    <td>
+                        <select name="cate">
+                            <option value="news" th:selected="${articleDTO != null and articleDTO.cate == 'news'}">뉴스</option>
+                            <option value="column" th:selected="${articleDTO != null and articleDTO.cate == 'column'}">칼럼</option>
+                        </select>
                     </td>
                 </tr>
                 <tr>

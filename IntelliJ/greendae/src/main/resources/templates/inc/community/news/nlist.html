@@ -1,5 +1,4 @@
-<link rel="stylesheet" href="/css/community/list.css">
-
+<link rel="stylesheet" href="/css/community/news/newslist.css">
 <div id="newsSection">
     <nav>
         <form th:action="@{/community/news/search}">
@@ -21,6 +20,7 @@
     <table>
         <tr>
             <th>번호</th>
+            <th>구분</th>
             <th>제목</th>
             <th>작성자</th>
             <th>작성일</th>
@@ -28,10 +28,15 @@
         </tr>
         <tr th:each="basicArticle, i:${pageResponseDTO.dtoList}">
             <td>[[${pageResponseDTO.startNo - i.index}]]</td>
-            <td><a th:href="@{/community/news/view(no=${basicArticle.no})}">
-                <th:block th:if="${basicArticle.file > 0}">
-                <img src="/images/ico-file01.png" style="margin-right: 5px">
+            <td>
+                <th:block th:if="${basicArticle.cate == 'news'}">
+                <span style="background: #A0183A;">뉴스</span>
                 </th:block>
+                <th:block th:if="${basicArticle.cate == 'column'}">
+                    <span style="background: #3282d3;">칼럼</span>
+                </th:block>
+            </td>
+            <td><a th:href="@{/community/news/view(no=${basicArticle.no})}">
                 [[${basicArticle.title}]]&#91;[[${basicArticle.comment}]]&#93;</a></td>
             <td>[[${basicArticle.user.name}]]</td>
             <td>[[${basicArticle.wdate}]]</td>
