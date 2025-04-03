@@ -291,7 +291,7 @@ public class SupportService {
             log.info("@#@##@#@#"+lecCredits);
 
             // 카테고리에 따라 학점 계산
-            if ("전공".equals(lecCate) || "전공필수".equals(lecCate)) {
+            if ("전공".equals(lecCate) || "전공필수".equals(lecCate) || "전공선택".equals(lecCate)) {
                 major++; // 전공 또는 전공필수는 전공으로 처리
                 majorC++;
                 majorCredit += (Integer) register[2];
