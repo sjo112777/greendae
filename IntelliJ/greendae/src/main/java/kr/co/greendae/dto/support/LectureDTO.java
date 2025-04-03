@@ -38,6 +38,8 @@ public class LectureDTO {
     private String lecWeekday; // 요일
     private String proName;
 
+    private int per; // 강의 퍼센트 (관리자 페이지 )
+
     private ProfessorDTO professor;
 
 

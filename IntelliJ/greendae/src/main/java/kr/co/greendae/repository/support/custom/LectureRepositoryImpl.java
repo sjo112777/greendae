@@ -135,4 +135,53 @@ public class LectureRepositoryImpl implements LectureRepositoryCustom {
         //페이징 처리를 위한 페이지 객체 기반
         return new PageImpl<>(tupleList, pageable, total);
     }
+
+    @Override
+    public Page<Tuple> selectProfessorForSearch(kr.co.greendae.dto.page.PageRequestDTO pageRequestDTO, Pageable pageable) {
+        String searchType = pageRequestDTO.getSearchType();
+        String keyword = pageRequestDTO.getKeyword();
+
+        //검색조건
+        BooleanExpression expression = null;
+
+        if(searchType.equals("lecClass")){
+            expression = qLecture.lecClass.contains(keyword);
+        }else if(searchType.equals("lecCate")){
+            expression = qLecture.lecCate.contains(keyword);
+        }else if(searchType.equals("lecNo")){
+            expression = qLecture.lecNo.contains(keyword);
+
+        }else if(searchType.equals("lecName")){
+            expression = qLecture.lecName.contains(keyword);
+
+        }else if(searchType.equals("professor")){
+            expression = qLecture.professor.user.name.contains(keyword);
+        }
+
+        List<Tuple> tupleList = queryFactory
+                .select(qLecture, qUser.name)
+                .from(qLecture)
+                .join(qProfessor)
+                .on(qLecture.professor.proNo.eq(qProfessor.proNo))
+                .join(qUser)
+                .on(qUser.uid.eq(qProfessor.user.uid))
+                .where(expression)
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .orderBy(qLecture.lecNo.desc())
+                .fetch();
+
+        Long total = Optional.ofNullable(queryFactory
+                        .select(qLecture.count())
+                        .from(qLecture)
+                        .join(qProfessor)
+                        .on(qLecture.professor.proNo.eq(qProfessor.proNo))
+                        .join(qUser)
+                        .on(qUser.uid.eq(qProfessor.user.uid))
+                        .where(expression)
+                        .fetchOne())
+                .orElse(0L); // null이면 0L 반환
+
+        return new PageImpl<>(tupleList, pageable, total);
+    }
 }

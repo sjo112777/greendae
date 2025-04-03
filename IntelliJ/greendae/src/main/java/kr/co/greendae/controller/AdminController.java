@@ -318,8 +318,23 @@ public class AdminController {
     @GetMapping("/operation/list")
     public String  operation(Model model, PageRequestDTO pageRequestDTO){
 
+        PageLectureResponseDTO pageResponseDTO = adminService.allLecture(pageRequestDTO);
+        System.out.println(pageResponseDTO);
+        model.addAttribute("pageResponseDTO",pageResponseDTO);
+
+        return "/admin/list/operation";
+    }
+
+    // 교육 운영 검색
+    @GetMapping("/operation/search")
+    public String operationSearch(PageRequestDTO pageRequestDTO, Model model){
+
+        log.info("pageRequestDTO : {}", pageRequestDTO);
+
+        // 서비스 호출
         PageLectureResponseDTO pageResponseDTO = adminService.searchAllLecture(pageRequestDTO);
         System.out.println(pageResponseDTO);
+
         model.addAttribute("pageResponseDTO",pageResponseDTO);
 
         return "/admin/list/operation";

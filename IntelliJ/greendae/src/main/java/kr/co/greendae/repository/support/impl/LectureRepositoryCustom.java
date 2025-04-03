@@ -11,4 +11,6 @@ public interface LectureRepositoryCustom {
     public Page<Tuple> searchLecturesByStdNoAndStdYear(PageRequestDTO pageRequestDTO, Pageable pageable, int stdYear);
 
     Page<Tuple> selectAll(Pageable pageable);
+
+    Page<Tuple> selectProfessorForSearch(kr.co.greendae.dto.page.PageRequestDTO pageRequestDTO, Pageable pageable);
 }
