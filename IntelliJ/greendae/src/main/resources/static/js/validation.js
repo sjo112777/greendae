@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 
-    // 5. 이메일 유효성 검사(중복/인증처리 포함)
+    // 4. 이메일 유효성 검사(중복/인증처리 포함)
     const btnSendEmail = document.getElementById('btnSendEmail');
     const emailResult = document.querySelector('.emailResult');
     const auth = document.querySelector('.auth');
@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     } // btnAuthEmail.onclick end
 
-    // 6.휴대폰 유효성 검사(중복체크 포함)
+    // 5.휴대폰 유효성 검사(중복체크 포함)
     const hpResult = document.getElementsByClassName('hpResult')[0];
 
     formRegister.hp.addEventListener('focusout', async function(){

@@ -162,6 +162,8 @@ public class AdminController {
         DepartmentDTO departmentDTO = adminService.findDepartmentByName(studentDTO.getStdClass());
         studNo += departmentDTO.getDeptNo();
 
+        log.info("Department: " + departmentDTO);
+
         // 비밀번호 추출 (주민번호 뒷자리)
         String[] passStr = userDTO.getSsn().split("-");
         String pass = passwordEncoder.encode(passStr[1]); ;
@@ -262,7 +264,7 @@ public class AdminController {
 
         model.addAttribute("pageResponseDTO",pageResponseDTO);
 
-        return "/admin/list/department";
+        return "/admin/list/departmentSearch";
     }
 
     // 학생 리스트 출력
@@ -287,7 +289,7 @@ public class AdminController {
 
         model.addAttribute("pageResponseDTO",pageResponseDTO);
 
-        return "/admin/list/student";
+        return "/admin/list/studentSearch";
     }
 
     // 교수 리스트 출력
@@ -311,7 +313,7 @@ public class AdminController {
 
         model.addAttribute("pageResponseDTO",pageResponseDTO);
 
-        return "/admin/list/professor";
+        return "/admin/list/professorSearch";
     }
 
     // 교육 운영 현황 리스트
@@ -337,7 +339,7 @@ public class AdminController {
 
         model.addAttribute("pageResponseDTO",pageResponseDTO);
 
-        return "/admin/list/operation";
+        return "/admin/list/operationSearch";
     }
 
 
@@ -362,7 +364,7 @@ public class AdminController {
         PageLectureResponseDTO pageResponseDTO = adminService.searchAllLecture(pageRequestDTO);
         model.addAttribute("pageResponseDTO",pageResponseDTO);
 
-        return "/admin/list/lecture";
+        return "/admin/list/lectureSearch";
     }
 
     // 수강 현황 리스트
@@ -384,7 +386,7 @@ public class AdminController {
         PageRegisterResponseDTO pageResponseDTO = adminService.searchAllRegister(pageRequestDTO);
         model.addAttribute("pageResponseDTO",pageResponseDTO);
 
-        return "/admin/list/register";
+        return "/admin/list/registerSearch";
     }
 
 

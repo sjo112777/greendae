@@ -11,4 +11,6 @@ import java.util.List;
 @Repository
 public interface BasicArticleRepository extends JpaRepository<BasicArticle, Integer>, BasicArticleRepositoryCustom {
     List<BasicArticle> findByCate(String cate);
+
+    List<BasicArticle> findTop5ByCateOrderByNoDesc(String cate);
 }

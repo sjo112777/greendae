@@ -128,45 +128,18 @@
                         <div class="main_academic">
                             <div class="main_intro_title_left">
                                 <span>학사안내</span>
-                                <a th:href="@{/academic/adnotice}">
+                                <a th:href="@{/academic/acanotice}">
                                     <img th:src="@{/images/bg-viewmore01.png}" alt="추가버튼">
                                 </a>
                             </div>
                             <div>
                                 <table style="margin-top: 10px;" class="intro_left_table">
-                                    <tr>
+                                    <tr th:each="notice, i : ${acanotices}">
                                         <td>
-                                            <span>교과목 폐지 및 신설 안내</span>
-                                            <img th:src="@{/images/ico-new01.gif}" alt="아이콘">
+                                            <a th:href="@{/academic/acanotice/view(no=${notice.getNo()})}"><span>[[${notice.title}]]</span></a>
+                                            <img th:if="${i.index < 2}" th:src="@{/images/ico-new01.gif}" alt="아이콘">
                                         </td>
-                                        <td>2019.05.29</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span>2019-2학기 진로취업 프로그램 설계를 위한 학생 대상...</span>
-                                            <img th:src="@{/images/ico-new01.gif}" alt="아이콘">
-                                        </td>     
-                                        <td>2019.05.29</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span>제8회 KNDA 학술논문상 공모</span>
-                                        </td>
-                                        <td>2019.05.29</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span>대학 진로취업지원 현황 조사 안내</span>
-                                        </td>
-                                        <td>2019.05.29</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span>
-                                                [진로취업특강] 유망직무 전문가 초청 특강, 여대생 커...
-                                            </span>
-                                        </td>
-                                        <td>2019.05.29</td>
+                                        <td>[[${notice.wdate}]]</td>
                                     </tr>
                                 </table>
                             </div>
@@ -180,39 +153,12 @@
                             </div>
                             <div>
                                 <table style="margin-top: 10px;" class="intro_right_table">
-                                    <tr>
+                                    <tr th:each="notice, i : ${notices}">
                                         <td>
-                                            <span>교과목 폐지 및 신설 안내</span>
-                                            <img th:src="@{/images/ico-new02.gif}" alt="아이콘">
+                                            <a th:href="@{/community/notice/view(no=${notice.getNo()})}"><span>[[${notice.title}]]</span></a>
+                                            <img th:if="${i.index < 2}" th:src="@{/images/ico-new01.gif}" alt="아이콘">
                                         </td>
-                                        <td>2019.05.29</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span>2019-2학기 진로취업 프로그램 설계를 위한 학생 대상...</span>
-                                            <img th:src="@{/images/ico-new02.gif}" alt="아이콘">
-                                        </td>     
-                                        <td>2019.05.29</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span>제8회 KNDA 학술논문상 공모</span>
-                                        </td>
-                                        <td>2019.05.29</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span>대학 진로취업지원 현황 조사 안내</span>
-                                        </td>
-                                        <td>2019.05.29</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span>
-                                                [진로취업특강] 유망직무 전문가 초청 특강, 여대생 커...
-                                            </span>
-                                        </td>
-                                        <td>2019.05.29</td>
+                                        <td width="100px">[[${notice.wdate}]]</td>
                                     </tr>
                                 </table>
                             </div>
@@ -222,18 +168,26 @@
                         <p>PHOTO GALLERY
                             <a th:href="@{/campus/gallery}"><img style="float: right;" th:src="@{/images/bg-viewmore01.png}" alt="추가버튼"></a>
                         </p>
+                        <a th:href="@{/campus/galleryview(no=1)}">
+                            <div>
+                                <div><p>글로벌 명문대학 그린대학교</p></div>
+                            </div>
+                        </a>
+                        <a th:href="@{/campus/galleryview(no=2)}">
                         <div>
-                            <div><p>글로벌 명문대학 그린대학교</p></div>
-                        </div>
+                                <div><p>글로벌 명문대학 그린대학교</p></div>
+                            </div>
+                        </a>
+                        <a th:href="@{/campus/galleryview(no=3)}">
                         <div>
-                            <div><p>글로벌 명문대학 그린대학교</p></div>
-                        </div>
+                                <div><p>글로벌 명문대학 그린대학교</p></div>
+                            </div>
+                        </a>
+                        <a th:href="@{/campus/galleryview(no=4)}">
                         <div>
-                            <div><p>글로벌 명문대학 그린대학교</p></div>
-                        </div>
-                        <div>
-                            <div><p>글로벌 명문대학 그린대학교</p></div>
-                        </div>
+                                <div><p>글로벌 명문대학 그린대학교</p></div>
+                            </div>
+                        </a>
                     </div>
                 </div>
             
@@ -263,40 +217,15 @@
                         </div>
                         
                         <table style="margin-top: 20px;" class="new_table">
-                                <tr>
+
+                                <tr th:each="notice, i:${news}">
                                     <td>
-                                        <span>교과목 폐지 및 신설 안내</span>
-                                        <img th:src="@{/images/ico-new01.gif}" alt="아이콘">
+                                        <a th:href="@{/community/news/view(no=${notice.getNo()})}"><span>[[${notice.title}]]</span></a>
+                                        <img th:if="${i.index < 2}" th:src="@{/images/ico-new01.gif}" alt="아이콘">
                                     </td>
-                                    <td>2019.05.29</td>
+                                    <td width="100px">[[${notice.wdate}]]</td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <span>2019-2학기 진로취업 프로그램 설계를 위한 학생 대상...</span>
-                                        <img th:src="@{/images/ico-new01.gif}" alt="아이콘">
-                                    </td>     
-                                    <td>2019.05.29</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span>제8회 KNDA 학술논문상 공모</span>
-                                    </td>
-                                    <td>2019.05.29</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span>대학 진로취업지원 현황 조사 안내</span>
-                                    </td>
-                                    <td>2019.05.29</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span>
-                                            [진로취업특강] 유망직무 전문가 초청 특강, 여대생 커...
-                                        </span>
-                                    </td>
-                                    <td>2019.05.29</td>
-                                </tr>
+
                         </table>
                     </div>
                 </div>
