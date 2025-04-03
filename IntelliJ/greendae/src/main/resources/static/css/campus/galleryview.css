@@ -119,3 +119,28 @@ button.edit-comment:hover, button.delete-comment:hover {
 #submit-comment:hover {
     background: #005bb5;
 }
+
+.comment {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.comment p {
+    margin: 0;
+}
+
+.delete-comment {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.delete-comment:hover {
+    background-color: #cc0000;
+}

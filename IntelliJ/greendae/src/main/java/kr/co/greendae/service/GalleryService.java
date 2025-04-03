@@ -21,12 +21,19 @@ public class GalleryService {
     private final GalleryRepository galleryRepository;
 
 
+
     public List<Gallery> getAllGalleries(){
         return galleryRepository.findAll();
     }
 
     public GalleryDTO getGalleryById(int no) {
         Optional<Gallery> gallery = galleryRepository.findById(no); // Optional로 받기
+
+
+
+
+
+
 
         // 임시 맛보기용 코드
 

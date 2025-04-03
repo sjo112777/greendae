@@ -23,6 +23,7 @@ public class Gallery {
 
     private String title;      //제목
     private String content;    //내용
+    private String comment;
     private String imageoName; //이미지 기존 이름
     private String imagesName; //이미지 변환 이름
     private int hit;           //조회수

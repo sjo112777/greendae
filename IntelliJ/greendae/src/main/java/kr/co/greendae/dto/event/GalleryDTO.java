@@ -19,7 +19,8 @@ public class GalleryDTO {
     private int no;
 
     private String title;      //제목
-    private String content;    //댓글
+    private String content;    //내용 
+    private String comment;    //댓글
     private String imageoName; //이미지 기존 이름
     private String imagesName; //이미지 변환 이름
     private int hit;           //조회수
