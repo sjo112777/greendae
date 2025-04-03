@@ -100,7 +100,10 @@ public class ArticleService {
             // 새로운 값으로 업데이트
             basicArticle.setTitle(articleDTO.getTitle());
             basicArticle.setContent(articleDTO.getContent());
-            basicArticle.setCate(articleDTO.getCate());  // 변경된 카테고리 반영
+
+            if(articleDTO.getCate()!= null){
+                basicArticle.setCate(articleDTO.getCate());  // 변경된 카테고리 반영
+            }
 
             // 저장 (변경 감지가 자동으로 작동함)
             basicArticleRepository.save(basicArticle);
