@@ -21,16 +21,13 @@
             <!-- 오른쪽 글 -->
             <article class="main_content">
                 <div class="main_title">
-                    <p>교육 운영 현황<span class="title_span">교육 운영 현황</span> <span>학사운영 > &nbsp; </span></p>
+                    <p>수강 현항<span class="title_span">수강 현황</span> <span>학사운영 > &nbsp; </span></p>
                 </div>
                 <div class="main_content_detail">
                     <div class="Operations_main">
 
                         <!-- 교육 운영 현황-->
-                        <p class="Operations_title">
-                            <img src="/images/bullet-h4.png" alt="기호">
-                            교육 운영 현황
-                        </p>
+
 
                         <!--검색-->
                         <div style="width: 100%; height: 50px;">
@@ -52,32 +49,36 @@
 
                         <table class="Education_Operations">
                             <thead>
-                            <th style="width: 150.8px;">학과</th>
-                            <th style="width: 98.55px;">과목코드</th>
-                            <th style="width: 150.8px;">강의명</th>
-                            <th style="width: 98.55px;">학년</th>
-                            <th style="width: 150.8px;">담당교수</th>
-                            <th style="width: 98.55px;">구분</th>
-                            <th style="width: 98.55px;">학점</th>
-                            <th style="width: 98.55px;">강의장</th>
-                            <th style="width: 98.55px;">수강인원</th>
-                            <th style="width: 98.55px;">수강률</th>
+                            <th style="width: 76px;">년도</th>
+                            <th style="width: 54px;">학기</th>
+                            <th style="width: 109px;">학번</th>
+                            <th style="width: 87px;">이름</th>
+                            <th style="width: 54px;">학년</th>
+                            <th style="width: 109px;">학과</th>
+                            <th style="width: 87px;">과목코드</th>
+                            <th style="width: 174px;">과목명</th>
+                            <th style="width: 87px;">구분</th>
+                            <th style="width: 87px;">교수</th>
+                            <th style="width: 54px;">학점</th>
+                            <th style="width: 109px;">수강 신청일</th>
                             </thead>
 
                             <tbody>
 
-                                <tr th:each="lecture :${pageResponseDTO.dtoList}">
-                                    <td>[[${lecture.lecClass}]]</td>
-                                    <td>[[${lecture.lecNo}]]</td>
-                                    <td>[[${lecture.lecName}]]</td>
-                                    <td>[[${lecture.lecGrade}]]학년</td>
-                                    <td>[[${lecture.professor.user.name}]]</td>
-                                    <td>[[${lecture.lecCate}]]</td>
-                                    <td>[[${lecture.lecCredit}]]</td>
-                                    <td>[[${lecture.lecRoom}]]</td>
-                                    <td>[[${lecture.lecStdCount}]]/[[${lecture.lecStdTotal}]] </td>
-                                    <td>[[${lecture.per}]]%</td>
-                                </tr>
+                            <tr th:each="register :${pageResponseDTO.dtoList}">
+                                <td>[[${register.regYear}]]</td>
+                                <td>[[${register.regSemester}]]</td>
+                                <td>[[${register.student.user.uid}]]</td>
+                                <td>[[${register.student.user.name}]]</td>
+                                <td>[[${register.lecture.lecGrade}]]</td>
+                                <td>[[${register.lecture.lecClass}]]</td>
+                                <td>[[${register.lecture.lecNo}]]</td>
+                                <td>[[${register.lecture.lecName}]]</td>
+                                <td>[[${register.lecture.lecCate}]]</td>
+                                <td>[[${register.lecture.professor.user.name}]]</td>
+                                <td>[[${register.lecture.lecCredit}]]</td>
+                                <td>2025-04-04</td>
+                            </tr>
 
                             </tbody>
                         </table>
@@ -86,15 +87,15 @@
 
                         <div class="page">
                             <th:block th:if="${pageResponseDTO.prev}">
-                                <a th:href="@{/admin/operation/list(pg=${pageResponseDTO.start-1})}" class="prev">이전</a>
+                                <a th:href="@{/admin/lecture/list(pg=${pageResponseDTO.start-1})}" class="prev">이전</a>
                             </th:block>
 
                             <th:block th:each="num:${#numbers.sequence(pageResponseDTO.start, pageResponseDTO.end)}">
-                                <a th:href="@{/admin/operation/list(pg=${num})}" th:class="${num == pageResponseDTO.pg} ? 'current' : 'num'">[[${num}]]</a>
+                                <a th:href="@{/admin/lecture/list(pg=${num})}" th:class="${num == pageResponseDTO.pg} ? 'current' : 'num'">[[${num}]]</a>
                             </th:block>
 
                             <th:block th:if="${pageResponseDTO.next}">
-                                <a th:href="@{/admin/operation/list(pg=${pageResponseDTO.end+1})}" class="next">다음</a>
+                                <a th:href="@{/admin/lecture/list(pg=${pageResponseDTO.end+1})}" class="next">다음</a>
                             </th:block>
                         </div>
 
