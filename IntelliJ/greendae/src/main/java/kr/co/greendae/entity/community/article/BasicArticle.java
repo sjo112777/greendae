@@ -8,6 +8,7 @@ import kr.co.greendae.entity.user.User;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -51,6 +52,9 @@ public class BasicArticle {
 
     @CreationTimestamp
     private LocalDateTime wdate;
+
+    private String edate;
+
 
     @PrePersist
     public void prePersist() {

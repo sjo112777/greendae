@@ -4,7 +4,7 @@
 <section class="right_section">
     <article>
 
-        <form th:action="@{/community/news/write}" method="post" enctype="multipart/form-data" id="newsWriteForm">
+        <form th:action="@{/community/employment/write}" method="post" enctype="multipart/form-data" id="employWriteForm">
             <input type="hidden" name="writer" th:value="${#authentication.principal.user.uid}"/>
             <table border="0" class="write_table">
                 <tbody>
@@ -15,12 +15,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>구분</th>
+                    <th>마감일</th>
                     <td>
-                        <select name="cate">
-                            <option value="news" th:selected="${articleDTO != null and articleDTO.cate == 'news'}">뉴스</option>
-                            <option value="column" th:selected="${articleDTO != null and articleDTO.cate == 'column'}">칼럼</option>
-                        </select>
+                        <input type="date" name="edate" style="width: 120px;">
                     </td>
                 </tr>
                 <tr>
@@ -43,7 +40,7 @@
             </table>
             <div style="float: right; margin-top: 10px;">
                 <input type="submit" value="작성완료" class="btn btnComplete" style=" border: 1px solid #3b3c3f; background-color:#4b545e ; color: #ffffff;">
-                <a th:href="@{/community/news}" class="btn btnCancel" >취소</a>
+                <a th:href="@{/community/employment}" class="btn btnCancel" >취소</a>
             </div>
         </form>
 

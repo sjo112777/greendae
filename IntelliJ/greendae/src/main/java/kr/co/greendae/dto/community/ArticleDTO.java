@@ -27,7 +27,7 @@ public class ArticleDTO {
     private String pass;
 
     // Employ_Article 내용 추가
-    private String ddate;
+    private String edate;
 
     // State_Article 내용 추가
     private String state;
@@ -44,6 +44,7 @@ public class ArticleDTO {
         }
         return null;
     }
+
 
 
     // 첨부파일 객체

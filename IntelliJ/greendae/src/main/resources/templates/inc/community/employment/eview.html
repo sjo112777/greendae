@@ -161,7 +161,7 @@
     });
 </script>
 
-<div id="newsSection">
+<div id="employmentSection">
     <table border="0">
         <tr>
             <th>제목</th>
@@ -172,12 +172,8 @@
             <td><input type="text" name="writer" th:value="${articleDTO.user.name}" readonly/></td>
         </tr>
         <tr>
-            <th>구분</th>
-            <td>
-                <input type="text" name="cate"
-                       th:value="${articleDTO.cate == 'news' ? '뉴스' : '칼럼'}"
-                       readonly/>
-            </td>
+            <th>마감일</th>
+            <td><input type="text" name="edate" th:value="${articleDTO.edate}" readonly/></td>
         </tr>
         <tr th:if="${articleDTO.file > 0}">
             <th>파일</th>
@@ -198,10 +194,10 @@
     <div>
         <!-- 로그인한 사용자만 삭제 버튼 표시 -->
         <a th:if="${#authorization.expression('isAuthenticated()') and #authentication.principal.user.uid == articleDTO.user.uid}"
-           th:href="@{/community/news/delete(no=${articleDTO.no})}" class="btn btnRemove">삭제</a>
+           th:href="@{/community/employment/delete(no=${articleDTO.no})}" class="btn btnRemove">삭제</a>
         <a th:if="${#authorization.expression('isAuthenticated()') and #authentication.principal.user.uid == articleDTO.user.uid}"
-           th:href="@{/community/news/modify(no=${articleDTO.no})}" class="btn btnModify">수정</a>
-        <a th:href="@{/community/news}" class="btn btnList">목록</a>
+           th:href="@{/community/employment/modify(no=${articleDTO.no})}" class="btn btnModify">수정</a>
+        <a th:href="@{/community/employment}" class="btn btnList">목록</a>
     </div>
 
     <!-- 댓글목록 -->
