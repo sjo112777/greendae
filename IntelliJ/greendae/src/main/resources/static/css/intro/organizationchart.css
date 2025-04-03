@@ -16,6 +16,10 @@
     cursor: pointer;
     width: 30px;
 }
+.top{
+    margin-top: 50px;
+    width: 500px;
+}
 .org_box.top {
     width: 400px;
     position: relative;
@@ -29,6 +33,14 @@
     color: #333;
     margin-bottom: 10px;
     text-transform: uppercase;
+}
+
+.middle_row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0;
+    gap: 40px; /* 박스 간격 추가 */
 }
 
 .name {
@@ -61,6 +73,8 @@
 .org_table {
     margin-top: 50px;
     margin-bottom: 30px;
+    width: 800px;
+    margin-left: 70px;
 }
 
 .org_table table {

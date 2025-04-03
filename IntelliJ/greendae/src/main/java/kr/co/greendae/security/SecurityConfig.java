@@ -45,6 +45,15 @@ public class SecurityConfig {
                 .requestMatchers("/").permitAll()
                 .requestMatchers("/admin/**").hasRole("Admin")
                 .requestMatchers("/support/**").hasAnyRole("Student", "Professor" ,"Admin")
+                .requestMatchers("/community/notice/write").hasAnyRole("Admin")
+                .requestMatchers("/community/news/write").hasAnyRole("Admin")
+                .requestMatchers("/community/employment/write").hasAnyRole("Admin")
+                .requestMatchers("/community/data/write").hasAnyRole("Admin")
+                .requestMatchers("/academic/acanotice/write").hasAnyRole("Admin")
+                .requestMatchers("/admission/adnotice/write").hasAnyRole("Admin")
+                .requestMatchers("/admission/freeboard/write").hasAnyRole("Admin", "Normal","Professor","Student")
+                .requestMatchers("/*/qna/write").hasAnyRole("Admin", "Normal","Professor","Student")
+
                 .anyRequest().permitAll());
 
 
