@@ -37,17 +37,10 @@
                         <!-- 작성할 내용 시작-->
                         <img src="/images/college-introduce-2.jpg" alt="" style="float: left;">
                         <div class="social_tit" style="float: left; margin-left: 15px;">
-                            <p>
-                                Natural Sciences<br>
-
-                                <span>자연과학의 기초 이론 교수와 연구, 융합 및 응용과학<br>의 토대 제공</span><br>
-
-                                자연과학대학은 미래 첨단과학기술사회의 학계, 연구소, 산업계 등을 주도적으로 이끌어 나
-                                갈 기초과학 인재 양성을 교육목표로 한다. 자연과학의 근간이 되는 물리, 화학, 응용수학, 미
-                                생물학, 과학컴퓨팅 및 간호학의 기초 이론을 교수·연구하고 융합 및 응용과학의 토대를 제
-                                공할 것이다.
+                            <p>[[${college.engName}]]<br>
+                                <span>[[${college.title}]]</span><br>
+                                [[${college.content}]]
                             </p>
-
                         </div>
 
                         <p>
@@ -63,9 +56,9 @@
                                 <th>비고</th>
                             </tr>
                             <tr th:each="department : ${departmentDTOS}">
-                                <td th:text="${department.deptName}">수학과</td>
-                                <td th:text="${department.deptChair}">김수학</td>
-                                <td th:text="${department.deptHp}">051-123-2001</td>
+                                <td>[[${department.deptName}]] <a href="#"><img src="/images/ico_link.png" alt=""></a> </td>
+                                <td>[[${department.deptChair}]]</td>
+                                <td>[[${department.deptHp}]]</td>
                                 <td></td>
                             </tr>
                         </table>

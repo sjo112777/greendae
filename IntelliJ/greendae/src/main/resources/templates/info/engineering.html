@@ -37,16 +37,10 @@
                         <!-- 작성할 내용 시작-->                        
                         <img src="/images/college-introduce-3.jpg" alt="" style="float: left;">
                         <div class="social_tit" style="float: left; margin-left: 15px;">
-                            <p>
-                                Engineering<br>
-                        
-                                <span>기본 공학교육 및 산업현장과 연계된 산학협동을 위한<br>학문을 교수ㆍ연구</span><br>
-                                
-                                공과대학은 지역 및 국가산업을 선도할 창의적이고 생산적인 전문기술인을 양성하기 위하
-                                여 기본 공학교육의 강화,전공교육의 심화 및 산업현장과 연계된 산학협동의 활성화를 실현
-                                할 관련학문을 교수, 연구하는데 교육목표를 둔다.
+                            <p>[[${college.engName}]]<br>
+                                <span>[[${college.title}]]</span><br>
+                                [[${college.content}]]
                             </p>
-
                         </div>
                             
                         <p>
@@ -62,9 +56,9 @@
                                 <th>비고</th>
                             </tr>
                             <tr th:each="department : ${departmentDTOS}">
-                                <td th:text="${department.deptName}"></td>
-                                <td th:text="${department.deptChair}"></td>
-                                <td th:text="${department.deptHp}">1</td>
+                                <td>[[${department.deptName}]] <a href="#"><img src="/images/ico_link.png" alt=""></a> </td>
+                                <td>[[${department.deptChair}]]</td>
+                                <td>[[${department.deptHp}]]</td>
                                 <td></td>
                             </tr>
                         </table>

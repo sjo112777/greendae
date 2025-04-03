@@ -108,6 +108,8 @@ public class AdminController {
 
         // 교수번호 : 연도 + 학과번호 + 순번 자동 조합
         String prodNo = String.valueOf(appointmentDate.getYear());
+
+
         DepartmentDTO departmentDTO = adminService.findDepartmentByName(professorDTO.getDepartmentD());
         prodNo += departmentDTO.getDeptNo();
 
@@ -176,7 +178,7 @@ public class AdminController {
 
         adminService.CountUpStudent(departmentDTO);
 
-        return "redirect:/admin/professor/register";
+        return "redirect:/admin/student/register";
     }
 
     // 강의 등록
@@ -205,6 +207,9 @@ public class AdminController {
         DepartmentDTO departmentDTO = adminService.findDepartmentByName(lectureDTO.getLecClass());
 
         lecNo += departmentDTO.getDeptNo();
+
+        lectureDTO.setLecClass(departmentDTO.getDeptName());
+
         adminService.registerLecture(lectureDTO, lecNo);
 
         adminService.CountUpLecture(departmentDTO);
@@ -224,7 +229,9 @@ public class AdminController {
     @ResponseBody
     @GetMapping("/professor/list")
     public List<ProfessorDTO> professorList(@RequestParam("department") String department){
-
+        System.out.println("시작");
+        System.out.println(department);
+        System.out.println("끝");
         List<ProfessorDTO> professorDTOS = adminService.findAllProfessorByName(department);
 
         return professorDTOS;

@@ -21,6 +21,19 @@
             });
         });
     </script>
+    <style>
+        .custom-pagination {
+            position: absolute;
+            top: 25% !important; /* 위쪽 배치 */
+            height: auto !important;
+        }
+        .swiper-horizontal>.swiper-pagination-bullets,
+        .swiper-pagination-bullets.swiper-pagination-horizontal,
+        .swiper-pagination-custom,
+        .swiper-pagination-fraction {
+            bottom: unset; /* 또는 initial */
+        }
+    </style>
 </head>
 <body>
     <div id="wrapper">
