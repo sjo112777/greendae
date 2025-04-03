@@ -74,11 +74,8 @@
 </div>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // URL에서 ?no=값 가져오기
         const params = new URLSearchParams(window.location.search);
-        const galleryNo = params.get("no") || "1"; // 기본값 1번
-
-        // 갤러리 데이터
+        const galleryNo = params.get("no") || "1";
         const galleryDataList = {
             "1": { title: "제40회 1995학년도 학위수여식", date: "25.02.20", hit: "23", content: "졸업을 축하드립니다!", image: "/images/gallary_sample1.jpg" },
             "2": { title: "캠퍼스 축제", date: "25.03.15", hit: "55", content: "캠퍼스 축제가 열렸습니다!", image: "/images/gallary_sample2.jpg" },
@@ -87,7 +84,6 @@
             "5": { title: "우수훈련기관 인증패", date: "23.11.20", hit: "42", content: "우수훈련기관 인증패 사진입니다.", image: "/images/gallary_sample5.jpg" }
         };
 
-        // 갤러리 데이터 설정
         const galleryData = galleryDataList[galleryNo] || galleryDataList["1"];
         document.getElementById("gallery-title").innerText = galleryData.title;
         document.getElementById("gallery-date").innerText = galleryData.date;
@@ -95,21 +91,20 @@
         document.getElementById("gallery-content").innerText = galleryData.content;
         document.getElementById("gallery-image").src = galleryData.image;
 
-        // 뒤로 가기 버튼
         document.getElementById("go-back").addEventListener("click", function () {
             window.history.back();
         });
 
-        // 댓글 작성 버튼 이벤트
+        let editingIndex = -1;
+
         document.getElementById("submit-comment").addEventListener("click", function () {
             const input = document.getElementById("comment-input");
             if (input.value.trim()) {
                 saveComment(input.value.trim());
-                input.value = ""; // 입력창 초기화
+                input.value = "";
             }
         });
 
-        // Enter 키로 댓글 작성 (Shift+Enter 제외)
         document.getElementById("comment-input").addEventListener("keydown", function (event) {
             if (event.key === "Enter" && !event.shiftKey) {
                 event.preventDefault();
@@ -117,7 +112,6 @@
             }
         });
 
-        // 댓글 저장
         function saveComment(comment) {
             const comments = JSON.parse(localStorage.getItem(`comments-${galleryNo}`)) || [];
             comments.push(comment);
@@ -125,11 +119,10 @@
             loadComments();
         }
 
-        // 댓글 불러오기
         function loadComments() {
             const comments = JSON.parse(localStorage.getItem(`comments-${galleryNo}`)) || [];
             const commentList = document.getElementById("comment-list");
-            commentList.innerHTML = ""; // 기존 댓글 초기화
+            commentList.innerHTML = "";
 
             comments.forEach((comment, index) => {
                 const commentDiv = document.createElement("div");
@@ -138,30 +131,84 @@
                 const commentText = document.createElement("p");
                 commentText.textContent = comment;
 
+                const buttonContainer = document.createElement("div");
+                buttonContainer.style.display = "inline-block";
+
+                const editButton = document.createElement("button");
+                editButton.textContent = "수정";
+                editButton.dataset.index = index;
+                editButton.addEventListener("click", function () {
+                    editComment(index, comment);
+                });
+
                 const deleteButton = document.createElement("button");
                 deleteButton.textContent = "삭제";
-                deleteButton.dataset.index = index; // 삭제 버튼에 index 저장
+                deleteButton.dataset.index = index;
                 deleteButton.addEventListener("click", function () {
                     deleteComment(this.dataset.index);
                 });
 
+                buttonContainer.appendChild(editButton);
+                buttonContainer.appendChild(deleteButton);
+
                 commentDiv.appendChild(commentText);
-                commentDiv.appendChild(deleteButton);
+                commentDiv.appendChild(buttonContainer);
                 commentList.appendChild(commentDiv);
             });
         }
 
-        // 댓글 삭제
+        function editComment(index, oldComment) {
+            if (editingIndex !== -1) {
+                loadComments();
+            }
+
+            editingIndex = index;
+
+            const commentList = document.getElementById("comment-list");
+            const commentDiv = commentList.children[index];
+
+            const inputField = document.createElement("input");
+            inputField.type = "text";
+            inputField.value = oldComment;
+
+            const saveButton = document.createElement("button");
+            saveButton.textContent = "저장";
+            saveButton.addEventListener("click", function () {
+                updateComment(index, inputField.value);
+            });
+
+            inputField.addEventListener("keydown", function (event) {
+                if (event.key === "Enter") {
+                    updateComment(index, inputField.value);
+                }
+            });
+
+            commentDiv.innerHTML = "";
+            commentDiv.appendChild(inputField);
+            commentDiv.appendChild(saveButton);
+        }
+
+        function updateComment(index, newComment) {
+            const comments = JSON.parse(localStorage.getItem(`comments-${galleryNo}`)) || [];
+            if (newComment.trim()) {
+                comments[index] = newComment;
+            }
+            localStorage.setItem(`comments-${galleryNo}`, JSON.stringify(comments));
+            editingIndex = -1;
+            loadComments();
+        }
+
         function deleteComment(index) {
             const comments = JSON.parse(localStorage.getItem(`comments-${galleryNo}`)) || [];
             comments.splice(index, 1);
             localStorage.setItem(`comments-${galleryNo}`, JSON.stringify(comments));
-            loadComments(); // 변경 사항 반영
+            loadComments();
         }
 
-        // 페이지 로드 시 댓글 불러오기
         loadComments();
     });
+
+
 
 </script>
 </body>
