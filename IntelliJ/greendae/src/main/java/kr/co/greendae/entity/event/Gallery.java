@@ -22,16 +22,18 @@ public class Gallery {
     private int no;
 
     private String title;      //제목
-    private String content;    //댓글
+    private String content;    //내용
     private String imageoName; //이미지 기존 이름
     private String imagesName; //이미지 변환 이름
     private int hit;           //조회수
-    private String regip;
+    private String regip;      // 등록 아이피
+
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "writer")
-    private User user;
+    private User user; // 작성자
 
     @CreationTimestamp
-    private LocalDateTime wdate;
+    private LocalDateTime wdate; // 작성날짜
 
 }

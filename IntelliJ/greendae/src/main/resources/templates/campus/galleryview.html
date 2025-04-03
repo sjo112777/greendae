@@ -1,102 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>그린대학교 갤러리</title>
-  <link rel="stylesheet" href="/css/layout/layout.css">
-  <link rel="stylesheet" href="/css/campus/galleryview.css">
-  <link rel="website icon" type="png" th:href="@{/images/favicon.png}">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>그린대학교 갤러리</title>
+    <link rel="stylesheet" href="/css/layout/layout.css">
+    <link rel="stylesheet" href="/css/campus/galleryview.css">
+    <link rel="website icon" type="png" th:href="@{/images/favicon.png}">
 </head>
 <body>
 <div id="wrapper">
-  <!-- 헤더 시작작-->
-  <header>
-    <div>
-      <div>
-        <p>
-          <a href="#">HOME |</a>
-          <a href="#">사이드맵 |</a>
-          <a href="#">로그인 |</a>
-          <a href="#">학생지원</a>
-        </p>
-      </div>
-    </div>
-    <div>
-      <div>
-        <a href="#">
-          <img src="/images/header_logo.png" alt="그린대학교">
-        </a>
-        <nav>
-          <ul>
-            <li><a href="#">대학소개</a></li>
-            <li><a href="#">입학안내</a></li>
-            <li><a href="#">대학·대학원</a></li>
-            <li><a href="#">학사안내</a></li>
-            <li><a href="#">대학생활</a></li>
-            <li><a href="#">커뮤니티</a></li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-  </header>
-  <main>
-    <section class="gallery-detail">
-      <h2>갤러리 상세 페이지</h2>
-      <div class="gallery-image">
-        <img src="#" alt="갤러리 이미지">
-      </div>
-      <div class="gallery-info">
-        <h3>제40회 1995학년도 학위수여식</h3>
-        <p class="date">등록일: 25.02.20 | 조회수: 23</p>
-        <p class="description">학위수여식 현장을 담은 사진입니다.</p>
-      </div>
-    </section>
-    <section class="comments">
-      <h3>댓글</h3>
-      <div id="comment-list">
-        <div class="comment-item">
-          <p class="comment-text">멋진 행사였습니다!</p>
-          <p class="comment-meta">작성자: 학생1 | 25.02.21</p>
-          <button class="edit-comment">수정</button>
-          <button class="delete-comment">삭제</button>
-        </div>
-      </div>
-      <div class="comment-form">
-        <textarea id="comment-input" placeholder="댓글을 입력하세요"></textarea>
-        <button id="submit-comment">댓글 작성</button>
-      </div>
-    </section>
-  </main>
-  <footer>
-    <div>
-      <div>
-        <ul>
-          <li><a href="#">개인정보처리방침</a></li>
-          <li><a href="#">통합정보시스템</a></li>
-          <li><a href="#">학사일정</a></li>
-          <li><a href="#">주요인원 연락처</a></li>
-          <li><a href="#">교내공지사항</a></li>
-        </ul>
-      </div>
-    </div>
-    <div>
-      <div>
-        <img src="/images/footer_logo.png" alt="그린대학교">
-        <p>
-          그린대학교 <br>
-          [12345] 부산광역시 부산진구 부전대로 123 그린대학교 / 대표전화 : 051-123-1000 / <br>
-          입학안내 : 051-123-1302 팩스 : 051-123-3333
-
-          <br><br>
-          copyright ©Green University All rights reserved.
-        </p>
+    <th:block th:include="/inc/_header.html"/>
+    <main>
+        <section class="gallery-detail">
+            <h2>갤러리 상세 페이지</h2>
+            <div class="gallery-image">
+                <img id="gallery-image" src="" alt="갤러리 이미지">
+            </div>
+            <div class="gallery-info">
+                <h3 id="gallery-title"></h3>
+                <p class="date">
+                    등록일: <span id="gallery-date"></span> |
+                    조회수: <span id="gallery-hit"></span>
+                </p>
+                <p class="description" id="gallery-content"></p>
+            </div>
+        </section>
+        <section class="comments">
+            <h3>댓글</h3>
+            <div id="comment-list"></div>
+            <div class="comment-form">
+                <textarea id="comment-input" placeholder="댓글을 입력하세요"></textarea>
+                <button id="submit-comment">댓글 작성</button>
+            </div>
+        </section>
+    </main>
+    <footer>
         <div>
-          <p>주요사이트
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ▾</p>
+            <div>
+                <ul>
+                    <li><a href="#">개인정보처리방침</a></li>
+                    <li><a href="#">통합정보시스템</a></li>
+                    <li><a href="#">학사일정</a></li>
+                    <li><a href="#">주요인원 연락처</a></li>
+                    <li><a href="#">교내공지사항</a></li>
+                </ul>
+            </div>
         </div>
-      </div>
-    </div>
-  </footer>
+        <div>
+            <div>
+                <img src="/images/footer_logo.png" alt="그린대학교">
+                <p>
+                    그린대학교 <br>
+                    [12345] 부산광역시 부산진구 부전대로 123 그린대학교 / 대표전화 : 051-123-1000 / <br>
+                    입학안내 : 051-123-1302 팩스 : 051-123-3333
+                    <br><br>
+                    copyright ©Green University All rights reserved.
+                </p>
+                <div>
+                    <p>주요사이트 ▾</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // 1. URL에서 ?no=값 가져오기
+        const params = new URLSearchParams(window.location.search);
+        const galleryNo = params.get("no");
+
+        // 2. 갤러리 데이터 (서버에서 불러올 수도 있음)
+        const galleryDataList = {
+            "1": {
+                title: "제40회 1995학년도 학위수여식",
+                date: "25.02.20",
+                hit: "23",
+                content: "졸업을 축하드립니다!",
+                image: "/images/gallary_sample1.jpg"
+            },
+            "2": {
+                title: "캠퍼스 축제",
+                date: "25.03.15",
+                hit: "55",
+                content: "캠퍼스 축제가 열렸습니다!",
+                image: "/images/gallary_sample2.jpg"
+            },
+            "3": {
+                title: "스포츠 행사",
+                date: "25.04.10",
+                hit: "37",
+                content: "스포츠 행사가 진행되었습니다.",
+                image: "/images/gallary_sample3.jpg"
+            },
+            "4": {
+                title: "새로운 강의실 오픈",
+                date: "25.05.05",
+                hit: "20",
+                content: "새로운 강의실이 개설되었습니다.",
+                image: "/images/gallary_sample4.png"
+            },
+            "5": {
+                title: "우수훈련기관 인증패",
+                date: "23.11.20",
+                hit: "42",
+                content: "우수훈련기관 인증패 사진입니다..",
+                image: "/images/gallary_sample5.jpg"
+            }
+        };
+
+        // 3. 갤러리 데이터 설정
+        const galleryData = galleryDataList[galleryNo] || galleryDataList["1"]; // 기본값 1번
+
+        document.getElementById("gallery-title").innerText = galleryData.title;
+        document.getElementById("gallery-date").innerText = galleryData.date;
+        document.getElementById("gallery-hit").innerText = galleryData.hit;
+        document.getElementById("gallery-content").innerText = galleryData.content;
+        document.getElementById("gallery-image").src = galleryData.image;
+    });
+
+</script>
+</body>
+</html>

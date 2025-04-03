@@ -1,8 +1,10 @@
 package kr.co.greendae.controller;
 
+import kr.co.greendae.dto.event.GalleryDTO;
 import kr.co.greendae.entity.event.Gallery;
 import kr.co.greendae.service.GalleryService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +20,7 @@ public class CampusController {
 
     private final GalleryService galleryService; // final로 변경
 
-    // ✅ 생성자를 통한 의존성 주입 (권장 방식)
+    //  생성자를 통한 의존성 주입 (권장 방식)
     public CampusController(GalleryService galleryService) {
         this.galleryService = galleryService;
     }
@@ -51,11 +53,13 @@ public class CampusController {
         return "/campus/gallery";
     }
 
-    // 갤러리 상세 페이지
+    // ✅ 갤러리 상세 페이지 (Thymeleaf 페이지 반환)
     @GetMapping("/galleryview")
-    public String galleryview(@RequestParam("no") int no, Model model) {
-        Gallery gallery = galleryService.getGalleryById(no);
+    public String galleryView(@RequestParam("no") int no, Model model) {
+
+        System.out.println(no);
+        GalleryDTO gallery = galleryService.getGalleryById(no);
         model.addAttribute("gallery", gallery);
-        return "/campus/galleryview";
+        return "/campus/galleryview";  // 갤러리 상세 페이지로 이동
     }
 }

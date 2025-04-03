@@ -1,6 +1,7 @@
 package kr.co.greendae.dto.event;
 
 import jakarta.persistence.*;
+import kr.co.greendae.entity.event.Gallery;
 import kr.co.greendae.entity.user.User;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -26,4 +27,6 @@ public class GalleryDTO {
     private User user;
 
     private String wdate;
+
+
 }
