@@ -16,7 +16,11 @@
     box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
     cursor: pointer;
+}
 
+.top{
+    margin-top: 50px;
+    width: 500px;
 }
 
 .org_box:hover {
@@ -30,6 +34,14 @@
     color: #333;
     margin-bottom: 10px;
     text-transform: uppercase;
+}
+
+.middle_row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0;
+    gap: 40px; /* 박스 간격 추가 */
 }
 
 .name {
@@ -66,6 +78,8 @@
     overflow: hidden;
     border: 1px solid #ddd;
     margin-bottom: 30px;
+    width: 800px;
+    margin-left: 70px;
 }
 
 .org_table table {
