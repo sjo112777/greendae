@@ -72,8 +72,10 @@
         </th:block>
     </div>
     <!-- 로그인 여부에 따라 글쓰기 버튼 이동 -->
-    <a th:href="${#authorization.expression('isAuthenticated()') ? '/community/news/write' : '/user/login'}"
-       class="btn btnWrite">글쓰기</a>
+    <th:block th:if="${#authorization.expression('hasRole(''Admin'')')}">
+        <a th:href="@{/community/news/write}" class="btn btnWrite">글쓰기</a>
+    </th:block>
+
 
 </div>
 

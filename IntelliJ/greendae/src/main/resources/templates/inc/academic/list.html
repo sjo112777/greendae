@@ -63,9 +63,9 @@
         </th:block>
     </div>
     <!-- 관리자(admin) 권한이 있는 경우에만 글쓰기 버튼 표시 -->
-
-    <a th:href="${#authorization.expression('isAuthenticated()') ? '/academic/acanotice/write' : '/user/login'}"
-       class="btn btnWrite">글쓰기</a>
+    <th:block th:if="${#authorization.expression('hasRole(''Admin'')')}">
+        <a th:href="@{/academic/academic/write}" class="btn btnWrite">글쓰기</a>
+    </th:block>
 
 
 </div>

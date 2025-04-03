@@ -87,24 +87,32 @@
             commentList.addEventListener('click', async function (e) {
                 e.preventDefault();
                 const article = e.target.closest('article');
+                if (!article) return;
                 const cno = article.dataset.cno;
 
+                // ✅ 댓글 삭제 기능
                 if (e.target.classList.contains('remove')) {
                     if (!confirm("정말 삭제하시겠습니까?")) return;
 
                     try {
-                        const response = await fetch(`/comment/delete`, {
+                        const response = await fetch(`/comment/delete?cno=${cno}`, {  // ⬅️ URL에 cno 포함
                             method: 'POST',
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ cno })
+                            headers: { "Content-Type": "application/json" }
                         });
-                        if (await response.text() === "success") article.remove();
-                        else alert("삭제 실패");
+
+                        const result = await response.text();
+                        if (result === "success") {
+                            article.remove();  // ✅ UI에서 삭제
+                            checkEmptyCommentList(commentList);  // ✅ 댓글 없으면 "등록된 댓글이 없습니다." 추가
+                        } else {
+                            alert("❌ 댓글 삭제 실패");
+                        }
                     } catch (error) {
-                        console.log("❌ 댓글 삭제 실패:", error);
+                        console.log("❌ 댓글 삭제 요청 실패:", error);
                     }
                 }
 
+                // ✅ 댓글 수정 기능
                 if (e.target.classList.contains('modify')) {
                     const contentElem = article.querySelector('.content');
                     const oldContent = contentElem.innerText;
@@ -138,7 +146,7 @@
                                 restoreButtons(article);
                             } else alert("수정 실패");
                         } catch (error) {
-                            console.log("❌ 댓글 수정 실패:", error);
+                            console.log("❌ 댓글 수정 요청 실패:", error);
                         }
                     });
 
@@ -150,6 +158,14 @@
             });
         };
 
+// ✅ 댓글이 하나도 없을 때 "등록된 댓글이 없습니다." 추가
+        const checkEmptyCommentList = (commentList) => {
+            if (!commentList.querySelector('article')) {
+                commentList.innerHTML = '<p class="empty">등록된 댓글이 없습니다.</p>';
+            }
+        };
+
+// ✅ 버튼 복구 함수 (저장/취소 버튼 제거)
         function restoreButtons(article) {
             article.querySelector('.modify').style.display = 'inline';
             article.querySelector('.remove').style.display = 'inline';
