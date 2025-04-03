@@ -170,11 +170,149 @@ public class CommunityController {
 
 
 
-    //칼럼
-    @GetMapping("/news")
-    public String news(){
+    // 뉴스 검색
+    @GetMapping("/news/search")
+    public String newssearch(PageRequestDTO pageRequestDTO, Model model){
+        HttpSession session = request.getSession();
+        session.setAttribute("cate", "news");
+
+        // 카테고리
+        String cate = (String) session.getAttribute("cate");
+        log.info("pageRequestDTO:{}", pageRequestDTO);
+
+        //서비스 호출
+        PageResponseDTO pageResponseDTO = articleService.searchAll(pageRequestDTO, cate);
+
+        model.addAttribute(pageResponseDTO);
+        model.addAttribute("isSearching", true);
+
         return "/community/news";
     }
+
+    // 뉴스 리스트
+    @GetMapping("/news")
+    public String news(Model model, PageRequestDTO pageRequestDTO) {
+        HttpSession session = request.getSession();
+        session.setAttribute("cate", "news");
+
+
+        // 카테고리
+        String cate = (String) session.getAttribute("cate");
+
+        PageResponseDTO pageResponseDTO = articleService.findAll(pageRequestDTO, cate);
+
+        model.addAttribute(pageResponseDTO);
+        model.addAttribute("isListing", true);  // isWriting=false로 설정하여 리스트 화면 표시
+
+        return "/community/news";
+    }
+
+    // 뉴스 글쓰기 페이지
+    @GetMapping("/news/write")
+    public String newswrite(Model model) {
+        HttpSession session = request.getSession();
+        session.setAttribute("cate", "news");
+
+        model.addAttribute("isWriting", true);  // isWriting=true로 설정하여 글쓰기 화면 표시
+        return "/community/news";
+    }
+
+    // 뉴스 글 등록
+    @PostMapping("/news/write")
+    public String newswrite(ArticleDTO articleDTO) {
+        HttpSession session = request.getSession();
+        String cate = articleDTO.getCate();
+        //String cate = (String) session.getAttribute("cate");
+
+        String regip = request.getRemoteAddr();
+        articleDTO.setCate(cate);
+        articleDTO.setRegip(regip);
+        log.info("articleDTO: {}", articleDTO);
+
+        //파일 업로드 서비스 호출
+        List<FileDTO> files = fileService.uploadFile(articleDTO);
+
+        // 글 저장 서비스 호출
+        articleDTO.setFile(files.size());
+        int no = articleService.basicRegister(articleDTO);
+
+        log.info("no: {}", no);
+        log.info("files: {}", files);
+
+        // 파일 저장 서비스 호출
+        for(FileDTO fileDTO : files) {
+            fileDTO.setAno(no);
+            fileService.save(fileDTO);
+        }
+
+
+        return "redirect:/community/news";  // 글쓰기 후 리스트 페이지로 리디렉션
+    }
+
+    // 뉴스 글 보기 view
+    @GetMapping("/news/view")
+    public String newsview(Model model, int no){
+
+        System.out.println(no);
+        // 글 조회 서비스 호출
+        ArticleDTO articleDTO = articleService.findById(no);
+
+        // 파일 조회 서비스 호출
+        // List로 파일 정보를 들고와서
+        // no 기반으로 file 테이블 검색해서 List 가져오기
+        List<FileDTO> fileDTOList = fileService.findById(no);
+        articleDTO.setFiles(fileDTOList);
+
+        model.addAttribute(articleDTO);
+        model.addAttribute("isViewing", true);
+
+        // return "redirect:/community/freeboard";
+        return "/community/news";
+    }
+
+    // 뉴스 게시글 삭제
+    @GetMapping("/news/delete")
+    public String newsdelete(int no){
+
+        fileService.deletebasicFile(no);
+        commentService.deletebasicAllComment(no);
+        articleService.deletebasicArticle(no);
+        return "redirect:/community/news";
+    }
+
+
+    // 뉴스 게시글 수정
+    @GetMapping("/news/modify")
+    public String newsmodify(int no, Model model) {
+
+        // 수정 데이터 조회 서비스
+        ArticleDTO articleDTO = articleService.findById(no);
+        //모델 참조
+        model.addAttribute("isModifying", true);
+        model.addAttribute(articleDTO);
+
+        return "/community/news";
+    }
+
+    // 뉴스 수정
+    @PostMapping("/news/modify")
+    public String newsmodify(ArticleDTO articleDTO) {
+        //서비스 호출
+
+        articleService.modifybasicArticle(articleDTO);
+
+        // 리다이렉트
+        return "redirect:/community/news";
+    }
+
+
+
+
+
+
+
+
+
 
     //취업정보
     @GetMapping("/employment")

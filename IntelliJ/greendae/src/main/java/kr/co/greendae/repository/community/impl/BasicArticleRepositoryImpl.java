@@ -31,6 +31,11 @@ public class BasicArticleRepositoryImpl implements BasicArticleRepositoryCustom 
 
         BooleanExpression expression = qArticle.cate.eq(cate);
 
+        if(cate.equals("news")) {
+            BooleanExpression Column = qArticle.cate.eq("column");
+            expression = expression.or(Column);
+        }
+
         List<Tuple> tupleList = queryFactory
                 .select(qArticle, qUser.name)
                 .from(qArticle)

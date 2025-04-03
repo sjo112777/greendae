@@ -109,6 +109,14 @@
             <th>작성자</th>
             <td><input type="text" name="writer" th:value="${articleDTO.user.name}" readonly/></td>
         </tr>
+        <tr>
+            <th>구분</th>
+            <td>
+                <input type="text" name="cate"
+                       th:value="${articleDTO.cate == 'news' ? '뉴스' : '칼럼'}"
+                       readonly/>
+            </td>
+        </tr>
         <tr th:if="${articleDTO.file > 0}">
             <th>파일</th>
             <td>
