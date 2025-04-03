@@ -451,7 +451,7 @@ public class AdminService {
     }
 
 
-    public PageLectureResponseDTO searchAllLecture(PageRequestDTO pageRequestDTO) {
+    public PageLectureResponseDTO allLecture(PageRequestDTO pageRequestDTO) {
 
         // 페이징 처리를 위한 pageable 객체 생성
         Pageable pageable = pageRequestDTO.getPageable("no");
@@ -464,6 +464,10 @@ public class AdminService {
             Lecture lecture = tuple.get(0, Lecture.class);
 
             LectureDTO lectureDTO = modelMapper.map(lecture, LectureDTO.class);
+            double tot = lectureDTO.getLecStdTotal();
+            int cnt = lectureDTO.getLecStdCount();
+            double per = (cnt/tot) * 100;
+            lectureDTO.setPer((int)per);
 
             return lectureDTO;
 
@@ -478,5 +482,39 @@ public class AdminService {
                 .total(total)
                 .build();
 
+    }
+
+    // 교육운영 검색
+    public PageLectureResponseDTO searchAllLecture(PageRequestDTO pageRequestDTO) {
+
+        Pageable pageable = pageRequestDTO.getPageable("no");
+
+        Page<Tuple> pageObject = lectureRepository.selectProfessorForSearch(pageRequestDTO, pageable);
+
+        List<LectureDTO> lectureDTOS = pageObject.getContent().stream().map(tuple -> {
+
+            Lecture lecture = tuple.get(0, Lecture.class);
+            LectureDTO lectureDTO = modelMapper.map(lecture, LectureDTO.class);
+
+            double tot = lectureDTO.getLecStdTotal();
+            int cnt = lectureDTO.getLecStdCount();
+            double per = (cnt/tot) * 100;
+            lectureDTO.setPer((int)per);
+
+            return lectureDTO;
+
+        }).toList();
+
+        int total = (int) pageObject.getTotalElements();
+
+        return PageLectureResponseDTO
+                .builder()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(lectureDTOS)
+                .total(total)
+                .build();
+        
+        
+        
     }
 }
