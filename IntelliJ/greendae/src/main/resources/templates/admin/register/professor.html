@@ -26,7 +26,7 @@
 
                             data.forEach(dept => {
                                 let option = document.createElement("option");
-                                option.value = dept.deptName;
+                                option.value = dept.deptNo;
                                 option.textContent = dept.deptName;
                                 selectD.appendChild(option);
                             })
@@ -182,7 +182,7 @@
                                             <option th:each="collegeDTO : ${collegeDTOS}" th:value="${collegeDTO.name}">[[${collegeDTO.name}]]</option>
                                         </select>
                                         <select name="departmentD">
-                                            <option th:each="departmentDTO : ${departmentDTOS}" th:value="${departmentDTO.deptName}">[[${departmentDTO.deptName}]]</option>
+                                            <option th:each="departmentDTO : ${departmentDTOS}" th:value="${departmentDTO.deptNo}">[[${departmentDTO.deptName}]]</option>
                                         </select>
                                     </td>
                                     <td>임용일</td>

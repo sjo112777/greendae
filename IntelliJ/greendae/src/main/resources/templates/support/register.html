@@ -71,7 +71,7 @@
                                         <td th:text="${lecture.lecName}"></td>
                                         <td th:text="${lecture.lecCredit}"></td>
                                         <td th:text="${lecture.professor.user.name}"></td>
-                                        <td th:text="${lecture.lecStdCount}"></td>
+                                        <td>[[${lecture.lecStdCount}]]/[[${lecture.lecStdTotal}]]</td>
                                         <td> </td>
                                         <td>
                                             <button class="submit" th:data-lecNo="${lecture.lecNo}" onclick="registerLecture(this)">신청</button>

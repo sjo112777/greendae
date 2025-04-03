@@ -162,7 +162,8 @@ public class AdminService {
 
     public DepartmentDTO findDepartmentByName(String departmentD) {
 
-        Department department = departmentRepository.findByDeptName(departmentD);
+        // 수정 이름아님 -> PK로 찾기
+        Department department = departmentRepository.findById(Integer.parseInt(departmentD)).get();
         return modelMapper.map(department, DepartmentDTO.class);
     }
 
@@ -201,7 +202,7 @@ public class AdminService {
     // 학과에 맞는 교수 출력
     public List<ProfessorDTO> findAllProfessorByName(String department) {
 
-        Department findDepartment = departmentRepository.findByDeptName(department);
+        Department findDepartment = departmentRepository.findById(Integer.parseInt(department)).get();
         System.out.println(findDepartment);
         System.out.println(findDepartment);
         System.out.println(findDepartment);
@@ -245,14 +246,7 @@ public class AdminService {
         Lecture lecture = modelMapper.map(lectureDTO, Lecture.class);
 
         User user = userRepository.findByName(lectureDTO.getProNo());
-        System.out.println(user);
-        System.out.println(user);
-        System.out.println(user);
         Professor professor = professorRepository.findById(user.getUid()).get();
-        System.out.println(professor);
-        System.out.println(professor);
-        System.out.println(professor);
-        System.out.println(professor);
         lecture.setProfessor(professor);
         lectureRepository.save(lecture);
     }

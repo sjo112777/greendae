@@ -37,20 +37,10 @@
                         <!-- 작성할 내용 시작-->                        
                         <img src="/images/college-introduce-5.jpg" alt="" style="float: left;">
                         <div class="social_tit" style="float: left; margin-left: 15px;">
-                            <p>
-                                GRADUATE SCHOOL<br>
-                        
-                                <span>학문의 이론과 응용방법을 한층 더 심오하게 연구, 교<br>수 및 지도자적 인격을 도야하고 창의력을 함양</span><br>
-                                
-                                대학원은 학문의 이론과 응용방법을 한층 더 심오하게 연구 · 교수한다. 동시에 인격을 도야
-                                하고 독창력을 함양하여 문화발전에 기여하고 있으며, 21세기의 세계화, 국제화, 개방화 시
-                                대를 맞이하여 공학, 인문사회, 자연과학, 예체능, 수산 및 해양과학에 관한 학문 전 분야의
-                                균형있는 발전을 꾀하고 있다. 아울러 첨단연구와 지도능력을 갖춘 인재양성을 위해 대학원
-                                교육의 획기적인 강화와 제도개선 그리고 연구기능의 활성화에 적극 힘쓰고 있으며, 우수학
-                                생을 유치하기 위하여 연구/수업조교장학제도를 실시하며 국제화의 일환으로 외국인학생
-                                을 유치하고 대학원 교육의 활성화에 적극 노력하고 있다.
+                            <p>[[${college.engName}]]<br>
+                                <span>[[${college.title}]]</span><br>
+                                [[${college.content}]]
                             </p>
-
                         </div>
                             
                         <p>
@@ -66,9 +56,9 @@
                                 <th>비고</th>
                             </tr>
                             <tr th:each="department : ${departmentDTOS}">
-                                <td th:text="${department.deptName}"></td>
-                                <td th:text="${department.deptChair}"></td>
-                                <td th:text="${department.deptHp}"></td>
+                                <td>[[${department.deptName}]] <a href="#"><img src="/images/ico_link.png" alt=""></a> </td>
+                                <td>[[${department.deptChair}]]</td>
+                                <td>[[${department.deptHp}]]</td>
                                 <td></td>
                             </tr>
                         </table>
