@@ -300,12 +300,29 @@ public class CommunityController {
     // 뉴스 수정
     @PostMapping("/news/modify")
     public String newsmodify(ArticleDTO articleDTO) {
+        HttpSession session = request.getSession();
+
+        // 사용자가 변경한 카테고리 값을 가져옴
+        String cate = articleDTO.getCate();
+
+        // 변경된 카테고리를 다시 설정
+        articleDTO.setCate(cate);
+
+        // 서비스 호출
+        articleService.modifybasicArticle(articleDTO);
+
+        // 리다이렉트 시 카테고리에 맞는 리스트 페이지로 이동
+        return "redirect:/community/news";
+
+        /*
         //서비스 호출
 
         articleService.modifybasicArticle(articleDTO);
 
         // 리다이렉트
         return "redirect:/community/news";
+
+         */
     }
 
 
