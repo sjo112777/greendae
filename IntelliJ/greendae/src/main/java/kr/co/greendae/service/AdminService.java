@@ -57,6 +57,7 @@ public class AdminService {
     private final ModelMapper modelMapper;
     private final UserRepository userRepository;
     private final ProfessorRepository professorRepository;
+    private final RegisterRepository registerRepository;
     private final StudentRepository studentRepository;
     private final LectureRepository lectureRepository;
 
@@ -513,8 +514,72 @@ public class AdminService {
                 .dtoList(lectureDTOS)
                 .total(total)
                 .build();
-        
-        
-        
+
+    }
+
+
+    public PageRegisterResponseDTO allRegister(PageRequestDTO pageRequestDTO) {
+
+        // 페이징 처리를 위한 pageable 객체 생성
+        Pageable pageable = pageRequestDTO.getPageable("no");
+
+        Page<Tuple> pageObject = registerRepository.selectAll(pageable);
+
+        // Article Entity 리스트를 ArticleDTO 리스트로 변환
+        List<RegisterDTO> registerDTOS = pageObject.getContent().stream().map(tuple -> {
+
+            Register register = tuple.get(0, Register.class);
+
+            RegisterDTO registerDTO = modelMapper.map(register, RegisterDTO.class);
+
+            return registerDTO;
+
+        }).toList();
+
+        int total = (int) pageObject.getTotalElements();
+
+        return PageRegisterResponseDTO
+                .builder()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(registerDTOS)
+                .total(total)
+                .build();
+
+
+
+    }
+
+    public PageRegisterResponseDTO searchAllRegister(PageRequestDTO pageRequestDTO) {
+
+
+        Pageable pageable = pageRequestDTO.getPageable("no");
+
+        Page<Tuple> pageObject = registerRepository.selectRegisterForSearch(pageRequestDTO, pageable);
+
+        List<RegisterDTO> registerDTOS = pageObject.getContent().stream().map(tuple -> {
+
+            Register register = tuple.get(0, Register.class);
+            RegisterDTO registerDTO = modelMapper.map(register, RegisterDTO.class);
+
+
+            return registerDTO;
+
+        }).toList();
+
+        int total = (int) pageObject.getTotalElements();
+
+        return PageRegisterResponseDTO
+                .builder()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(registerDTOS)
+                .total(total)
+                .build();
+
+
+
+
+
+
+
     }
 }

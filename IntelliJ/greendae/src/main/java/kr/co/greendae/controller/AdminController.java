@@ -341,6 +341,51 @@ public class AdminController {
     }
 
 
+    // 수강 현황 리스트
+    @GetMapping("/lecture/list")
+    public String  lectureList(Model model, PageRequestDTO pageRequestDTO){
+
+        PageLectureResponseDTO pageResponseDTO = adminService.allLecture(pageRequestDTO);
+        model.addAttribute("pageResponseDTO",pageResponseDTO);
+
+        return "/admin/list/lecture";
+    }
+
+    // 수강 현황 검색
+    // 교육 운영 현황 리스트
+    @GetMapping("/lecture/search")
+    public String lectureSearch(PageRequestDTO pageRequestDTO, Model model){
+
+        log.info("pageRequestDTO : {}", pageRequestDTO);
+
+        // 서비스 호출
+        PageLectureResponseDTO pageResponseDTO = adminService.searchAllLecture(pageRequestDTO);
+        model.addAttribute("pageResponseDTO",pageResponseDTO);
+
+        return "/admin/list/lecture";
+    }
+
+    // 수강 현황 리스트
+    @GetMapping("/register/list")
+    public String  register(Model model, PageRequestDTO pageRequestDTO){
+
+        PageRegisterResponseDTO pageResponseDTO = adminService.allRegister(pageRequestDTO);
+        model.addAttribute("pageResponseDTO",pageResponseDTO);
+
+        return "/admin/list/register";
+    }
+
+    @GetMapping("/register/search")
+    public String registerSearch(PageRequestDTO pageRequestDTO, Model model){
+
+        log.info("pageRequestDTO : {}", pageRequestDTO);
+
+        // 서비스 호출
+        PageRegisterResponseDTO pageResponseDTO = adminService.searchAllRegister(pageRequestDTO);
+        model.addAttribute("pageResponseDTO",pageResponseDTO);
+
+        return "/admin/list/register";
+    }
 
 
 
