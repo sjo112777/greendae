@@ -8,29 +8,32 @@
     <title>대학소개 > 조직도</title>
 
     <style>
-
-
+        /* 기본적으로 숨김 */
+        .hidden {
+            display: none;
+        }
     </style>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const orgBoxes = document.querySelectorAll(".org_box[data-toggle='toggle']");
+        document.addEventListener("DOMContentLoaded", function () {
+            // 총장 박스를 클릭하면 하위 조직이 보이게
+            const presidentBox = document.querySelector(".org_box.top"); // 총장 div
+            const subordinateSection = document.querySelector(".middle_row"); // 부총장
+            const bottomRow = document.querySelector(".bottom_row"); // 하위 조직
+            const orgTables = document.querySelectorAll(".org_table"); // 모든 테이블
+            const connectors = document.querySelectorAll(".connector"); // 연결선
 
-            orgBoxes.forEach(function(box) {
-                box.addEventListener("click", function() {
-                    const nextRow = box.parentElement.nextElementSibling;
+            // 초기에 숨기기
+            subordinateSection.classList.add("hidden");
+            bottomRow.classList.add("hidden");
+            orgTables.forEach(table => table.classList.add("hidden"));
+            connectors.forEach(connector => connector.classList.add("hidden"));
 
-                    if (nextRow) {
-                        if (nextRow.classList.contains("show")) {
-                            nextRow.classList.remove("show");
-                            nextRow.classList.add("slide-up");
-                        } else {
-                            nextRow.classList.add("show");
-                            nextRow.classList.remove("slide-up");
-                            nextRow.classList.add("slide-down");
-                        }
-                    }
-                });
+            presidentBox.addEventListener("click", function () {
+                subordinateSection.classList.toggle("hidden");
+                bottomRow.classList.toggle("hidden");
+                orgTables.forEach(table => table.classList.toggle("hidden"));
+                connectors.forEach(connector => connector.classList.toggle("hidden"));
             });
         });
     </script>
@@ -38,27 +41,26 @@
 </head>
 <body>
 <div id="wrapper">
-    <!-- 헤더 시작작-->
+    <!-- 헤더 -->
     <th:block th:include="/inc/_header.html"/>
 
-    <!-- 헤더 끝-->
-    <!-- 메인 시작작-->
+    <!-- 메인 -->
     <main>
         <div class="background">
             <div>
-                    <span style="margin-top: 10px;">
-                        <img src="/images/ico-home.png" alt="HOME">
-                        <img src="/images/bg-path-arrow.png" alt=">">
-                        대학소개
-                        <img src="/images/bg-path-arrow.png" alt=">">
-                        <span style="color: #071F4B;">조직도</span>
-                    </span>
+                <span style="margin-top: 10px;">
+                    <img src="/images/ico-home.png" alt="HOME">
+                    <img src="/images/bg-path-arrow.png" alt=">">
+                    대학소개
+                    <img src="/images/bg-path-arrow.png" alt=">">
+                    <span style="color: #071F4B;">조직도</span>
+                </span>
             </div>
         </div>
         <section class="content">
             <!-- 왼쪽 사이드바 -->
             <th:block th:include="/inc/intro/sidebar.html"/>
-            <!-- 오른쪽 글 -->
+            <!-- 오른쪽 내용 -->
             <div class="mains">
                 <article class="main_content">
                     <div class="main_title">
@@ -68,23 +70,22 @@
                         <div class="organization">
                         </div>
                         <!-- 총장 -->
-                        <div class="org_box top">
+                        <div class="org_box top" style="font-size: 30px; cursor: pointer;">
                             <p class="title">총장</p>
                             <p class="name">홍길동</p>
                         </div>
-                        <div class="connector"></div>
+                        <div class="connector hidden"></div>
 
-                        <!-- 부총장 -->
-                        <div class="middle_row">
+                        <!-- 하위 조직 (초기에는 숨김) -->
+                        <div class="middle_row hidden">
                             <div class="org_box">
                                 <p class="title">부총장</p>
                                 <p class="name">이순신</p>
                             </div>
                         </div>
-                        <div class="connector"></div>
+                        <div class="connector hidden"></div>
 
-                        <!-- 추가된 부서들 -->
-                        <div class="bottom_row">
+                        <div class="bottom_row hidden">
                             <div class="org_box">
                                 <p class="title">학장</p>
                                 <p class="name">강감찬</p>
@@ -111,8 +112,8 @@
                             </div>
                         </div>
 
-                        <!-- 테이블 추가 (부서 및 담당자) -->
-                        <div class="org_table">
+                        <!-- 부서 및 담당자 테이블 (초기에는 숨김) -->
+                        <div class="org_table hidden">
                             <table>
                                 <thead>
                                 <tr>
@@ -149,8 +150,7 @@
                             </table>
                         </div>
 
-                        <!-- 더 많은 부서 추가 가능 -->
-                        <div class="org_table">
+                        <div class="org_table hidden">
                             <table>
                                 <thead>
                                 <tr>
@@ -179,39 +179,13 @@
                             </table>
                         </div>
                     </div>
+                </article>
             </div>
-            </article>
+        </section>
+    </main>
+
+    <!-- 푸터 -->
+    <th:block th:include="/inc/_footer.html"/>
 </div>
-
-</div>
-</main>
-<!-- 메인 끝-->
-<!-- 푸터 시작작-->
-<th:block th:include="/inc/_footer.html"/>
-
-<!-- 푸터 끝-->
-</div>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const orgBoxes = document.querySelectorAll(".org_box[data-toggle='toggle']");
-
-        orgBoxes.forEach(function(box) {
-            box.addEventListener("click", function() {
-                const nextRow = box.parentElement.nextElementSibling;
-
-                if (nextRow) {
-                    if (nextRow.classList.contains("show")) {
-                        nextRow.classList.remove("show");
-                        nextRow.classList.add("slide-up");
-                    } else {
-                        nextRow.classList.add("show");
-                        nextRow.classList.remove("slide-up");
-                        nextRow.classList.add("slide-down");
-                    }
-                }
-            });
-        });
-    });ㄴ
-</script>
 </body>
 </html>

@@ -8,7 +8,7 @@
 
 /* 조직도 박스 */
 .org_box {
-    padding: 50px;
+    padding: 20px;
     background: #ffffff;
     border: 4px solid #d1d1d1;
     border-radius: 20px;
@@ -64,7 +64,6 @@
     background-color: #fff;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 15px 60px rgba(0, 0, 0, 0.2);
     border: 1px solid #ddd;
     margin-bottom: 30px;
 }
