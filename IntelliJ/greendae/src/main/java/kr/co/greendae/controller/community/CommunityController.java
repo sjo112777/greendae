@@ -162,7 +162,6 @@ public class CommunityController {
     @PostMapping("/notice/modify")
     public String noticemodify(ArticleDTO articleDTO) {
         //서비스 호출
-
         articleService.modifybasicArticle(articleDTO);
 
         // 리다이렉트

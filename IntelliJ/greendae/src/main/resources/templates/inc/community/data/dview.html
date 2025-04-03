@@ -71,20 +71,21 @@
             commentList.insertAdjacentHTML('beforeend', article);
         }
 
-        // 댓글 삭제
+        // 댓글 삭제 및 수정
         commentList.addEventListener('click', async function(e){
+            e.preventDefault();
+
+            const article = e.target.closest('article');
+            const cno = article.dataset.cno;
+
+            // 삭제 기능
             if (e.target.classList.contains('remove')) {
-                e.preventDefault();
-
-                const article = e.target.closest('article');
-                const cno = article.dataset.cno;
-
                 if (!confirm("정말 삭제하시겠습니까?")) return;
 
                 const response = await fetch(`/comment/delete?cno=${cno}`, {
                     method: 'POST',
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ cno: cno }) // { "cno": 123 } 형식으로 보냄
+                    body: JSON.stringify({ cno: cno })
                 });
 
                 const result = await response.text();
@@ -94,7 +95,67 @@
                     alert("삭제 실패");
                 }
             }
+
+            // 수정 기능
+            if (e.target.classList.contains('modify')) {
+                const contentElem = article.querySelector('.content');
+                const oldContent = contentElem.innerText;
+
+                // 기존 댓글을 textarea로 변경
+                contentElem.innerHTML = `<textarea class="editContent">${oldContent}</textarea>`;
+
+                // 기존 버튼 숨기고, 수정 완료 버튼 추가
+                article.querySelector('.modify').style.display = 'none';
+                article.querySelector('.remove').style.display = 'none';
+
+                const saveBtn = document.createElement('a');
+                saveBtn.href = "#";
+                saveBtn.className = "save";
+                saveBtn.innerText = "저장";
+
+                const cancelBtn = document.createElement('a');
+                cancelBtn.href = "#";
+                cancelBtn.className = "cancel";
+                cancelBtn.innerText = "취소";
+
+                article.querySelector('div').appendChild(saveBtn);
+                article.querySelector('div').appendChild(cancelBtn);
+
+                // 수정 완료 버튼 클릭 이벤트
+                saveBtn.addEventListener('click', async function(){
+                    const newContent = article.querySelector('.editContent').value;
+
+                    const response = await fetch(`/comment/update`, {
+                        method: 'POST',
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ cno: cno, content: newContent })
+                    });
+
+                    const result = await response.text();
+                    if (result === "success") {
+                        contentElem.innerHTML = newContent; // UI 업데이트
+                        restoreButtons(article);
+                    } else {
+                        alert("수정 실패");
+                    }
+                });
+
+                // 취소 버튼 클릭 이벤트
+                cancelBtn.addEventListener('click', function(){
+                    contentElem.innerHTML = oldContent;
+                    restoreButtons(article);
+                });
+            }
         });
+
+        // 버튼 복구 함수
+        function restoreButtons(article) {
+            article.querySelector('.modify').style.display = 'inline';
+            article.querySelector('.remove').style.display = 'inline';
+            article.querySelector('.save').remove();
+            article.querySelector('.cancel').remove();
+        }
+
 
     });
 </script>
@@ -129,7 +190,8 @@
         <!-- 로그인한 사용자만 삭제 버튼 표시 -->
         <a th:if="${#authorization.expression('isAuthenticated()') and #authentication.principal.user.uid == articleDTO.user.uid}"
            th:href="@{/community/data/delete(no=${articleDTO.no})}" class="btn btnRemove">삭제</a>
-        <a th:href="@{/community/data/modify(no=${articleDTO.no})}" class="btn btnModify">수정</a>
+        <a th:if="${#authorization.expression('isAuthenticated()') and #authentication.principal.user.uid == articleDTO.user.uid}"
+           th:href="@{/community/data/modify(no=${articleDTO.no})}" class="btn btnModify">수정</a>
         <a th:href="@{/community/data}" class="btn btnList">목록</a>
     </div>
 

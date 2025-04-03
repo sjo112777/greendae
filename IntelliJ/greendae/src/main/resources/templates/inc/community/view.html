@@ -3,59 +3,39 @@
 
     document.addEventListener('DOMContentLoaded', function () {
         const path = location.pathname;
-        const pathSegments = path.split('/');  // URL을 "/" 기준으로 나눔
-        const lastSegment = pathSegments[pathSegments.length - 1]; // URL의 마지막 경로 추출
+        const pathSegments = path.split('/');
 
-        // 모든 섹션 숨김
-        const freeboardSection = document.getElementById("freeboardSection");
-        const noticeSection = document.getElementById("noticeSection");
-        const adnoticeSection = document.getElementById("adnoticeSection");
+        const sections = {
+            freeboard: document.getElementById("freeboardSection"),
+            notice: document.getElementById("noticeSection"),
+            adnotice: document.getElementById("adnoticeSection")
+        };
 
-        if (freeboardSection && noticeSection && adnoticeSection) {
-            freeboardSection.style.display = "none";
-            noticeSection.style.display = "none";
-            adnoticeSection.style.display = "none";
+        Object.values(sections).forEach(section => section && (section.style.display = "none"));
 
-            // 정확한 URL 경로 판별
-            switch (true) {
-                case path.includes("/community/freeboard"):
-                    freeboardSection.style.display = "block";
-                    break;
-                case path.includes("/community/notice"):
-                    noticeSection.style.display = "block";
-                    break;
-                case path.includes("/admission/adnotice"):
-                    adnoticeSection.style.display = "block";
-                    break;
-            }
-        }
+        if (path.includes("/community/freeboard")) sections.freeboard.style.display = "block";
+        if (path.includes("/community/notice")) sections.notice.style.display = "block";
+        if (path.includes("/admission/adnotice")) sections.adnotice.style.display = "block";
 
-        // 댓글 목록 및 작성 폼 처리 함수
         const loadComments = (parentId, commentList) => {
             fetch(`/comment/list?parent=${parentId}`)
                 .then(response => response.json())
                 .then(data => {
-                    if (!data.length) {
-                        commentList.innerHTML = '<p class="empty">등록된 댓글이 없습니다.</p>';
-                    } else {
-                        commentList.innerHTML = ''; // 기존 댓글 목록 초기화
-                        data.forEach(comment => {
-                            const article = `<article data-cno="${comment.cno}">
-                                    <span class="nick">${comment.user.name}</span>
-                                    <span class="date">${comment.wdate}</span>
-                                    <p class="content">${comment.content}</p>
-                                    <div>
-                                        <a href="#" class="remove">삭제</a>
-                                        <a href="#" class="modify">수정</a>
-                                    </div>
-                                </article>`;
-                            commentList.insertAdjacentHTML('beforeend', article);
-                        });
-                    }
+                    commentList.innerHTML = data.length ? '' : '<p class="empty">등록된 댓글이 없습니다.</p>';
+                    data.forEach(comment => {
+                        const article = `<article data-cno="${comment.cno}">
+                        <span class="nick">${comment.user.name}</span>
+                        <span class="date">${comment.wdate}</span>
+                        <p class="content">${comment.content}</p>
+                        <div>
+                            <a href="#" class="remove">삭제</a>
+                            <a href="#" class="modify">수정</a>
+                        </div>
+                    </article>`;
+                        commentList.insertAdjacentHTML('beforeend', article);
+                    });
                 })
-                .catch(err => {
-                    console.log("❌ 댓글 목록 불러오기 실패:", err);
-                });
+                .catch(err => console.log("❌ 댓글 목록 불러오기 실패:", err));
         };
 
         const handleCommentSubmit = (formComment, commentList) => {
@@ -75,86 +55,117 @@
                         body: JSON.stringify(jsonData)
                     });
 
-                    const textData = await response.text();
-                    const data = JSON.parse(textData);
+                    const data = await response.json();
 
+                    // 댓글 리스트에서 '등록된 댓글이 없습니다' 메시지 제거
+                    const emptyMessage = commentList.querySelector('.empty');
+                    if (emptyMessage) emptyMessage.remove();
+
+                    // 동적으로 새 댓글 추가
                     const article = `<article data-cno="${data.cno}">
-                            <span class="name">${data.user.name}</span>
-                            <span class="date">${data.wdate}</span>
-                            <p class="content">${data.content}</p>
-                            <div>
-                                <a href="#" class="remove">삭제</a>
-                                <a href="#" class="modify">수정</a>
-                            </div>
-                        </article>`;
+                <span class="nick">${data.user.name}</span>
+                <span class="date">${data.wdate}</span>
+                <p class="content">${data.content}</p>
+                <div>
+                    <a href="#" class="remove">삭제</a>
+                    <a href="#" class="modify">수정</a>
+                </div>
+            </article>`;
 
+                    // 댓글 입력창 초기화 후 리스트에 추가
                     this.querySelector('textarea[name="comment"]').value = '';
                     commentList.insertAdjacentHTML('beforeend', article);
+
                 } catch (error) {
                     console.log("❌ 댓글 작성 요청 실패:", error);
                 }
             });
         };
 
-        const handleCommentDelete = (commentList) => {
+        const handleCommentModify = (commentList) => {
             commentList.addEventListener('click', async function (e) {
+                e.preventDefault();
+                const article = e.target.closest('article');
+                const cno = article.dataset.cno;
+
                 if (e.target.classList.contains('remove')) {
-                    e.preventDefault();
-
-                    const article = e.target.closest('article');
-                    const cno = article.dataset.cno;
-
                     if (!confirm("정말 삭제하시겠습니까?")) return;
 
                     try {
-                        const response = await fetch(`/comment/delete?cno=${cno}`, {
+                        const response = await fetch(`/comment/delete`, {
                             method: 'POST',
                             headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ cno: cno })
+                            body: JSON.stringify({ cno })
                         });
-
-                        const result = await response.text();
-                        if (result === "success") {
-                            article.remove();
-                        } else {
-                            alert("삭제 실패");
-                        }
+                        if (await response.text() === "success") article.remove();
+                        else alert("삭제 실패");
                     } catch (error) {
                         console.log("❌ 댓글 삭제 실패:", error);
                     }
                 }
+
+                if (e.target.classList.contains('modify')) {
+                    const contentElem = article.querySelector('.content');
+                    const oldContent = contentElem.innerText;
+                    contentElem.innerHTML = `<textarea class="editContent">${oldContent}</textarea>`;
+
+                    e.target.style.display = 'none';
+                    article.querySelector('.remove').style.display = 'none';
+
+                    const saveBtn = document.createElement('a');
+                    saveBtn.href = "#";
+                    saveBtn.className = "save";
+                    saveBtn.innerText = "저장";
+
+                    const cancelBtn = document.createElement('a');
+                    cancelBtn.href = "#";
+                    cancelBtn.className = "cancel";
+                    cancelBtn.innerText = "취소";
+
+                    article.querySelector('div').append(saveBtn, cancelBtn);
+
+                    saveBtn.addEventListener('click', async function() {
+                        const newContent = article.querySelector('.editContent').value;
+                        try {
+                            const response = await fetch(`/comment/update`, {
+                                method: 'POST',
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({ cno, content: newContent })
+                            });
+                            if (await response.text() === "success") {
+                                contentElem.innerHTML = newContent;
+                                restoreButtons(article);
+                            } else alert("수정 실패");
+                        } catch (error) {
+                            console.log("❌ 댓글 수정 실패:", error);
+                        }
+                    });
+
+                    cancelBtn.addEventListener('click', function() {
+                        contentElem.innerHTML = oldContent;
+                        restoreButtons(article);
+                    });
+                }
             });
         };
 
-        // 프리보드 섹션에서 댓글 처리
-        const freeboardFormComment = document.querySelector('#freeboardSection form[name="formComment"]');
-        const freeboardCommentList = document.querySelector('#freeboardSection .commentList');
-        if (freeboardFormComment && freeboardCommentList) {
-            const parentFreeboard = freeboardFormComment.querySelector('input[name="parent"]').value;
-            loadComments(parentFreeboard, freeboardCommentList);
-            handleCommentSubmit(freeboardFormComment, freeboardCommentList);
-            handleCommentDelete(freeboardCommentList);
+        function restoreButtons(article) {
+            article.querySelector('.modify').style.display = 'inline';
+            article.querySelector('.remove').style.display = 'inline';
+            article.querySelector('.save')?.remove();
+            article.querySelector('.cancel')?.remove();
         }
 
-        // 노티스 섹션에서 댓글 처리
-        const noticeFormComment = document.querySelector('#noticeSection form[name="formComment"]');
-        const noticeCommentList = document.querySelector('#noticeSection .commentList');
-        if (noticeFormComment && noticeCommentList) {
-            const parentNotice = noticeFormComment.querySelector('input[name="parent"]').value;
-            loadComments(parentNotice, noticeCommentList);
-            handleCommentSubmit(noticeFormComment, noticeCommentList);
-            handleCommentDelete(noticeCommentList);
-        }
-
-        // 애드노티스 섹션에서 댓글 처리
-        const adnoticeFormComment = document.querySelector('#adnoticeSection form[name="formComment"]');
-        const adnoticeCommentList = document.querySelector('#adnoticeSection .commentList');
-        if (adnoticeFormComment && adnoticeCommentList) {
-            const parentAdnotice = adnoticeFormComment.querySelector('input[name="parent"]').value;
-            loadComments(parentAdnotice, adnoticeCommentList);
-            handleCommentSubmit(adnoticeFormComment, adnoticeCommentList);
-            handleCommentDelete(adnoticeCommentList);
-        }
+        Object.entries(sections).forEach(([key, section]) => {
+            if (!section) return;
+            const formComment = section.querySelector('form[name="formComment"]');
+            const commentList = section.querySelector('.commentList');
+            if (formComment && commentList) {
+                loadComments(formComment.querySelector('input[name="parent"]').value, commentList);
+                handleCommentSubmit(formComment, commentList);
+                handleCommentModify(commentList);
+            }
+        });
     });
 
 </script>
@@ -189,7 +200,8 @@
     <!-- 로그인한 사용자만 삭제 버튼 표시 -->
     <a th:if="${#authorization.expression('isAuthenticated()') and #authentication.principal.user.uid == articleDTO.user.uid}"
        th:href="@{/community/freeboard/delete(no=${articleDTO.no})}" class="btn btnRemove">삭제</a>
-    <a th:href="@{/community/freeboard/modify(no=${articleDTO.no})}" class="btn btnModify">수정</a>
+    <a th:if="${#authorization.expression('isAuthenticated()') and #authentication.principal.user.uid == articleDTO.user.uid}"
+       th:href="@{/community/freeboard/modify(no=${articleDTO.no})}" class="btn btnModify">수정</a>
     <a th:href="@{/community/freeboard}" class="btn btnList">목록</a>
 </div>
 
@@ -252,7 +264,8 @@
         <!-- 로그인한 사용자만 삭제 버튼 표시 -->
         <a th:if="${#authorization.expression('isAuthenticated()') and #authentication.principal.user.uid == articleDTO.user.uid}"
            th:href="@{/community/notice/delete(no=${articleDTO.no})}" class="btn btnRemove">삭제</a>
-        <a th:href="@{/community/notice/modify(no=${articleDTO.no})}" class="btn btnModify">수정</a>
+        <a th:if="${#authorization.expression('isAuthenticated()') and #authentication.principal.user.uid == articleDTO.user.uid}"
+           th:href="@{/community/notice/modify(no=${articleDTO.no})}" class="btn btnModify">수정</a>
         <a th:href="@{/community/notice}" class="btn btnList">목록</a>
     </div>
 
@@ -315,7 +328,8 @@
         <!-- 로그인한 사용자만 삭제 버튼 표시 -->
         <a th:if="${#authorization.expression('isAuthenticated()') and #authentication.principal.user.uid == articleDTO.user.uid}"
            th:href="@{/admission/adnotice/delete(no=${articleDTO.no})}" class="btn btnRemove">삭제</a>
-        <a th:href="@{/admission/adnotice/modify(no=${articleDTO.no})}" class="btn btnModify">수정</a>
+        <a th:if="${#authorization.expression('isAuthenticated()') and #authentication.principal.user.uid == articleDTO.user.uid}"
+           th:href="@{/admission/adnotice/modify(no=${articleDTO.no})}" class="btn btnModify">수정</a>
         <a th:href="@{/admission/adnotice}" class="btn btnList">목록</a>
     </div>
 

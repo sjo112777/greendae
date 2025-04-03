@@ -11,10 +11,12 @@ import kr.co.greendae.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -63,5 +65,19 @@ public class CommentService {
         basicArticle.setComment(basicArticle.getComment() - 1);
         basicArticleRepository.save(basicArticle);
         basicCommentRepository.deleteById(cno);
+    }
+
+
+    public boolean updateComment(CommentDTO commentDTO) {
+        Optional<BasicComment> optionalComment = basicCommentRepository.findById(commentDTO.getCno());
+
+        if (optionalComment.isPresent()) {
+            BasicComment comment = optionalComment.get();
+            comment.setContent(commentDTO.getContent());
+            basicCommentRepository.save(comment); // 소문자로 변경
+            return true;
+        }
+
+        return false;
     }
 }
