@@ -217,6 +217,7 @@ public class AdminService {
 
     public void registerStudent(StudentDTO studentDTO, UserDTO userDTO, DepartmentDTO departmentDTO) {
 
+        studentDTO.setStdClass(departmentDTO.getDeptName());
         Optional<User> adviser = userRepository.findById(studentDTO.getAdvisor());
         if (adviser.isPresent()) {
             Professor professor = professorRepository.findByUser(adviser.get());

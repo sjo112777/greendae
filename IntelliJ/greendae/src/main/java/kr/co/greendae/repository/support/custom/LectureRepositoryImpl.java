@@ -36,6 +36,9 @@ public class LectureRepositoryImpl implements LectureRepositoryCustom {
 
     @Override
     public Page<Tuple> selectAllByStdNoAndStdYear(Pageable pageable, int stdYear) {
+
+        BooleanExpression expression = qLecture.lecGrade.eq(stdYear);
+
         List<Tuple> tupleList = queryFactory
                 .select(qLecture, qUser.name)
                 .from(qLecture)
@@ -43,6 +46,7 @@ public class LectureRepositoryImpl implements LectureRepositoryCustom {
                 .on(qLecture.professor.proNo.eq(qProfessor.proNo))
                 .join(qUser)
                 .on(qUser.uid.eq(qProfessor.user.uid))
+                .where(expression)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .orderBy(qLecture.lecNo.desc())
@@ -50,7 +54,7 @@ public class LectureRepositoryImpl implements LectureRepositoryCustom {
 
         Long total = Optional.ofNullable(queryFactory
                 .select(qLecture.count())
-                .from(qLecture)
+                .from(qLecture).where(expression)
                 .fetchOne())
                 .orElse(0L); // null이면 0L 반환
 
@@ -65,19 +69,20 @@ public class LectureRepositoryImpl implements LectureRepositoryCustom {
 
         //검색조건
         BooleanExpression expression = null;
+        BooleanExpression year = qLecture.lecGrade.eq(stdYear);
 
         if(searchType.equals("lecClass")){
-            expression = qLecture.lecClass.contains(keyword);
+            expression = qLecture.lecClass.contains(keyword).and(year);
         }else if(searchType.equals("lecCate")){
-            expression = qLecture.lecCate.contains(keyword);
+            expression = qLecture.lecCate.contains(keyword).and(year);
         }else if(searchType.equals("lecNo")){
-            expression = qLecture.lecNo.contains(keyword);
+            expression = qLecture.lecNo.contains(keyword).and(year);
 
         }else if(searchType.equals("lecName")){
-            expression = qLecture.lecName.contains(keyword);
+            expression = qLecture.lecName.contains(keyword).and(year);
 
         }else if(searchType.equals("professor")){
-            expression = qLecture.professor.user.name.contains(keyword);
+            expression = qLecture.professor.user.name.contains(keyword).and(year);
         }
 
         List<Tuple> tupleList = queryFactory
