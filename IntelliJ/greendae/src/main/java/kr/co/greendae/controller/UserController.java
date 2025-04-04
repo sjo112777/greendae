@@ -112,9 +112,6 @@ public class UserController {
         return "redirect:/index";
     }
 
-
-
-
     @GetMapping("/findid")
     public String findid(){
         return "/user/findid";
@@ -130,9 +127,6 @@ public class UserController {
         // 아이디 찾기 로직 (예: 이메일 인증 코드 전송)
         String authCode = userService.sendFindIdEmailCode(userEmail, userName);
 
-        System.out.println(authCode);
-        System.out.println(authCode);
-        System.out.println(authCode);
         // 세션에 인증 코드 저장
         session.setAttribute("authCode", authCode);
 
@@ -211,11 +205,8 @@ public class UserController {
 
     @GetMapping("/Changepassword")
     public String Changepassword(String name, String email, Model model){
-
         log.info("name : " + name + ", email : " + email);
-
         model.addAttribute("email", email);
-
         return "/user/Changepassword";
     }
 
